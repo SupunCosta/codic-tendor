@@ -1,0 +1,30 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:5002",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Staging",
+        "AZURE_USERNAME": "application.manager@uprince.com"
+      },
+      "use64Bit": true
+    },
+    "UPrinceV4.Web": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Staging",
+        "AZURE_USERNAME": "application.manager@uprince.com"
+      },
+      "applicationUrl": "http://localhost:5002"
+    }
+  }
+}

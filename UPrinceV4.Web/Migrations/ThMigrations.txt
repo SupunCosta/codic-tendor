@@ -1,0 +1,390 @@
+﻿CREATE TABLE [ThProductWithTrucks] (
+    [Id] nvarchar(450) NOT NULL,
+    [CpcId] nvarchar(max) NULL,
+    [ProductId] nvarchar(max) NULL,
+    [Date] datetime2 NOT NULL,
+    CONSTRAINT [PK_ThProductWithTrucks] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [ThTrucksSchedule] (
+    [Id] nvarchar(450) NOT NULL,
+    [ProductTruckId] nvarchar(max) NULL,
+    [LoadingStartTime] datetime2 NOT NULL,
+    [LoadingEndTime] datetime2 NOT NULL,
+    [FirstTravelStartTime] datetime2 NOT NULL,
+    [FirstTravelEndTime] datetime2 NOT NULL,
+    [UnloadingStartTime] datetime2 NOT NULL,
+    [UnloadingEndTime] datetime2 NOT NULL,
+    [SecondTravelStartTime] datetime2 NOT NULL,
+    [SecondTravelEndTime] datetime2 NOT NULL,
+    CONSTRAINT [PK_ThTrucksSchedule] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230118093758_thAutomation', N'6.0.7');
+
+
+ALTER TABLE [ThTrucksSchedule] ADD [Title] nvarchar(max) NULL;
+
+CREATE TABLE [PbsDynamicAttributes] (
+    [Id] nvarchar(450) NOT NULL,
+    [ProductId] nvarchar(max) NULL,
+    [Key1] nvarchar(max) NULL,
+    [Value1] nvarchar(max) NULL,
+    [Key2] nvarchar(max) NULL,
+    [Value2] nvarchar(max) NULL,
+    [Key3] nvarchar(max) NULL,
+    [Value3] nvarchar(max) NULL,
+    [Key4] nvarchar(max) NULL,
+    [Value4] nvarchar(max) NULL,
+    [Key5] nvarchar(max) NULL,
+    [Value5] nvarchar(max) NULL,
+    CONSTRAINT [PK_PbsDynamicAttributes] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230119055023_pbsDynamicAttributes', N'6.0.7');
+
+uat, staging done
+
+
+DECLARE @var475 sysname;
+SELECT @var475 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[ThTrucksSchedule]') AND [c].[name] = N'FirstTravelEndTime');
+IF @var475 IS NOT NULL EXEC(N'ALTER TABLE [ThTrucksSchedule] DROP CONSTRAINT [' + @var475 + '];');
+ALTER TABLE [ThTrucksSchedule] DROP COLUMN [FirstTravelEndTime];
+
+DECLARE @var476 sysname;
+SELECT @var476 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[ThTrucksSchedule]') AND [c].[name] = N'FirstTravelStartTime');
+IF @var476 IS NOT NULL EXEC(N'ALTER TABLE [ThTrucksSchedule] DROP CONSTRAINT [' + @var476 + '];');
+ALTER TABLE [ThTrucksSchedule] DROP COLUMN [FirstTravelStartTime];
+
+DECLARE @var477 sysname;
+SELECT @var477 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[ThTrucksSchedule]') AND [c].[name] = N'LoadingEndTime');
+IF @var477 IS NOT NULL EXEC(N'ALTER TABLE [ThTrucksSchedule] DROP CONSTRAINT [' + @var477 + '];');
+ALTER TABLE [ThTrucksSchedule] DROP COLUMN [LoadingEndTime];
+
+DECLARE @var478 sysname;
+SELECT @var478 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[ThTrucksSchedule]') AND [c].[name] = N'LoadingStartTime');
+IF @var478 IS NOT NULL EXEC(N'ALTER TABLE [ThTrucksSchedule] DROP CONSTRAINT [' + @var478 + '];');
+ALTER TABLE [ThTrucksSchedule] DROP COLUMN [LoadingStartTime];
+
+DECLARE @var479 sysname;
+SELECT @var479 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[ThTrucksSchedule]') AND [c].[name] = N'SecondTravelEndTime');
+IF @var479 IS NOT NULL EXEC(N'ALTER TABLE [ThTrucksSchedule] DROP CONSTRAINT [' + @var479 + '];');
+ALTER TABLE [ThTrucksSchedule] DROP COLUMN [SecondTravelEndTime];
+
+DECLARE @var480 sysname;
+SELECT @var480 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[ThTrucksSchedule]') AND [c].[name] = N'SecondTravelStartTime');
+IF @var480 IS NOT NULL EXEC(N'ALTER TABLE [ThTrucksSchedule] DROP CONSTRAINT [' + @var480 + '];');
+ALTER TABLE [ThTrucksSchedule] DROP COLUMN [SecondTravelStartTime];
+
+DECLARE @var481 sysname;
+SELECT @var481 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[ThTrucksSchedule]') AND [c].[name] = N'UnloadingEndTime');
+IF @var481 IS NOT NULL EXEC(N'ALTER TABLE [ThTrucksSchedule] DROP CONSTRAINT [' + @var481 + '];');
+ALTER TABLE [ThTrucksSchedule] DROP COLUMN [UnloadingEndTime];
+
+DECLARE @var482 sysname;
+SELECT @var482 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[ThTrucksSchedule]') AND [c].[name] = N'UnloadingStartTime');
+IF @var482 IS NOT NULL EXEC(N'ALTER TABLE [ThTrucksSchedule] DROP CONSTRAINT [' + @var482 + '];');
+ALTER TABLE [ThTrucksSchedule] DROP COLUMN [UnloadingStartTime];
+
+ALTER TABLE [ThTrucksSchedule] ADD [EndTime] datetime2 NULL;
+
+ALTER TABLE [ThTrucksSchedule] ADD [StartTime] datetime2 NULL;
+
+ALTER TABLE [ThTrucksSchedule] ADD [Type] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230120052654_newThTruckSchedule', N'6.0.7');
+
+staging done
+
+DECLARE @var483 sysname;
+SELECT @var483 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[PbsDynamicAttributes]') AND [c].[name] = N'Key1');
+IF @var483 IS NOT NULL EXEC(N'ALTER TABLE [PbsDynamicAttributes] DROP CONSTRAINT [' + @var483 + '];');
+ALTER TABLE [PbsDynamicAttributes] DROP COLUMN [Key1];
+
+DECLARE @var484 sysname;
+SELECT @var484 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[PbsDynamicAttributes]') AND [c].[name] = N'Key2');
+IF @var484 IS NOT NULL EXEC(N'ALTER TABLE [PbsDynamicAttributes] DROP CONSTRAINT [' + @var484 + '];');
+ALTER TABLE [PbsDynamicAttributes] DROP COLUMN [Key2];
+
+DECLARE @var485 sysname;
+SELECT @var485 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[PbsDynamicAttributes]') AND [c].[name] = N'Key3');
+IF @var485 IS NOT NULL EXEC(N'ALTER TABLE [PbsDynamicAttributes] DROP CONSTRAINT [' + @var485 + '];');
+ALTER TABLE [PbsDynamicAttributes] DROP COLUMN [Key3];
+
+DECLARE @var486 sysname;
+SELECT @var486 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[PbsDynamicAttributes]') AND [c].[name] = N'Key4');
+IF @var486 IS NOT NULL EXEC(N'ALTER TABLE [PbsDynamicAttributes] DROP CONSTRAINT [' + @var486 + '];');
+ALTER TABLE [PbsDynamicAttributes] DROP COLUMN [Key4];
+
+DECLARE @var487 sysname;
+SELECT @var487 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[PbsDynamicAttributes]') AND [c].[name] = N'Key5');
+IF @var487 IS NOT NULL EXEC(N'ALTER TABLE [PbsDynamicAttributes] DROP CONSTRAINT [' + @var487 + '];');
+ALTER TABLE [PbsDynamicAttributes] DROP COLUMN [Key5];
+
+DECLARE @var488 sysname;
+SELECT @var488 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[PbsDynamicAttributes]') AND [c].[name] = N'Value1');
+IF @var488 IS NOT NULL EXEC(N'ALTER TABLE [PbsDynamicAttributes] DROP CONSTRAINT [' + @var488 + '];');
+ALTER TABLE [PbsDynamicAttributes] DROP COLUMN [Value1];
+
+DECLARE @var489 sysname;
+SELECT @var489 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[PbsDynamicAttributes]') AND [c].[name] = N'Value2');
+IF @var489 IS NOT NULL EXEC(N'ALTER TABLE [PbsDynamicAttributes] DROP CONSTRAINT [' + @var489 + '];');
+ALTER TABLE [PbsDynamicAttributes] DROP COLUMN [Value2];
+
+DECLARE @var490 sysname;
+SELECT @var490 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[PbsDynamicAttributes]') AND [c].[name] = N'Value3');
+IF @var490 IS NOT NULL EXEC(N'ALTER TABLE [PbsDynamicAttributes] DROP CONSTRAINT [' + @var490 + '];');
+ALTER TABLE [PbsDynamicAttributes] DROP COLUMN [Value3];
+
+EXEC sp_rename N'[PbsDynamicAttributes].[Value5]', N'Value', N'COLUMN';
+
+EXEC sp_rename N'[PbsDynamicAttributes].[Value4]', N'Key', N'COLUMN';
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230124080826_pbsDynamicAttributesNew', N'6.0.7');
+
+staging done
+
+ALTER TABLE [ThTrucksSchedule] ADD [TurnNumber] int NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230125112000_addTurnNumber', N'6.0.7');
+
+staging done
+
+
+
+CREATE TABLE [CPCVelocity] (
+    [Id] nvarchar(450) NOT NULL,
+    [CPCId] nvarchar(max) NULL,
+    [Velocity] float NULL,
+    CONSTRAINT [PK_CPCVelocity] PRIMARY KEY ([Id])
+);
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LocaleCode', N'Name') AND [object_id] = OBJECT_ID(N'[CpcBasicUnitOfMeasure]'))
+    SET IDENTITY_INSERT [CpcBasicUnitOfMeasure] ON;
+INSERT INTO [CpcBasicUnitOfMeasure] ([Id], [DisplayOrder], [LocaleCode], [Name])
+VALUES (N'kljfjk479-org2-mixer-2WERT-nl0dbe6a5w16', 0, N'm3', N'Cubuic Meters');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LocaleCode', N'Name') AND [object_id] = OBJECT_ID(N'[CpcBasicUnitOfMeasure]'))
+    SET IDENTITY_INSERT [CpcBasicUnitOfMeasure] OFF;
+
+INSERT INTO dbo.CpcResourceFamily (Id, LocaleCode, ParentId, DisplayOrder, Title) VALUES
+(N'nbn0e768-human-kknk-mixer-ee367a82ad17', N'CpcResourceFamilyConcreteMixer', NULL, 0, N'Concrete Mixer');
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CpcResourceFamilyId', N'Label', N'LanguageCode', N'ParentId') AND [object_id] = OBJECT_ID(N'[CpcResourceFamilyLocalizedData]'))
+    SET IDENTITY_INSERT [CpcResourceFamilyLocalizedData] ON;
+INSERT INTO [CpcResourceFamilyLocalizedData] ([Id], [CpcResourceFamilyId], [Label], [LanguageCode], [ParentId])
+VALUES (N'euuhde479-org2-mixer-1WERT-nl0dbe6a5w16', N'nbn0e768-human-kknk-mixer-ee367a82ad17', N'Concrete Mixer', N'en', NULL);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CpcResourceFamilyId', N'Label', N'LanguageCode', N'ParentId') AND [object_id] = OBJECT_ID(N'[CpcResourceFamilyLocalizedData]'))
+    SET IDENTITY_INSERT [CpcResourceFamilyLocalizedData] OFF;
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CpcResourceFamilyId', N'Label', N'LanguageCode', N'ParentId') AND [object_id] = OBJECT_ID(N'[CpcResourceFamilyLocalizedData]'))
+    SET IDENTITY_INSERT [CpcResourceFamilyLocalizedData] ON;
+INSERT INTO [CpcResourceFamilyLocalizedData] ([Id], [CpcResourceFamilyId], [Label], [LanguageCode], [ParentId])
+VALUES (N'lkl9e479-org2-mixer-2WERT-nl0dbe6a5w16', N'nbn0e768-human-kknk-mixer-ee367a82ad17', N'Concrete Mixer-nl', N'nl', NULL);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CpcResourceFamilyId', N'Label', N'LanguageCode', N'ParentId') AND [object_id] = OBJECT_ID(N'[CpcResourceFamilyLocalizedData]'))
+    SET IDENTITY_INSERT [CpcResourceFamilyLocalizedData] OFF;
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'BasicUnitOfMeasureId', N'CpcBasicUnitOfMeasureId', N'Label', N'LanguageCode') AND [object_id] = OBJECT_ID(N'[CpcBasicUnitOfMeasureLocalizedData]'))
+    SET IDENTITY_INSERT [CpcBasicUnitOfMeasureLocalizedData] ON;
+INSERT INTO [CpcBasicUnitOfMeasureLocalizedData] ([Id], [BasicUnitOfMeasureId], [CpcBasicUnitOfMeasureId], [Label], [LanguageCode])
+VALUES (N'euuhde479-org2-m3-1WERT-nl0dbe6a5w16', NULL, N'kljfjk479-org2-mixer-2WERT-nl0dbe6a5w16', N'Cubic Meters', N'en');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'BasicUnitOfMeasureId', N'CpcBasicUnitOfMeasureId', N'Label', N'LanguageCode') AND [object_id] = OBJECT_ID(N'[CpcBasicUnitOfMeasureLocalizedData]'))
+    SET IDENTITY_INSERT [CpcBasicUnitOfMeasureLocalizedData] OFF;
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'BasicUnitOfMeasureId', N'CpcBasicUnitOfMeasureId', N'Label', N'LanguageCode') AND [object_id] = OBJECT_ID(N'[CpcBasicUnitOfMeasureLocalizedData]'))
+    SET IDENTITY_INSERT [CpcBasicUnitOfMeasureLocalizedData] ON;
+INSERT INTO [CpcBasicUnitOfMeasureLocalizedData] ([Id], [BasicUnitOfMeasureId], [CpcBasicUnitOfMeasureId], [Label], [LanguageCode])
+VALUES (N'jfsee479-org2-m3-2WERT-nl0dbe6a5w16', NULL, N'kljfjk479-org2-mixer-2WERT-nl0dbe6a5w16', N'Cubic Meters-nl', N'nl');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'BasicUnitOfMeasureId', N'CpcBasicUnitOfMeasureId', N'Label', N'LanguageCode') AND [object_id] = OBJECT_ID(N'[CpcBasicUnitOfMeasureLocalizedData]'))
+    SET IDENTITY_INSERT [CpcBasicUnitOfMeasureLocalizedData] OFF;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230127062611_cpcVelocity', N'6.0.7');
+
+staging done
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [ThTrucksSchedule] ADD [LoadingNumber] int NULL;
+
+ALTER TABLE [ThTrucksSchedule] ADD [TruckOrder] int NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230131075047_OrderAttributesThScedules', N'6.0.7');
+
+
+INSERT INTO dbo.CorporateProductCatalog (Id, ResourceTitle, ResourceTypeId, ResourceFamilyId, CpcBasicUnitOfMeasureId, CpcMaterialId, CpcPressureClassId, InventoryPrice, CpcUnitOfSizeMeasureId, Size, WallThickness, MinOrderQuantity, MaxOrderQuantity, Weight, Status, ResourceNumber, IsDeleted, CpcBrandId, Title) VALUES
+(N'eb114998-2e57-4308-a31e-a900391f124b', N'Concrete Central', N'c46c3a26-39a5-42cc-n9wn-89655304eh6', NULL, N'kljfjk479-org2-mixer-2WERT-nl0dbe6a5w16', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, N'CAr01-0014', CONVERT(bit, 'False'), NULL, N'CAr01-0014 - Concrete Central')
+
+
+INSERT INTO dbo.CPCVelocity ( Id ,CPCId ,Velocity ) VALUES ( '104bde7a-7364-4d11-8866-5c0491ad2614' ,'eb114998-2e57-4308-a31e-a900391f124b' ,10.0 );
+
+
+staging done
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+CREATE TABLE [ThCustomerOrganizations] (
+    [Id] nvarchar(450) NOT NULL,
+    [CustomerId] nvarchar(max) NULL,
+    [OrganizationId] nvarchar(max) NULL,
+    CONSTRAINT [PK_ThCustomerOrganizations] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230208090916_thCustomerOrganization', N'6.0.7');
+
+
+ALTER TABLE [ThCustomerOrganizations] ADD [ProjectId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230209051337_thCustomerOrgProjectId', N'6.0.7');
+
+staging done
+
+/////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [ThCustomerOrganizations] ADD [PoId] nvarchar(max) NULL;
+
+CREATE TABLE [ThFileUpload] (
+    [Id] nvarchar(450) NOT NULL,
+    [ProductId] nvarchar(max) NULL,
+    [ProjectId] nvarchar(max) NULL,
+    [Link] nvarchar(max) NULL,
+    CONSTRAINT [PK_ThFileUpload] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230228051833_thFileUpload', N'6.0.7');
+
+staging done
+
+///////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [ThFileUpload] ADD [FileName] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230302111908_add_file_name_column', N'6.0.7');
+
+staging done
+
+////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [PriceCalculatorTaxonomy] (
+    [Id] nvarchar(450) NOT NULL,
+    [Title] nvarchar(max) NULL,
+    [ParentId] nvarchar(max) NULL,
+    [PriceCalculatorTaxonomyLevelId] nvarchar(max) NULL,
+    [Value] float NULL,
+    [Order] int NOT NULL,
+    CONSTRAINT [PK_PriceCalculatorTaxonomy] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [PriceCalculatorTaxonomyLevel] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LevelId] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [DisplayOrder] int NOT NULL,
+    CONSTRAINT [PK_PriceCalculatorTaxonomyLevel] PRIMARY KEY ([Id])
+);
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'LevelId', N'Name') AND [object_id] = OBJECT_ID(N'[PriceCalculatorTaxonomyLevel]'))
+    SET IDENTITY_INSERT [PriceCalculatorTaxonomyLevel] ON;
+INSERT INTO [PriceCalculatorTaxonomyLevel] ([Id], [DisplayOrder], [LanguageCode], [LevelId], [Name])
+VALUES (N'eew9e479-pob3-40c6-ad61-e40dbe6a5111', 3, N'nl', N'oo10e768-3e06-po02-b337-ee367a82admn', N'Floor nl'),
+(N'gg5ab9fe-po57-4088-82a9-d27008688ttt', 2, N'en', N'vvvv82458-0b40-poa3-b0f9-c2e40344cvvv', N'Phase'),
+(N'kkd9e479-pob3-40c6-ad61-e40dbe6a5444', 2, N'nl', N'vvvv82458-0b40-poa3-b0f9-c2e40344cvvv', N'Phase nl'),
+(N'ttkab9fe-po57-4088-82a9-d27008688bbb', 3, N'en', N'oo10e768-3e06-po02-b337-ee367a82admn', N'Floor'),
+(N'uud9e479-pob3-40c6-ad61-e40dbe6a5111', 1, N'nl', N'qq282458-0b40-poa3-b0f9-c2e40344c8kk', N'Project nl'),
+(N'vv5ab9fe-po57-4088-82a9-d27008688bbb', 1, N'en', N'qq282458-0b40-poa3-b0f9-c2e40344c8kk', N'Project');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'LevelId', N'Name') AND [object_id] = OBJECT_ID(N'[PriceCalculatorTaxonomyLevel]'))
+    SET IDENTITY_INSERT [PriceCalculatorTaxonomyLevel] OFF;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230307070616_priceCalculator', N'6.0.7');
+
+staging done
+
+//////////////////////////////////////////////////////////////////////////////
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[ConstructorWorkFlowStatus]'))
+    SET IDENTITY_INSERT [ConstructorWorkFlowStatus] ON;
+INSERT INTO [ConstructorWorkFlowStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'hdhdhhcd5a-0941-4c56-9c13-Lota2ab276', 14, N'en', N'Awarded', N'nnnnad0b-2e84-con1-ad25-Lot0d49477'),
+(N'ndjjd3-jsjj-nnnn-amdm-b7a93ebd1iii', 15, N'nl', N' Not Awarded nl', N'xxxxad0b-2e84-con1-ad25-Lot0d49477'),
+(N'nvfjjsjhhcd5a-0941-4c56-9c13-Lota2ab276', 15, N'en', N'Not Awarded', N'xxxxad0b-2e84-con1-ad25-Lot0d49477'),
+(N'qewrt3-jsjj-nnnn-amdm-b7a93ebd1iii', 14, N'nl', N'Awarded nl', N'nnnnad0b-2e84-con1-ad25-Lot0d49477');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[ConstructorWorkFlowStatus]'))
+    SET IDENTITY_INSERT [ConstructorWorkFlowStatus] OFF;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230315044700_contractorWorkflowStatusNew', N'6.0.7');
+
+staging done
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [PublishedContractorsPdfData] ADD [IsExclude] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+ALTER TABLE [ContractorPdfData] ADD [IsExclude] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [IsExclude] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+ALTER TABLE [CBCExcelLotData] ADD [IsExclude] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230316051911_bmIsExclude', N'6.0.7');

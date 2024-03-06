@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<doc>
+    <assembly>
+        <name>UPrinceV4.Web</name>
+    </assembly>
+    <members>
+        <member name="T:Joonasw.AadTestingDemo.API.Authorization.Actions">
+            <summary>
+                Actions that can be done on the API
+            </summary>
+        </member>
+        <member name="F:UPrinceV4.Web.Authorization.AuthorizedPermissions.DelegatedPermissionsForActions">
+            <summary>
+                Contains the allowed delegated permissions for each action.
+                If the caller has one of the allowed ones, they should be allowed
+                to perform the action.
+            </summary>
+        </member>
+        <member name="F:UPrinceV4.Web.Authorization.AuthorizedPermissions.ApplicationPermissionsForActions">
+            <summary>
+                Contains the allowed application permissions for each action.
+                If the caller has one of the allowed ones, they should be allowed
+                to perform the action.
+            </summary>
+        </member>
+        <member name="M:UPrinceV4.Web.Controllers.ThingsController.Get">
+            <summary>
+                Gets all things
+            </summary>
+        </member>
+        <member name="M:UPrinceV4.Web.Controllers.ThingsController.GetOthers">
+            <summary>
+                Gets all other things
+            </summary>
+        </member>
+        <member name="T:UPrinceV4.Web.OpenApi.OAuthSecurityRequirementOperationFilter">
+            <summary>
+                Adds security requirements to API operations
+            </summary>
+        </member>
+    </members>
+</doc>

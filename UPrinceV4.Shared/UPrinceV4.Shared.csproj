@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Configurations>Debug;Release;IBS</Configurations>
+        <ServerGarbageCollection>true</ServerGarbageCollection>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Azure.Storage.Blobs" Version="12.20.0-beta.1"/>
+        <PackageReference Include="Dapper" Version="2.1.28"/>
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0-preview5.24024.3"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="WindowsAzure.Storage" Version="9.3.3"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="7.0.0-preview.6.22330.3"/>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "appInsights1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/microsoft.insights/components/UPrinceV4APIDev",
+      "type": "appInsights.azure",
+      "connectionId": "APPINSIGHTS_INSTRUMENTATIONKEY",
+      "secretStore": "LocalSecretsFile"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/upuatprod/databases/UPrinceV4Dev",
+      "type": "mssql.azure",
+      "connectionId": "log4net",
+      "secretStore": "LocalSecretsFile"
+    },
+    "storage1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/uprincev4dev",
+      "type": "storage.azure",
+      "connectionId": "AzureBlob",
+      "secretStore": "LocalSecretsFile"
+    },
+    "mssql2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/upuatprod/databases/UPrinceV4DevTest",
+      "type": "mssql.azure",
+      "connectionId": "CatalogConnection",
+      "secretStore": "LocalSecretsFile"
+    }
+  }
+}

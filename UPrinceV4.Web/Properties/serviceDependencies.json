@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets"
+    },
+    "appInsights1": {
+      "type": "appInsights",
+      "connectionId": "APPINSIGHTS_INSTRUMENTATIONKEY"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "log4net"
+    },
+    "storage1": {
+      "type": "storage",
+      "connectionId": "AzureBlob"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "CatalogConnection"
+    }
+  }
+}

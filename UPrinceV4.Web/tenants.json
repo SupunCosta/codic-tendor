@@ -1,0 +1,75 @@
+﻿[
+  {
+    "Id": 1,
+    "Host": "localhost:5000",
+    "DatabaseType": 1,
+    //"ConnectionString": "Data Source=.;Initial Catalog=UPrince;Integrated Security=True",
+    "ConnectionString": "Server=tcp:upuatprod.database.windows.net,1433;Initial Catalog=UPrinceV4Dev;Persist Security Info=False;User ID=uprincedbuser;Password=UPrince2017!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30; MultipleActiveResultSets=true;",
+    //"ConnectionString": "Server=tcp:upuatprod.database.windows.net,1433;Initial Catalog=UPrinceV4Staging;Persist Security Info=False;User ID=uprincedbuser;Password=UPrince2017!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;MultipleActiveResultSets=true;",
+    //"ConnectionString": "Server=tcp:uprincev4uatdb.database.windows.net,1433;Initial Catalog=UPrinceV4UAT;Persist Security Info=False;User ID=uprincedbuser;Password=UPrince2017!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30; MultipleActiveResultSets=true;",
+    "Name": "Mickiesoft",
+    "StorageType": "AzureBlob",
+    "StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=uprincev4dev;AccountKey=rZrNDwBXL0cKSkf7JD0b6/+NBhafqS3GPNOHN4UyeZ0aoy7MMgTV1fAm4tmo0rmDBHreZReZx165R0LZ0yf5DA==;EndpointSuffix=core.windows.net",
+    "AzureContainer": "uprincev4dev"
+  },
+  {
+    "Id": 2,
+    "Host": "uprincev4apidev.azurewebsites.net",
+    "DatabaseType": 1,
+    "ConnectionString": "Server=tcp:upuatprod.database.windows.net,1433;Initial Catalog=UPrinceV4Dev;Persist Security Info=False;User ID=uprincedbuser;Password=UPrince2017!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30; MultipleActiveResultSets=true;",
+    "Name": "Mickiesoft",
+    "StorageType": "AzureBlob",
+    "StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=uprincev4dev;AccountKey=rZrNDwBXL0cKSkf7JD0b6/+NBhafqS3GPNOHN4UyeZ0aoy7MMgTV1fAm4tmo0rmDBHreZReZx165R0LZ0yf5DA==;EndpointSuffix=core.windows.net",
+    "AzureContainer": "uprincev4dev"
+  },
+  {
+    "Id": 3,
+    "Host": "uprincev4apistaging.azurewebsites.net",
+    "DatabaseType": 1,
+    "ConnectionString": "Server=tcp:upuatprod.database.windows.net,1433;Initial Catalog=UPrinceV4Staging;Persist Security Info=False;User ID=uprincedbuser;Password=UPrince2017!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30; MultipleActiveResultSets=true;",
+    "Name": "Mickiesoft",
+    "StorageType": "AzureBlob",
+    "StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=uprincev4dev;AccountKey=rZrNDwBXL0cKSkf7JD0b6/+NBhafqS3GPNOHN4UyeZ0aoy7MMgTV1fAm4tmo0rmDBHreZReZx165R0LZ0yf5DA==;EndpointSuffix=core.windows.net",
+    "AzureContainer": "uprincev4dev"
+  },
+  {
+    "Id": 4,
+    "Host": "uprincev4uat.azurewebsites.net",
+    "DatabaseType": 1,
+    "ConnectionString": "Server=tcp:uprincev4uatdb.database.windows.net,1433;Initial Catalog=UPrinceV4UAT;Persist Security Info=False;User ID=uprincedbuser;Password=UPrince2017!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30; MultipleActiveResultSets=true;",
+    "Name": "Mickiesoft",
+    "StorageType": "AzureBlob",
+    "StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=uprincev4dev;AccountKey=rZrNDwBXL0cKSkf7JD0b6/+NBhafqS3GPNOHN4UyeZ0aoy7MMgTV1fAm4tmo0rmDBHreZReZx165R0LZ0yf5DA==;EndpointSuffix=core.windows.net",
+    "AzureContainer": "uprincev4dev"
+  },
+  {
+    "Id": 5,
+    "Host": "uprincev4production.azurewebsites.net",
+    "DatabaseType": 1,
+    "ConnectionString": "Server=tcp:uprincev4uatdb.database.windows.net,1433;Initial Catalog=UPrinceV4Production;Persist Security Info=False;User ID=uprincedbuser;Password=UPrince2017!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30; MultipleActiveResultSets=true;",
+    "Name": "Goddeeris",
+    "StorageType": "AzureBlob",
+    "StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=uprincev4uat;AccountKey=z30DHjc7t+O417deSPhxNn/3Fr9ALmJVbhBr5DDuxof0TYLt20AuYrodm8Sobj0Raw+19wo7qI+yJ0ln7/jqEg==;EndpointSuffix=core.windows.net",
+    "AzureContainer": "uprincev4uat"
+  },
+  {
+    "Id": 6,
+    "Host": "uprincev4apiproduction.azurewebsites.net",
+    "DatabaseType": 1,
+    "ConnectionString": "Server=tcp:uprincev4uatdb.database.windows.net,1433;Initial Catalog=UPrinceV4Production;Persist Security Info=False;User ID=uprincedbuser;Password=UPrince2017!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30; MultipleActiveResultSets=true;",
+    "Name": "Goddeeris",
+    "StorageType": "AzureBlob",
+    "StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=uprincev4uat;AccountKey=z30DHjc7t+O417deSPhxNn/3Fr9ALmJVbhBr5DDuxof0TYLt20AuYrodm8Sobj0Raw+19wo7qI+yJ0ln7/jqEg==;EndpointSuffix=core.windows.net",
+    "AzureContainer": "uprincev4uat"
+  },
+  {
+    "Id": 7,
+    "Host": "brain.goddeeris.be",
+    "DatabaseType": 1,
+    "ConnectionString": "Server=tcp:uprincev4uatdb.database.windows.net,1433;Initial Catalog=UPrinceV4Production;Persist Security Info=False;User ID=uprincedbuser;Password=UPrince2017!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30; MultipleActiveResultSets=true;",
+    "Name": "Goddeeris",
+    "StorageType": "AzureBlob",
+    "StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=uprincev4uat;AccountKey=z30DHjc7t+O417deSPhxNn/3Fr9ALmJVbhBr5DDuxof0TYLt20AuYrodm8Sobj0Raw+19wo7qI+yJ0ln7/jqEg==;EndpointSuffix=core.windows.net",
+    "AzureContainer": "uprincev4uat"
+  }
+]

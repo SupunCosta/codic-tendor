@@ -1,0 +1,117 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <UserSecretsId>aspnet-AspNetCoreMultitUPrinceV4enant.Web-FDD13A00-6CA9-4C19-B98A-13DEE1FE9908</UserSecretsId>
+        <ApplicationInsightsResourceId>/subscriptions/b94db080-333f-4b6d-9e6b-09efa76eba42/resourceGroups/UPrincev4/providers/microsoft.insights/components/UPrinceV4APIDev</ApplicationInsightsResourceId>
+        <Configurations>Debug;Release;IBS</Configurations>
+        <ServerGarbageCollection>true</ServerGarbageCollection>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <Optimize>false</Optimize>
+        <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='IBS|AnyCPU'">
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <Optimize>false</Optimize>
+        <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="Components\bin\**" />
+        <Content Remove="Components\bin\**" />
+        <EmbeddedResource Remove="Components\bin\**" />
+        <None Remove="Components\bin\**" />
+        <None Remove="Data\PBS_\PbsTreeStructure.cs.rej" />
+        <Content Update="log4net.config">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Update="example.log">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        
+        <!--        <Compile Remove="Migrations\**" />-->
+        <!--        <EmbeddedResource Remove="Migrations\**" />-->
+        <!--        <Content Remove="Migrations\**" />-->
+        <!--        <None Remove="Migrations\**" />-->
+
+
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="Data\Contractor\LotContractorTeamList.cs" />
+        <Compile Remove="Data\RFQ\RfqAccept.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\UPrinceV4.Shared\UPrinceV4.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="UPrinceV4.Web.xml" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="UPrinceV4.Web.xml" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="csvFiles\Added\" />
+        <Folder Include="Data\ApplicationDBContextMigrations\" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="AdaptiveCards" Version="3.1.0" />
+        <PackageReference Include="Azure.AI.FormRecognizer" Version="4.1.0" />
+        <PackageReference Include="Azure.Storage.Blobs" Version="12.20.0-beta.1" />
+        <PackageReference Include="AzureMapsRestToolkit" Version="7.1.0" />
+        <PackageReference Include="ClosedXML" Version="0.104.0-preview2" />
+        <PackageReference Include="Dapper" Version="2.1.28" />
+        <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
+        <PackageReference Include="Dapper.FastCrud" Version="3.1.46" />
+        <PackageReference Include="Dapper.SimpleCRUD" Version="2.3.0" />
+        <PackageReference Include="DapperExtensions" Version="1.7.0" />
+        <PackageReference Include="log4net" Version="2.0.15" />
+        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.39.0-preview.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Graph" Version="5.41.0" />
+        <PackageReference Include="Microsoft.Identity.Client" Version="4.59.0" />
+        <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.3.0" />
+        <PackageReference Include="Quartz" Version="3.8.0" />
+        <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.8.0" />
+        <PackageReference Include="Quartz.Extensions.Hosting" Version="3.8.0" />
+        <PackageReference Include="SendGrid" Version="9.29.1" />
+        <PackageReference Include="ServiceStack" Version="8.1.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+        <PackageReference Include="Urls" Version="1.0.0" />
+        <PackageReference Include="Z.Dapper.Plus" Version="7.2.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Identity.Web" Version="2.17.0" />
+        <PackageReference Include="Microsoft.Identity.Web.DownstreamApi" Version="2.17.0" />
+        <PackageReference Include="Microsoft.Identity.Web.GraphServiceClient" Version="2.17.0" />
+    </ItemGroup>
+    <ProjectExtensions>
+        <VisualStudio>
+            <UserProperties properties_4launchsettings_1json__JsonSchema="" />
+        </VisualStudio>
+    </ProjectExtensions>
+
+</Project>

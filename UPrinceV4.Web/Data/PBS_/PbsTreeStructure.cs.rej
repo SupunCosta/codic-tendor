@@ -1,0 +1,10 @@
+diff a/UPrinceV4/UPrinceV4.Web/Data/PBS_/PbsTreeStructure.cs b/UPrinceV4/UPrinceV4.Web/Data/PBS_/PbsTreeStructure.cs	(rejected hunks)
+@@ -30,6 +30,8 @@
+         public string PMOLSequenceId { get; set; }
+         public Nullable<DateTime> StartDate { get; set; }
+         public Nullable<DateTime> EndDate { get; set; }
++        public string CPCId { get; set; }
++
+     }
+ 
+     public class PbsForVPDtoFilter

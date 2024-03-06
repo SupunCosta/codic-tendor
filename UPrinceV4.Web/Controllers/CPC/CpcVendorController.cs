@@ -1,0 +1,61 @@
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using UPrinceV4.Shared;
+using UPrinceV4.Web.Data;
+using UPrinceV4.Web.Data.CPC;
+using UPrinceV4.Web.Models;
+using UPrinceV4.Web.Repositories.Interfaces.CPC;
+
+namespace UPrinceV4.Web.Controllers.CPC;
+
+[Authorize]
+[Route("api/[controller]")]
+[ApiController]
+[ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any)]
+public class CpcVendorController : CommonConfigurationController
+{
+    private readonly ICpcVendorRepository _ICpcVendorRepository;
+
+    public CpcVendorController(ApplicationDbContext uPrinceCustomerContext, IHttpContextAccessor
+            contextAccessor, ApiResponse apiResponse, ApiBadRequestResponse apiBadRequestResponse,
+        ApiOkResponse apiOkResponse
+        , ICpcVendorRepository iCpcVendorRepository,
+        ITenantProvider iTenantProvider)
+        : base(uPrinceCustomerContext, contextAccessor, apiResponse, apiBadRequestResponse, apiOkResponse,
+            iTenantProvider)
+    {
+        _ICpcVendorRepository = iCpcVendorRepository;
+    }
+
+    [HttpPut("Update")]
+    [ProducesResponseType(typeof(ApiOkResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> UpdateVendor([FromBody] CpcVendorCreateDto cpcDto)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+            {
+                ApiBadRequestResponse.ModelState = ModelState;
+                return BadRequest(ApiBadRequestResponse);
+            }
+
+            var lang = langCode(Request.Headers["lang"].FirstOrDefault());
+            var _CpcParameters = new CpcVendorParameters
+            {
+                CpcVendorDto = cpcDto,
+                Context = UPrinceCustomerContext
+            };
+
+            return Ok(new ApiOkResponse(await _ICpcVendorRepository.UpdateVendor(_CpcParameters)));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ApiResponse(400, false, ex.ToString()));
+        }
+    }
+}

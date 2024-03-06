@@ -1,0 +1,3874 @@
+CREATE TABLE [ContractorTotalValues] (
+    [Id] nvarchar(450) NOT NULL,
+    [LotId] nvarchar(max) NULL,
+    [CompanyId] nvarchar(max) NULL,
+    [TotalBAFO] real NOT NULL,
+    [TotalCost] real NOT NULL,
+    CONSTRAINT [PK_ContractorTotalValues] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220503080757_contractorTotalValues', N'6.0.1');
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [PbsProduct] ADD [Quantity] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220505110035_addquantityForCBC', N'6.0.1');
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+DROP TABLE [PublishedCBCExcelLotdata];
+
+CREATE TABLE [CBCExcelLotdataPublished] (
+    [Id] nvarchar(450) NOT NULL,
+    [Title] nvarchar(max) NULL,
+    [ParentId] nvarchar(max) NULL,
+    [ArticleNo] nvarchar(max) NULL,
+    [Quantity] nvarchar(max) NULL,
+    [ContractId] nvarchar(max) NULL,
+    [Unit] nvarchar(max) NULL,
+    [UnitPrice] real NOT NULL,
+    [TotalPrice] real NOT NULL,
+    CONSTRAINT [PK_CBCExcelLotdataPublished] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220506062828_nameChangecbcExcelPublishData', N'6.0.1');
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+2022/05/06 >>>>>>>>>>>>.
+
+ALTER TABLE [ContractorTotalValues] ADD [IsWinner] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220506095816_isWinnerForContractorTotalValues', N'6.0.1');
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+2022/05/10 status migration
+
+
+DELETE FROM dbo.ConstructorWorkFlowStatus;
+
+INSERT INTO dbo.ConstructorWorkFlowStatus (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES
+(N'2732cd5a-0941-4c56-9c13-Lota2ab276', N'Tender downloaded', N'd60aad0b-2e84-con1-ad25-Lot0d49477', N'en', 1),
+(N'dgf2cd5a-0941-4c56-9c13-Lota2ab276', N'Tender gedownload', N'd60aad0b-2e84-con1-ad25-Lot0d49477', N'nl', 1),
+(N'098cf409-7cb8-4076-8ddf-Lot897f5bb', N'tender Joined', N'd60aad0b-2e84-con2-ad25-Lot0d49477', N'en', 2),
+(N'hhgcf409-7cb8-4076-8ddf-Lot897fhh', N'Deelnemen aan tender', N'd60aad0b-2e84-con2-ad25-Lot0d49477', N'nl', 2),
+(N'12e2d6c5-1ada-4e74-88ba-Lotf10e27c', N'Reminder to join tender', N'94282458-0b40-con3-b0f9-Lot344c8f1', N'en', 3),
+(N'fggt2d6c5-1ada-4e74-88ba-Lotf10e27c', N'Herinnering om deel te nemen aan tender', N'94282458-0b40-con3-b0f9-Lot344c8f1', N'nl', 3),
+(N'a35ab9fe-df57-4088-82a9-Lot8688bae', N'Reminder download the tender', N'94282458-0b40-con4-b0f9-Lot344c8f1', N'en', 4),
+(N'yhjghab9fe-df57-4088-82a9-Lot8688bae', N'Herinnering om tender te downloaden', N'94282458-0b40-con4-b0f9-Lot344c8f1', N'nl', 4),
+(N'gghha0c70-b58f-433d-8945-Lot6ae42af', N'Tender subscription reminder', N'7143ff01-d173-con5-8c17-Lotecdb84c', N'nl', 5),
+(N'813a0c70-b58f-433d-8945-Lot6ae42af', N'Herinnering om in te schrijven op tender', N'7143ff01-d173-con5-8c17-Lotecdb84c', N'en', 5),
+(N'5015743d-a2e6-4531-808d-Lot00e1eed', N'Tender subscribed', N'7143ff01-d173-con6-8c17-Lotecdb84c', N'en', 6),
+(N'hhg5743d-a2e6-4531-808d-Lot00e1eed', N'Ingeschreven op tender', N'7143ff01-d173-con6-8c17-Lotecdb84c', N'nl', 6),
+(N'77143c60-ff45-4ca2-8723-Lotd1c5f5a', N'Reminder quotation not yet received', N'7bcb4e8d-8e8c-con7-8170-Lot89fc3da', N'en', 7),
+(N'hhh43c60-ff45-4ca2-8723-Lotd1c5f5a', N'Herinnering om offerte op te sturen', N'7bcb4e8d-8e8c-con7-8170-Lot89fc3da', N'nl', 7),
+(N'4e01a893-0267-48af-b65a-Lotebd1ccf', N'Quotation received', N'7bcb4e8d-8e8c-con8-8170-Lot89fc3da', N'en', 8),
+(N'fgh1a893-0267-48af-b65a-Lotebd1ccf', N'Offerte ontvangen', N'7bcb4e8d-8e8c-con8-8170-Lot89fc3da', N'nl', 8),
+(N'drgtfg09134-ee8d-4c7b-84c5-Lot1e2391a', N'Open Comment For BM Engineering(nl)', N'4010e768-3e06-con9-b337-Lota82addb', N'nl', 9),
+(N'8d109134-ee8d-4c7b-84c5-Lot1e2391a', N'Open commentaar voor BM Engineering', N'4010e768-3e06-con9-b337-Lota82addb', N'en', 9),
+(N'bdd9e479-75b3-40c6-ad61-Lote6a51ac', N'Open Comment For Contractor', N'4010e768-3e06-con10-b337-Lota82addb', N'en', 10),
+(N'jyg9e479-75b3-40c6-ad61-Lote6a51ac', N'Open commentaar voor aannemer', N'4010e768-3e06-con10-b337-Lota82addb', N'nl', 10),
+(N'iii93-jsjj-nnnn-amdm-b7a93ebd1iii', N'Requested To Join Tender', N'bvxbdkjg4e8d-fhhd-487d-8170-6b91c89fdvnfd', N'en', 11),
+(N'yyg93-jsjj-nnnn-amdm-b7a93ebd1iii', N'Aanvraag om deel te nemen aan tender', N'bvxbdkjg4e8d-fhhd-487d-8170-6b91c89fdvnfd', N'nl', 11);
+
+Delete FROM dbo.ContractorStatus;
+
+INSERT INTO dbo.ContractorStatus (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES
+(N'098cf409-7cb8-4076-cowf-657dd897f5bb', N'In preparation', N'd60aad0b-2e84-482b-cowf-618d80d49477', N'en', 1),
+(N'2732cd5a-0941-4c56-cowf-f5fdca2ab276', N'In studiefase', N'd60aad0b-2e84-482b-cowf-618d80d49477', N'nl', 1),
+(N'12e2d6c5-1ada-4e74-cowf-ce7fbf10e27c', N'In tendering', N'94282458-0b40-40a3-cowf-c2e40344c8f1', N'en', 2),
+(N'a35ab9fe-df57-4088-cowf-d27008688bae', N'In Aanbesteding', N'94282458-0b40-40a3-cowf-c2e40344c8f1', N'nl', 2),
+(N'813a0c70-b58f-433d-cowf-9cb166ae42af', N'In Price comparison', N'7143ff01-d173-4a20-cowf-cacdfecdb84c', N'en', 3),
+(N'5015743d-a2e6-4531-cowf-d4e1400e1eed', N'In Prijsvergelijking', N'7143ff01-d173-4a20-cowf-cacdfecdb84c', N'nl', 3),
+(N'77143c60-ff45-4ca2-n32n-213d2d1c5f5a', N'In uitvoering', N'8e8c4e8d-7bcb-487d-cowf-6b91c89fc3da', N'nl', 4),
+(N'4e01a893-0267-48af-n32n-b7a93ebd1ccf', N'In execution', N'8e8c4e8d-7bcb-487d-cowf-6b91c89fc3da', N'en', 4),
+(N'4e01a893-n32n-48af-cowf-b7a93ebd1ccf', N'In oplevering', N'487d7e8d-8e8c-bcb4-cowf-6b91c89fc3da', N'nl', 5),
+(N'77143c60-ff45-n32n-cowf-213d2d1c5f5a', N'In commisioning', N'487d7e8d-8e8c-bcb4-cowf-6b91c89fc3da', N'en', 5);
+
+UPDATE [ProjectClassificationBuisnessUnit] SET [Label] = N'Stability', [Name] = N'Stability' WHERE [Id] = N'4e01a893-0267-48af-b65a-b7a93ebd1ccf';
+UPDATE [ProjectClassificationBuisnessUnit] SET [Label] = N'Stability', [Name] = N'Stabiliteit' WHERE [Id] = N'dgdgsa893-0267-48af-b65a-b7a93ebdfdgg';
+UPDATE [ProjectClassificationBuisnessUnit] SET [Label] = N'Special Techniques', [Name] = N'Special Techniques' WHERE [Id] = N'fj56a893-0267-48af-b65a-b7a93ebddsndsgk';
+UPDATE [ProjectClassificationBuisnessUnit] SET [Label] = N'Special Techniques', [Name] = N'Speciale technieken' WHERE [Id] = N'hjjgsa893-0267-48af-b65a-b7a93ebdfdmgmmm';
+INSERT INTO [ProjectClassificationBuisnessUnit] ([Id], [DisplayOrder], [Label], [LanguageCode], [Name], [TypeId]) VALUES (N'2274a893-0267-48af-b65a-b7a93ebddsn785564', 3, N'BIM', N'en', N'BIM', N'222jg4e8d-fhhd-487d-8170-6b91c89fdsg222'), (N'7777sa893-0267-48af-b65a-b7a93ebdfdm7788', 4, N'Civil Engineering', N'nl', N'Civil Engineering', N'5555g4e8d-fhhd-487d-8170-6b91c89fds5555'), (N'nmbba893-0267-48af-b65a-b7a93ebdfd87945', 3, N'BIM', N'nl', N'BIM', N'222jg4e8d-fhhd-487d-8170-6b91c89fdsg222'), (N'wsdba893-0267-48af-b65a-b7a93ebddsn7lkjh', 4, N'Civil Engineering', N'en', N'Civil Engineering', N'5555g4e8d-fhhd-487d-8170-6b91c89fds5555');
+
+
+ UPDATE [ProjectClassificationConstructionType] SET [Label] = N'Production', [Name] = N'Productie' WHERE [Id] = N'ncngsa893-0267-48af-b65a-b7a93ebdfdmgmmm';
+UPDATE [ProjectClassificationConstructionType] SET [Label] = N'Production', [Name] = N'Production' WHERE [Id] = N'ooo6a893-0267-48af-b65a-b7a93ebddsndsgk';
+UPDATE [ProjectClassificationConstructionType] SET [Label] = N'Warehouse', [Name] = N'Magazijn' WHERE [Id] = N'qqqgsa893-0267-48af-b65a-b7a93ebdfdgg';
+UPDATE [ProjectClassificationConstructionType] SET [Label] = N'Warehouse', [Name] = N'Warehouse' WHERE [Id] = N'uurya893-0267-48af-b65a-b7a93ebd1wem';
+INSERT INTO [ProjectClassificationConstructionType] ([Id], [DisplayOrder], [Label], [LanguageCode], [Name], [TypeId]) VALUES (N'001d99d9-1dc2-4735-92ae-c23bd131d095', 3, N'Office', N'en', N'Office', N'54302053-1edd-43f8-a203-e52285a52a16'), (N'00266462-f21a-43d5-ba8a-5c755a33339a', 3, N'Office', N'nl', N'Bureaus', N'54302053-1edd-43f8-a203-e52285a52a16'), (N'11166462-f21a-43d5-ba8a-5c755a333111', 4, N'Appartments', N'nl', N'Appartementen', N'bbb02053-1edd-43f8-a203-e52285a52bbb'), (N'888d99d9-1dc2-4735-92ae-c23bd131d999', 4, N'Appartments', N'en', N'Appartments', N'bbb02053-1edd-43f8-a203-e52285a52bbb');
+
+UPDATE [ProjectClassificationSector] SET [Label] = N'Office & Commercial', [Name] = N'Office & Commercial' WHERE [Id] = N'ppp93-jsjj-fmms-amdm-b7a93ebd1wem';
+UPDATE [ProjectClassificationSector] SET [Label] = N'Office & Commercial', [Name] = N'Office & Commercial(nl)' WHERE [Id] = N'zzz93-jsjj-fmms-amdm-b7a93ebd1wem';
+INSERT INTO [ProjectClassificationSector] ([Id], [DisplayOrder], [Label], [LanguageCode], [Name], [TypeId]) VALUES (N'134669a5-ca20-4d33-ab17-827bc0011e0f', 5, N'Care & education', N'nl', N'Care & education(nl)', N'1bf365f3-072a-412e-b424-635452b4bd59'), (N'2d56177d-cf1f-4b56-9565-c641eed3be52', 6, N'Marine & Civil works', N'nl', N'Marine & Civil works(nl)', N'398ae077-ea6e-4619-9a14-dfa47e12aa39'), (N'cddca425-a124-4935-b1f3-c8db6b325058', 4, N'Industry', N'en', N'Industry', N'f73b0526-3271-49a1-a924-84861f96b5d9'), (N'd21f11f8-cf12-46ca-85c8-804faf7e70da', 3, N'Residential', N'en', N'Residential', N'c2ab9d4e-c4ca-4b99-8bf7-38597f6160f1'), (N'd4f6116f-5026-424b-94c3-e404d39db195', 3, N'Residential', N'nl', N'Residential(nl)', N'c2ab9d4e-c4ca-4b99-8bf7-38597f6160f1'), (N'e59146f9-8be1-4cac-81b0-076e5fd5bfa0', 4, N'Industry', N'nl', N'Industry(nl)', N'f73b0526-3271-49a1-a924-84861f96b5d9'), (N'qqqq73f7-8cf7-4601-9b15-d4ce46022a78', 6, N'Marine & Civil works', N'en', N'Marine & Civil works', N'398ae077-ea6e-4619-9a14-dfa47e12aa39'), (N'yyyy012b-e80e-4947-b5b7-9f979a53bca4', 5, N'Care & education', N'en', N'Care & education', N'1bf365f3-072a-412e-b424-635452b4bd59');
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20220510170509_LOTsatusNew', N'6.0.1');
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+2022/05/12 ...............................
+
+CREATE TABLE [ContractorLotUploadedDocs] (
+    [Id] nvarchar(450) NOT NULL,
+    [LotId] nvarchar(max) NULL,
+    [CompanyId] nvarchar(max) NULL,
+    [Type] nvarchar(max) NULL,
+    [Link] nvarchar(max) NULL,
+    [Title] nvarchar(max) NULL,
+    [CreatedDate] datetime2 NULL,
+    CONSTRAINT [PK_ContractorLotUploadedDocs] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220512071324_contractorlotUploadeddocs', N'6.0.1');
+///////////////////////////////////////////////////////////////////////////////////////////
+
+2022/05/12
+
+ALTER TABLE [CommentCardContractor] ADD [CreaterId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220512063337_commentcardCreater', N'6.0.1');
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+2022/05/13......................................................
+
+ALTER TABLE [ContractorLotUploadedDocs] ADD [FileType] nvarchar(max) NULL;
+
+CREATE TABLE [ContractorPdfOrginalData] (
+    [Id] nvarchar(450) NOT NULL,
+    [ArticleNo] nvarchar(max) NULL,
+    [CompanyId] nvarchar(max) NULL,
+    [Title] nvarchar(max) NULL,
+    [Unit] nvarchar(max) NULL,
+    [VH] nvarchar(max) NULL,
+    [Quantity] nvarchar(max) NULL,
+    [UnitPrice] real NULL,
+    [TotalPrice] real NULL,
+    [LotId] nvarchar(max) NULL,
+    [CreatedDate] datetime2 NULL,
+    [PageRowColumn] nvarchar(max) NULL,
+    [PageRow] nvarchar(max) NULL,
+    [LotRowNumber] nvarchar(max) NULL,
+    CONSTRAINT [PK_ContractorPdfOrginalData] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+
+/////////////////////////////////////////////////////////////////////////
+
+DECLARE @var464 sysname;
+SELECT @var464 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CBCExcelLotdataPublished]') AND [c].[name] = N'UnitPrice');
+IF @var464 IS NOT NULL EXEC(N'ALTER TABLE [CBCExcelLotdataPublished] DROP CONSTRAINT [' + @var464 + '];');
+ALTER TABLE [CBCExcelLotdataPublished] ALTER COLUMN [UnitPrice] real NULL;
+
+DECLARE @var465 sysname;
+SELECT @var465 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CBCExcelLotdataPublished]') AND [c].[name] = N'TotalPrice');
+IF @var465 IS NOT NULL EXEC(N'ALTER TABLE [CBCExcelLotdataPublished] DROP CONSTRAINT [' + @var465 + '];');
+ALTER TABLE [CBCExcelLotdataPublished] ALTER COLUMN [TotalPrice] real NULL;
+
+DECLARE @var466 sysname;
+SELECT @var466 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CBCExcelLotData]') AND [c].[name] = N'UnitPrice');
+IF @var466 IS NOT NULL EXEC(N'ALTER TABLE [CBCExcelLotData] DROP CONSTRAINT [' + @var466 + '];');
+ALTER TABLE [CBCExcelLotData] ALTER COLUMN [UnitPrice] real NULL;
+
+DECLARE @var467 sysname;
+SELECT @var467 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CBCExcelLotData]') AND [c].[name] = N'TotalPrice');
+IF @var467 IS NOT NULL EXEC(N'ALTER TABLE [CBCExcelLotData] DROP CONSTRAINT [' + @var467 + '];');
+ALTER TABLE [CBCExcelLotData] ALTER COLUMN [TotalPrice] real NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221005055536_CBCLotData', N'6.0.7');
+
+<<<<<<< HEAD
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+=======
+//////////////////////////////////////////////////////////////////////////////////////
+>>>>>>> a76b3575defe6559b381142daeef8cd78f88758a
+
+2022/05/13
+
+CREATE TABLE [ConstructorWfStatusChangeTime] (
+    [Id] nvarchar(450) NOT NULL,
+    [ConstructorWf] nvarchar(max) NULL,
+    [StatusId] nvarchar(max) NULL,
+    [DateTime] datetime2 NULL,
+    CONSTRAINT [PK_ConstructorWfStatusChangeTime] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [LotStatusChangeTime] (
+    [Id] nvarchar(450) NOT NULL,
+    [LotId] nvarchar(max) NULL,
+    [StatusId] nvarchar(max) NULL,
+    [DateTime] datetime2 NULL,
+    CONSTRAINT [PK_LotStatusChangeTime] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220513082812_lotstatustimetable1', N'6.0.1');
+
+////////////////////////////////////////////////////////////////////////////
+
+2022/05/20
+
+ALTER TABLE [PbsProduct] ADD [MeasurementCode] nvarchar(max) NULL;
+
+ALTER TABLE [PbsProduct] ADD [Mou] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20220520055737_cbcNewProperties', N'6.0.1');
+
+////////////////////////////////////////////////////////////////////////////
+
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[ConstructorWorkFlowStatus]'))
+    SET IDENTITY_INSERT [ConstructorWorkFlowStatus] ON;
+INSERT INTO [ConstructorWorkFlowStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'bdd9wawa-75b3-40c6-ad61-Lote6a51ac', 11, N'en', N'Added to Contract', N'4010e768-3e06-added-b337-Lota82addb');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[ConstructorWorkFlowStatus]'))
+    SET IDENTITY_INSERT [ConstructorWorkFlowStatus] OFF;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220520055447_cwstatus', N'6.0.1');
+
+/////////////////////////////////////////////////////////////////////////
+
+2022/05/24
+
+CREATE TABLE [ContractorTotalValuesPublished] (
+    [Id] nvarchar(450) NOT NULL,
+    [LotId] nvarchar(max) NULL,
+    [CompanyId] nvarchar(max) NULL,
+    [TotalBAFO] real NOT NULL,
+    [TotalCost] real NOT NULL,
+    [IsWinner] bit NOT NULL,
+    CONSTRAINT [PK_ContractorTotalValuesPublished] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220524062737_contractorTotalValuesPulished', N'6.0.1');
+
+
+///////////////////////////////////////////////////////////////////////
+
+
+DECLARE @var452 sysname;
+SELECT @var452 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[ContractorHeader]') AND [c].[name] = N'MeasuringStatus');
+IF @var452 IS NOT NULL EXEC(N'ALTER TABLE [ContractorHeader] DROP CONSTRAINT [' + @var452 + '];');
+ALTER TABLE [ContractorHeader] ALTER COLUMN [MeasuringStatus] float NOT NULL;
+
+ALTER TABLE [ConstructorWorkFlow] ADD [Version] float NOT NULL DEFAULT 0.0E0;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220524103946_publishVersion', N'6.0.1');
+
+DECLARE @var452 sysname;
+SELECT @var452 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CommentCardContractor]') AND [c].[name] = N'Accept');
+IF @var452 IS NOT NULL EXEC(N'ALTER TABLE [CommentCardContractor] DROP CONSTRAINT [' + @var452 + '];');
+ALTER TABLE [CommentCardContractor] ALTER COLUMN [Accept] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220524083444_commentapprove', N'6.0.1');
+
+////////////////////////////////////////////////////////////////////////
+
+2022/05/25
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[ConstructorWorkFlowStatus]'))
+    SET IDENTITY_INSERT [ConstructorWorkFlowStatus] ON;
+INSERT INTO [ConstructorWorkFlowStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'bdnlwawa-75b3-40c6-ad61-Lote6a51ac', 11, N'nl', N'Added to Contract(nl)', N'4010e768-3e06-added-b337-Lota82addb');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[ConstructorWorkFlowStatus]'))
+    SET IDENTITY_INSERT [ConstructorWorkFlowStatus] OFF;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220525103307_cwaddedtocontractnl', N'6.0.1');
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+2022/05/26
+
+DELETE FROM Role;
+
+INSERT INTO Role (Id, TenantId, RoleName, RoleId, LanguageCode) VALUES
+(N'0e06111a-a513-45e0-a431-170dbd4b0d82', 1, N'Admin', N'0e06111a-a513-45e0-a431-170dbd4b0d82', N'en'),
+(N'be432c54-5860-4f56-832d-ceb3435d8b7e', 1, N'Administrator', N'0e06111a-a513-45e0-a431-170dbd4b0d82', N'nl'),
+(N'266a5f47-3489-484b-8dae-e4468c5329dn3', 1, N'Project Manager', N'266a5f47-3489-484b-8dae-e4468c5329dn3', N'en'),
+(N'476127cb-62db-4af7-ac8e-d4a722f8e142', 1, N'Project Manager', N'266a5f47-3489-484b-8dae-e4468c5329dn3', N'nl'),
+(N'4837043c-119c-47e1-bbf2-1f32557fdf30', 1, N'User', N'4837043c-119c-47e1-bbf2-1f32557fdf30', N'en'),
+(N'245d23fe-4864-4cc5-b53b-0a3b3843f0e1', 1, N'Gebruiker', N'4837043c-119c-47e1-bbf2-1f32557fdf30', N'nl'),
+(N'18d10b25-57ea-4f4e-9e76-56df09554a95', 1, N'Lasser', N'5e622d-4783-95e6-4092004eb5e-aff848e', N'nl'),
+(N'5e622d-4783-95e6-4092004eb5e-aff848e', 1, N'Welder', N'5e622d-4783-95e6-4092004eb5e-aff848e', N'en'),
+(N'6f56c794-7f88-48a7-9aba-a3f95f940be4', 1, N'Project Owner', N'6f56c794-7f88-48a7-9aba-a3f95f940be4', N'en'),
+(N'1666e217-2b80-4acd-b48b-b041fe263fkkf', 1, N'Project Eigenaar', N'6f56c794-7f88-48a7-9aba-a3f95f940be4', N'nl'),
+(N'78b84ad9-6757-405a-9729-5d2af8615e07', 1, N'Customer Invoice Contact(nl)', N'907b7af0-b132-4951-a2dc-6ab82d4cd40d', N'nl'),
+(N'907b7af0-b132-4951-a2dc-6ab82d4cd40d', 1, N'Customer Invoice Contact', N'907b7af0-b132-4951-a2dc-6ab82d4cd40d', N'en'),
+(N'67897af0-b132-4951-a2dc-6ab82d4cd40d', 1, N'Customer Project Contact', N'910b7af0-b132-4951-a2dc-6ab82d4cd40d', N'en'),
+(N'56784ad9-6757-405a-9729-5d2af8615e07', 1, N'Customer Project Contact(nl)', N'910b7af0-b132-4951-a2dc-6ab82d4cd40d', N'nl'),
+(N'c5c51857-7cb7-44b4-8d0e-362ba468000c', 1, N'Editor_', N'cceee88b-dd90-4d82-a519-6ae465da8117', N'en'),
+(N'f5847f10-280a-4b56-a289-13530afdab2b', 1, N'Editor_', N'cceee88b-dd90-4d82-a519-6ae465da8117', N'nl'),
+(N'f9a0cee5-f09a-44a5-93e8-d78f84bbcbf3', 1, N'Project Engineer', N'f9a0cee5-f09a-44a5-93e8-d78f84bbcbf3', N'en'),
+(N'1666e217-2b80-4acd-b48b-b041fe263fb9', 1, N'Project Ingenieur', N'f9a0cee5-f09a-44a5-93e8-d78f84bbcbf3', N'nl'),
+(N'Foremanen', 1, N'Foreman', N'Foreman', N'en'),
+(N'Foremannl', 1, N'Voorman', N'Foreman', N'nl')
+
+///////////////////////////////////////////////////////////////////////
+
+2022/05/26
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'FieldId', N'LanguageCode', N'Name') AND [object_id] = OBJECT_ID(N'[CommentLogField]'))
+    SET IDENTITY_INSERT [CommentLogField] ON;
+INSERT INTO [CommentLogField] ([Id], [DisplayOrder], [FieldId], [LanguageCode], [Name])
+VALUES (N'4e01a893-Field-48af-clfi-b7a93ebd1ccf', 2, N'7bcbAcce-Field-487d-clfi-6b91c89fc3da', N'nl', N'Article Description(nl)'),
+(N'77143c60-Field-4ca2-clfi-213d2d1c5f5a', 1, N'7bcb4e8d-Field-487d-clfi-6b91c89fAcce', N'nl', N'Article Number(nl)'),
+(N'8d109134-ee8d-Fiel10-clfi-dd1bf1e2391a', 10, N'4010e768-Fiel10-4702-Acce-ee367a82addb', N'nl', N'Unit Price(nl)'),
+(N'8d109134-ee8d-Fiel11-clfi-dd1bf1e2391a', 11, N'4010e768-Fiel11-4702-Acce-ee367a82addb', N'nl', N'Total Price(nl)'),
+(N'8d109134-ee8d-Fiel3-clfi-dd1bf1e2391a', 3, N'4010e768-Field-4702-Acce-ee367a82addb', N'nl', N'Measuring code(nl)'),
+(N'8d109134-ee8d-Fiel4-clfi-dd1bf1e2391a', 4, N'4010e768-Field-4702-Acce-ee367a82addb', N'nl', N'Var. 1(nl)'),
+(N'8d109134-ee8d-Field5-clfi-dd1bf1e2391a', 5, N'4010e768-Field5-4702-Acce-ee367a82addb', N'nl', N'Var. 2(nl)'),
+(N'8d109134-ee8d-Field6-clfi-dd1bf1e2391a', 6, N'4010e768-Field6-4702-Acce-ee367a82addb', N'nl', N'Var. 3(nl)'),
+(N'8d109134-ee8d-Field7-clfi-dd1bf1e2391a', 7, N'4010e768-Field7-4702-Acce-ee367a82addb', N'nl', N'Var. 4(nl)'),
+(N'8d109134-ee8d-Field8-clfi-dd1bf1e2391a', 8, N'4010e768-Field8-4702-Acce-ee367a82addb', N'nl', N'Var. 5(nl)'),
+(N'8d109134-ee8d-Field9-clfi-dd1bf1e2391a', 9, N'4010e768-Field9-4702-Acce-ee367a82addb', N'nl', N'Amount(nl)');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'FieldId', N'LanguageCode', N'Name') AND [object_id] = OBJECT_ID(N'[CommentLogField]'))
+    SET IDENTITY_INSERT [CommentLogField] OFF;
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'PriorityId') AND [object_id] = OBJECT_ID(N'[CommentLogPriority]'))
+    SET IDENTITY_INSERT [CommentLogPriority] ON;
+INSERT INTO [CommentLogPriority] ([Id], [DisplayOrder], [LanguageCode], [Name], [PriorityId])
+VALUES (N'4e01a893-Fiel2-High-cowf-asas3ebd1ccf', 2, N'nl', N'High(nl)', N'7bcbAcce-Fiel2-High-cowf-6b91c89fc3da'),
+(N'4e01a893-Fiel3-High-cowf-asas3ebd1ccf', 3, N'nl', N'Medium(nl)', N'7bcbAcce-Fiel3-High-cowf-6b91c89fc3da'),
+(N'4e01a893-Fiel4-High-cowf-asas3ebd1ccf', 4, N'nl', N'Low(nl)', N'7bcbAcce-Fiel4-High-cowf-6b91c89fc3da'),
+(N'4e01a893-Fiel5-High-cowf-asas3ebd1ccf', 5, N'nl', N'Very Low(nl)', N'7bcbAcce-Fiel5-High-cowf-6b91c89fc3da'),
+(N'77143c60-Fiel1-4ca2-Very-asas2d1c5f5a', 1, N'nl', N'Very High(nl)', N'7bcb4e8d-Fiel1-Very-cowf-6b91c89fAcce');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'PriorityId') AND [object_id] = OBJECT_ID(N'[CommentLogPriority]'))
+    SET IDENTITY_INSERT [CommentLogPriority] OFF;
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'SeverityId') AND [object_id] = OBJECT_ID(N'[CommentLogSeverity]'))
+    SET IDENTITY_INSERT [CommentLogSeverity] ON;
+INSERT INTO [CommentLogSeverity] ([Id], [DisplayOrder], [LanguageCode], [Name], [SeverityId])
+VALUES (N'4e01a893-Fiel3-Sign-cowf-asas3ebd1ccf', 3, N'nl', N'Moderate(nl)', N'7bcbAcce-Fiel3-Sign-cowf-6b91c89fc3da'),
+(N'4e01a893-Fiel4-Sign-cowf-asas3ebd1ccf', 4, N'nl', N'Minor(nl)', N'7bcbAcce-Fiel4-Sign-cowf-6b91c89fc3da'),
+(N'4e01a893-Fiel5-Sign-cowf-asas3ebd1ccf', 5, N'nl', N'Negligible(nl)', N'7bcbAcce-Fiel5-Sign-cowf-6b91c89fc3da'),
+(N'4e01a893-Field-Sign-cowf-asas3ebd1ccf', 2, N'nl', N'Significant(nl)', N'7bcbAcce-Field-Sign-cowf-6b91c89fc3da'),
+(N'77143c60-Field-4ca2-Seve-asas2d1c5f5a', 1, N'nl', N'Severe(nl)', N'7bcb4e8d-Field-Seve-cowf-6b91c89fAcce');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'SeverityId') AND [object_id] = OBJECT_ID(N'[CommentLogSeverity]'))
+    SET IDENTITY_INSERT [CommentLogSeverity] OFF;
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[CommentLogStatus]'))
+    SET IDENTITY_INSERT [CommentLogStatus] ON;
+INSERT INTO [CommentLogStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'4e01a893-0267-48af-lost-b7a93ebd1ccf', 2, N'nl', N'In preparation(nl)', N'7bcbAcce-8e8c-487d-lost-6b91c89fc3da'),
+(N'77143c60-ff45-4ca2-lost-213d2d1c5f5a', 1, N'nl', N'New(nl)', N'7bcb4e8d-8e8c-487d-lost-6b91c89fAcce'),
+(N'8d109134-ee8d-4c7b-lost-dd1bf1e2391a', 3, N'nl', N'In review(nl)', N'4010e768-3e06-4702-Acce-ee367a82addb'),
+(N'bdd9e479-75b3-40c6-lost-e40dbe6a51ac', 4, N'nl', N'Accepted(nl)', N'4010e768-3e06-Acce-lost-ee367a82addb');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[CommentLogStatus]'))
+    SET IDENTITY_INSERT [CommentLogStatus] OFF;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220526054614_commentddnl', N'6.0.1');
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+2022/05/30
+
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [MeasurementCode] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [Mou] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotData] ADD [MeasurementCode] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotData] ADD [Mou] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20220527085104_cbcExcelLotDataNewProperties', N'6.0.1');
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [CommentChangeType] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [TypeId] nvarchar(max) NULL,
+    [DisplayOrder] int NOT NULL,
+    CONSTRAINT [PK_CommentChangeType] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [CommentChangeType] ([Id], [DisplayOrder], [LanguageCode], [Name], [TypeId])
+VALUES (N'd21f11f8-cf12-46ca-85c8-804faf7e70da', 3, N'en', N'Issue', N'c2ab9d4e-c4ca-4b99-8bf7-38597f6160f1'),
+(N'd4f6116f-5026-424b-94c3-e404d39db195', 3, N'nl', N'Kwestie', N'c2ab9d4e-c4ca-4b99-8bf7-38597f6160f1'),
+(N'hkdsg-jsjj-fmms-amdm-b7a93ebrghthh', 1, N'en', N'Change Request', N'bbbbk4e8d-8e8c-487d-8170-6b91c89fcbbb'),
+(N'kkk93-jsjj-fmms-amdm-b7a93ebd1wem', 1, N'nl', N'veranderingsaanvraag', N'bbbbk4e8d-8e8c-487d-8170-6b91c89fcbbb'),
+(N'ppp93-jsjj-fmms-amdm-b7a93ebd1wem', 2, N'en', N'Comment', N'vvvdkjg4e8d-fhhd-487d-8170-6b91c89fdddvvv'),
+(N'zzz93-jsjj-fmms-amdm-b7a93ebd1wem', 2, N'nl', N'commentaar', N'vvvdkjg4e8d-fhhd-487d-8170-6b91c89fdddvvv');
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220530100324_commentChangeType', N'6.0.1');
+
+////////////////////////////////////////////////////////////////////////////
+
+31-05-22
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'TypeId') AND [object_id] = OBJECT_ID(N'[ContractorFileType]'))
+    SET IDENTITY_INSERT [ContractorFileType] ON;
+INSERT INTO [ContractorFileType] ([Id], [DisplayOrder], [LanguageCode], [Name], [TypeId])
+VALUES (N'bnb9e479-msms-40c6-Lot3-e40dbe6a5bnl', 3, N'en', N'URL(nl)', N'2210e768-msms-po02-Lot3-ee367a82ad22'),
+(N'qqqab9fe-msms-4088-Lot1-d27008688qnl', 1, N'en', N'pdf(nl)', N'oo10e768-msms-po02-Lot1-ee367a82adooo'),
+(N'wer9e479-msms-40c6-Lot4-e40dbe6a5wnl', 4, N'en', N'Word Document(nl)', N'2210e768-msms-po02-Lot4-ee367a82ad22'),
+(N'zzzab9fe-msms-4088-Lot2-d27008688znl', 2, N'en', N'Image(nl)', N'oo10e768-msms-po02-Lot2-ee367a82adooo');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'TypeId') AND [object_id] = OBJECT_ID(N'[ContractorFileType]'))
+    SET IDENTITY_INSERT [ContractorFileType] OFF;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220531124322_lotfiletype_nl', N'6.0.1');
+
+///////////////////////////////////////////////////////////////////////////
+
+INSERT INTO dbo.Role ( Id ,TenantId ,RoleName ,RoleId ,LanguageCode ) VALUES ( 'g5c51857-gcb7-g4b4-cd0e-g62ba4c80t0c' ,1 ,'Architect' ,'tec51857-arch-44b4-8d0e-362ba468000c' ,'nl' );
+INSERT INTO dbo.Role ( Id ,TenantId ,RoleName ,RoleId ,LanguageCode ) VALUES ( 'h5c51857-acb7-r4b4-cd0e-t62ba4c80t0c' ,1 ,'Architect' ,'tec51857-arch-44b4-8d0e-362ba468000c' ,'en' );
+
+
+<<<<<<< HEAD
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+2022/06/03
+
+ALTER TABLE [ContractorTeamList] ADD [IsDownloded] bit NULL;
+
+ALTER TABLE [ContractorTeamList] ADD [IsSubscribed] bit NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20220603072556_newattributesTeamList', N'6.0.1');
+//////////////////////////////////////////////////////////////////////////
+
+03-06-22
+
+ALTER TABLE [ContractorTeamList] ADD [InvitationDateTime] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220603093955_Invitationdatetime', N'6.0.1');
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+2022/06/07
+
+UPDATE [ContractorFileType] SET [LanguageCode] = N'nl'
+WHERE [Id] = N'bnb9e479-msms-40c6-Lot3-e40dbe6a5bnl';
+
+
+UPDATE [ContractorFileType] SET [LanguageCode] = N'nl'
+WHERE [Id] = N'qqqab9fe-msms-4088-Lot1-d27008688qnl';
+
+UPDATE [ContractorFileType] SET [LanguageCode] = N'nl'
+WHERE [Id] = N'wer9e479-msms-40c6-Lot4-e40dbe6a5wnl';
+
+
+UPDATE [ContractorFileType] SET [LanguageCode] = N'nl'
+WHERE [Id] = N'zzzab9fe-msms-4088-Lot2-d27008688znl';
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220607061151_docTypeLang', N'6.0.1');
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [ContractorHeader] ADD [ReminderFourDate] datetime2 NULL;
+
+ALTER TABLE [ContractorHeader] ADD [ReminderOneDate] datetime2 NULL;
+
+ALTER TABLE [ContractorHeader] ADD [ReminderThreeDate] datetime2 NULL;
+
+ALTER TABLE [ContractorHeader] ADD [ReminderTwoDate] datetime2 NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220607064318_addreminderdata', N'6.0.1');
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [ContractorHeader] ADD [EndDate] datetime2 NULL;
+
+ALTER TABLE [ContractorHeader] ADD [StartDate] datetime2 NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220608060012_lotdates', N'6.0.1');
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [ContractorHeader] ADD [StandardMailId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220608092133_standardmailtolot1', N'6.0.1');
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+2022/06/09
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'098cf409-7cb8-4076-8ddf-Lot897f5bb')
+WHEN MATCHED THEN UPDATE  SET Name = N'tender Joined', StatusId = N'd60aad0b-2e84-con2-ad25-Lot0d49477', LanguageCode = N'en', DisplayOrder = 2
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'098cf409-7cb8-4076-8ddf-Lot897f5bb', N'tender Joined', N'd60aad0b-2e84-con2-ad25-Lot0d49477', N'en', 2);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'0a37251e-6d5b-4c51-9a2c-61266f9401dd')
+WHEN MATCHED THEN UPDATE  SET Name = N'tender declined(nl)', StatusId = N'215cf869-7768-43d9-ac4f-b728cb053ffa', LanguageCode = N'nl', DisplayOrder = 13
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'0a37251e-6d5b-4c51-9a2c-61266f9401dd', N'tender declined(nl)', N'215cf869-7768-43d9-ac4f-b728cb053ffa', N'nl', 13);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'12e2d6c5-1ada-4e74-88ba-Lotf10e27c')
+WHEN MATCHED THEN UPDATE  SET Name = N'Reminder to join tender', StatusId = N'94282458-0b40-con3-b0f9-Lot344c8f1', LanguageCode = N'en', DisplayOrder = 3
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'12e2d6c5-1ada-4e74-88ba-Lotf10e27c', N'Reminder to join tender', N'94282458-0b40-con3-b0f9-Lot344c8f1', N'en', 3);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'2732cd5a-0941-4c56-9c13-Lota2ab276')
+WHEN MATCHED THEN UPDATE  SET Name = N'Tender downloaded', StatusId = N'd60aad0b-2e84-con1-ad25-Lot0d49477', LanguageCode = N'en', DisplayOrder = 1
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'2732cd5a-0941-4c56-9c13-Lota2ab276', N'Tender downloaded', N'd60aad0b-2e84-con1-ad25-Lot0d49477', N'en', 1);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'4d025ccd-e0b3-4f6d-acc6-1c65b7b8b13c')
+WHEN MATCHED THEN UPDATE  SET Name = N'tender declined', StatusId = N'215cf869-7768-43d9-ac4f-b728cb053ffa', LanguageCode = N'en', DisplayOrder = 13
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'4d025ccd-e0b3-4f6d-acc6-1c65b7b8b13c', N'tender declined', N'215cf869-7768-43d9-ac4f-b728cb053ffa', N'en', 13);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'4e01a893-0267-48af-b65a-Lotebd1ccf')
+WHEN MATCHED THEN UPDATE  SET Name = N'Quotation received', StatusId = N'7bcb4e8d-8e8c-con8-8170-Lot89fc3da', LanguageCode = N'en', DisplayOrder = 8
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'4e01a893-0267-48af-b65a-Lotebd1ccf', N'Quotation received', N'7bcb4e8d-8e8c-con8-8170-Lot89fc3da', N'en', 8);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'5015743d-a2e6-4531-808d-Lot00e1eed')
+WHEN MATCHED THEN UPDATE  SET Name = N'Tender subscribed', StatusId = N'7143ff01-d173-con6-8c17-Lotecdb84c', LanguageCode = N'en', DisplayOrder = 6
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'5015743d-a2e6-4531-808d-Lot00e1eed', N'Tender subscribed', N'7143ff01-d173-con6-8c17-Lotecdb84c', N'en', 6);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'77143c60-ff45-4ca2-8723-Lotd1c5f5a')
+WHEN MATCHED THEN UPDATE  SET Name = N'Reminder quotation not yet received', StatusId = N'7bcb4e8d-8e8c-con7-8170-Lot89fc3da', LanguageCode = N'en', DisplayOrder = 7
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'77143c60-ff45-4ca2-8723-Lotd1c5f5a', N'Reminder quotation not yet received', N'7bcb4e8d-8e8c-con7-8170-Lot89fc3da', N'en', 7);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'813a0c70-b58f-433d-8945-Lot6ae42af')
+WHEN MATCHED THEN UPDATE  SET Name = N'Tender subscription reminder', StatusId = N'7143ff01-d173-con5-8c17-Lotecdb84c', LanguageCode = N'en', DisplayOrder = 5
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'813a0c70-b58f-433d-8945-Lot6ae42af', N'Tender subscription reminder', N'7143ff01-d173-con5-8c17-Lotecdb84c', N'en', 5);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'8d109134-ee8d-4c7b-84c5-Lot1e2391a')
+WHEN MATCHED THEN UPDATE  SET Name = N'Open Comment For BM Engineering', StatusId = N'4010e768-3e06-con9-b337-Lota82addb', LanguageCode = N'en', DisplayOrder = 9
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'8d109134-ee8d-4c7b-84c5-Lot1e2391a', N'Open Comment For BM Engineering', N'4010e768-3e06-con9-b337-Lota82addb', N'en', 9);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'a35ab9fe-df57-4088-82a9-Lot8688bae')
+WHEN MATCHED THEN UPDATE  SET Name = N'Reminder download the tender', StatusId = N'94282458-0b40-con4-b0f9-Lot344c8f1', LanguageCode = N'en', DisplayOrder = 4
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'a35ab9fe-df57-4088-82a9-Lot8688bae', N'Reminder download the tender', N'94282458-0b40-con4-b0f9-Lot344c8f1', N'en', 4);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'bdd9e479-75b3-40c6-ad61-Lote6a51ac')
+WHEN MATCHED THEN UPDATE  SET Name = N'Open Comment For Contractor', StatusId = N'4010e768-3e06-con10-b337-Lota82addb', LanguageCode = N'en', DisplayOrder = 10
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'bdd9e479-75b3-40c6-ad61-Lote6a51ac', N'Open Comment For Contractor', N'4010e768-3e06-con10-b337-Lota82addb', N'en', 10);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'bdd9wawa-75b3-40c6-ad61-Lote6a51ac')
+WHEN MATCHED THEN UPDATE  SET Name = N'Added to Contract', StatusId = N'4010e768-3e06-added-b337-Lota82addb', LanguageCode = N'en', DisplayOrder = 11
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'bdd9wawa-75b3-40c6-ad61-Lote6a51ac', N'Added to Contract', N'4010e768-3e06-added-b337-Lota82addb', N'en', 11);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'bdnlwawa-75b3-40c6-ad61-Lote6a51ac')
+WHEN MATCHED THEN UPDATE  SET Name = N'Added to Contract(nl)', StatusId = N'4010e768-3e06-added-b337-Lota82addb', LanguageCode = N'nl', DisplayOrder = 11
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'bdnlwawa-75b3-40c6-ad61-Lote6a51ac', N'Added to Contract(nl)', N'4010e768-3e06-added-b337-Lota82addb', N'nl', 11);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'dgf2cd5a-0941-4c56-9c13-Lota2ab276')
+WHEN MATCHED THEN UPDATE  SET Name = N'Tender gedownload', StatusId = N'd60aad0b-2e84-con1-ad25-Lot0d49477', LanguageCode = N'nl', DisplayOrder = 1
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'dgf2cd5a-0941-4c56-9c13-Lota2ab276', N'Tender gedownload', N'd60aad0b-2e84-con1-ad25-Lot0d49477', N'nl', 1);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'drgtfg09134-ee8d-4c7b-84c5-Lot1e2391a')
+WHEN MATCHED THEN UPDATE  SET Name = N'Open commentaar voor BM Engineering', StatusId = N'4010e768-3e06-con9-b337-Lota82addb', LanguageCode = N'nl', DisplayOrder = 9
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'drgtfg09134-ee8d-4c7b-84c5-Lot1e2391a', N'Open commentaar voor BM Engineering', N'4010e768-3e06-con9-b337-Lota82addb', N'nl', 9);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'fggt2d6c5-1ada-4e74-88ba-Lotf10e27c')
+WHEN MATCHED THEN UPDATE  SET Name = N'Herinnering om deel te nemen aan tender', StatusId = N'94282458-0b40-con3-b0f9-Lot344c8f1', LanguageCode = N'nl', DisplayOrder = 3
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'fggt2d6c5-1ada-4e74-88ba-Lotf10e27c', N'Herinnering om deel te nemen aan tender', N'94282458-0b40-con3-b0f9-Lot344c8f1', N'nl', 3);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'fgh1a893-0267-48af-b65a-Lotebd1ccf')
+WHEN MATCHED THEN UPDATE  SET Name = N'Offerte ontvangen', StatusId = N'7bcb4e8d-8e8c-con8-8170-Lot89fc3da', LanguageCode = N'nl', DisplayOrder = 8
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'fgh1a893-0267-48af-b65a-Lotebd1ccf', N'Offerte ontvangen', N'7bcb4e8d-8e8c-con8-8170-Lot89fc3da', N'nl', 8);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'gghha0c70-b58f-433d-8945-Lot6ae42af')
+WHEN MATCHED THEN UPDATE  SET Name = N'Herinnering om in te schrijven op tender', StatusId = N'7143ff01-d173-con5-8c17-Lotecdb84c', LanguageCode = N'nl', DisplayOrder = 5
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'gghha0c70-b58f-433d-8945-Lot6ae42af', N'Herinnering om in te schrijven op tender', N'7143ff01-d173-con5-8c17-Lotecdb84c', N'nl', 5);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'hhg5743d-a2e6-4531-808d-Lot00e1eed')
+WHEN MATCHED THEN UPDATE  SET Name = N'Ingeschreven op tender', StatusId = N'7143ff01-d173-con6-8c17-Lotecdb84c', LanguageCode = N'nl', DisplayOrder = 6
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'hhg5743d-a2e6-4531-808d-Lot00e1eed', N'Ingeschreven op tender', N'7143ff01-d173-con6-8c17-Lotecdb84c', N'nl', 6);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'hhgcf409-7cb8-4076-8ddf-Lot897fhh')
+WHEN MATCHED THEN UPDATE  SET Name = N'Deelnemen aan tender', StatusId = N'd60aad0b-2e84-con2-ad25-Lot0d49477', LanguageCode = N'nl', DisplayOrder = 2
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'hhgcf409-7cb8-4076-8ddf-Lot897fhh', N'Deelnemen aan tender', N'd60aad0b-2e84-con2-ad25-Lot0d49477', N'nl', 2);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'hhh43c60-ff45-4ca2-8723-Lotd1c5f5a')
+WHEN MATCHED THEN UPDATE  SET Name = N'Herinnering om offerte op te sturen', StatusId = N'7bcb4e8d-8e8c-con7-8170-Lot89fc3da', LanguageCode = N'nl', DisplayOrder = 7
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'hhh43c60-ff45-4ca2-8723-Lotd1c5f5a', N'Herinnering om offerte op te sturen', N'7bcb4e8d-8e8c-con7-8170-Lot89fc3da', N'nl', 7);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'iii93-jsjj-nnnn-amdm-b7a93ebd1iii')
+WHEN MATCHED THEN UPDATE  SET Name = N'Requested To Join Tender', StatusId = N'bvxbdkjg4e8d-fhhd-487d-8170-6b91c89fdvnfd', LanguageCode = N'en', DisplayOrder = 11
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'iii93-jsjj-nnnn-amdm-b7a93ebd1iii', N'Requested To Join Tender', N'bvxbdkjg4e8d-fhhd-487d-8170-6b91c89fdvnfd', N'en', 11);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'jyg9e479-75b3-40c6-ad61-Lote6a51ac')
+WHEN MATCHED THEN UPDATE  SET Name = N'Open commentaar voor aannemer', StatusId = N'4010e768-3e06-con10-b337-Lota82addb', LanguageCode = N'nl', DisplayOrder = 10
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'jyg9e479-75b3-40c6-ad61-Lote6a51ac', N'Open commentaar voor aannemer', N'4010e768-3e06-con10-b337-Lota82addb', N'nl', 10);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'yhjghab9fe-df57-4088-82a9-Lot8688bae')
+WHEN MATCHED THEN UPDATE  SET Name = N'Herinnering om tender te downloaden', StatusId = N'94282458-0b40-con4-b0f9-Lot344c8f1', LanguageCode = N'nl', DisplayOrder = 4
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'yhjghab9fe-df57-4088-82a9-Lot8688bae', N'Herinnering om tender te downloaden', N'94282458-0b40-con4-b0f9-Lot344c8f1', N'nl', 4);
+
+
+MERGE INTO ConstructorWorkFlowStatus t1 USING (SELECT 1 id) t2 ON (t1.Id = N'yyg93-jsjj-nnnn-amdm-b7a93ebd1iii')
+WHEN MATCHED THEN UPDATE  SET Name = N'Aanvraag om deel te nemen aan tender', StatusId = N'bvxbdkjg4e8d-fhhd-487d-8170-6b91c89fdvnfd', LanguageCode = N'nl', DisplayOrder = 11
+WHEN NOT MATCHED THEN INSERT (Id, Name, StatusId, LanguageCode, DisplayOrder) VALUES (N'yyg93-jsjj-nnnn-amdm-b7a93ebd1iii', N'Aanvraag om deel te nemen aan tender', N'bvxbdkjg4e8d-fhhd-487d-8170-6b91c89fdvnfd', N'nl', 11);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+UPDATE [CommentLogField] SET [FieldId] = N'7bcbAcce-Field-487d-cowf-6b91c89fc3da'
+WHERE [Id] = N'4e01a893-Field-48af-clfi-b7a93ebd1ccf';
+SELECT @@ROWCOUNT;
+
+UPDATE [CommentLogField] SET [FieldId] = N'7bcbAcce-Field-487d-cowf-6b91c89fc3da'
+WHERE [Id] = N'77143c60-Field-4ca2-clfi-213d2d1c5f5a';
+SELECT @@ROWCOUNT;
+
+UPDATE [CommentLogStatus] SET [StatusId] = N'7bcbAcce-8e8c-487d-cowf-6b91c89fc3da'
+WHERE [Id] = N'4e01a893-0267-48af-lost-b7a93ebd1ccf';
+SELECT @@ROWCOUNT;
+
+UPDATE [CommentLogStatus] SET [StatusId] = N'7bcb4e8d-8e8c-487d-cowf-6b91c89fAcce'
+WHERE [Id] = N'77143c60-ff45-4ca2-lost-213d2d1c5f5a';
+SELECT @@ROWCOUNT;
+
+UPDATE [CommentLogStatus] SET [StatusId] = N'4010e768-3e06-Acce-cowf-ee367a82addb'
+WHERE [Id] = N'bdd9e479-75b3-40c6-lost-e40dbe6a51ac';
+SELECT @@ROWCOUNT;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220608115722_commentdd', N'6.0.1');
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+UPDATE [CommentLogField] SET [FieldId] = N'7bcb4e8d-Field-487d-cowf-6b91c89fAcce'
+WHERE [Id] = N'77143c60-Field-4ca2-clfi-213d2d1c5f5a';
+SELECT @@ROWCOUNT;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220608124505_commentdd1', N'6.0.1');
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+2022/06/16
+
+ALTER TABLE [StandardMailHeader] ADD [IsDefault] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220616060036_isDefaulltStandardMail', N'6.0.1');
+
+
+ALTER TABLE [ContractorHeader] ADD [IsInviteSend] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220616103423_isInviteSend', N'6.0.1');
+////////////////////////////////////////////////////////////////////////////
+
+2022/06/17 // already put for staging
+
+
+ALTER TABLE [StandardMailHeader] ADD [Reminder4] nvarchar(max) NULL;
+
+ALTER TABLE [StandardMailHeader] ADD [Reminder4TimeFrameTender] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220617072320_stdMailReminder4Properties', N'6.0.1');
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+2022/06/21
+
+ALTER TABLE [ConstructorWorkFlow] ADD [IsInviteSend] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220621100950_cwisInviteSend', N'6.0.1');
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+2022/06/23
+
+DELETE FROM CompetenciesTaxonomy;
+
+INSERT INTO dbo.CompetenciesTaxonomy (Id, Title, CompetenciesId, ParentId, CompetenciesTaxonomyLevelId, ParentCompetenciesId) VALUES
+(N'mnvab9fe-rtyu-4088-82a9-d27008688lksd', N'Competencies', N'mnvab9fe-rtyu-4088-82a9-d27008688lksd', NULL, N'88282458-0b40-poa3-b0f9-c2e40344c888', N'mnvab9fe-rtyu-4088-82a9-d27008688lksd');
+
+DELETE FROM CertificationTaxonomy;
+
+INSERT INTO dbo.CertificationTaxonomy (Id, Title, CetificationId, ParentId, CertificationTaxonomyLevelId, ParentCertificationId) VALUES
+(N'mnvab9fe-rtyu-4088-82a9-d27008688lksd', N'Certification', N'mnvab9fe-rtyu-4088-82a9-d27008688lksd', NULL, N'qq282458-0b40-poa3-b0f9-c2e40344c8qq', N'mnvab9fe-rtyu-4088-82a9-d27008688lksd');
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+2022/06/24
+
+ALTER TABLE [CommentCardContractor] ADD [ChangeType] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220624085439_commentchangetypeadd', N'6.0.1');
+
+
+///////////////////////////////////////////////////////////////////////////////////
+
+2022/06/30
+
+ALTER TABLE [PbsProduct] ADD [SibilingId] nvarchar(max) NULL;
+
+CREATE TABLE [ContractorUploadedFiles] (
+    [Id] nvarchar(450) NOT NULL,
+    [CompanyId] nvarchar(max) NULL,
+    [LotId] nvarchar(max) NULL,
+    [FileType] nvarchar(max) NULL,
+    CONSTRAINT [PK_ContractorUploadedFiles] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220630114635_contractorUploadedFiles', N'6.0.1');
+
+////////////////////////////////////////////////////////////////////////////////////
+
+DECLARE @var456 sysname;
+SELECT @var456 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[PbsProduct]') AND [c].[name] = N'SibilingId');
+IF @var456 IS NOT NULL EXEC(N'ALTER TABLE [PbsProduct] DROP CONSTRAINT [' + @var456 + '];');
+ALTER TABLE [PbsProduct] DROP COLUMN [SibilingId];
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220701064544_removesebilingfromPbs', N'6.0.1');
+
+/////////////////////////////////////////////////////////////////////////////
+
+2022/07/05
+
+CREATE TABLE [PbsTreeIndex] (
+    [Id] nvarchar(450) NOT NULL,
+    [PbsProductId] nvarchar(max) NULL,
+    [TreeIndex] int NOT NULL,
+    CONSTRAINT [PK_PbsTreeIndex] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220705092422_PbsTreeIndex', N'6.0.1');
+
+
+
+2022/07/14
+
+CREATE TABLE [ContractorPs] (
+    [Id] nvarchar(450) NOT NULL,
+    [MeasurementCode] nvarchar(max) NULL,
+    [quantityQuotation] nvarchar(max) NULL,
+    [unitPrice] nvarchar(max) NULL,
+    [quantityConsumed] nvarchar(max) NULL,
+    [Total] nvarchar(max) NULL,
+    [lotId] nvarchar(max) NULL,
+    [companyId] nvarchar(max) NULL,
+    CONSTRAINT [PK_ContractorPs] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220714064420_ContractorPs', N'6.0.1');
+
+
+2022/07/07
+
+ALTER TABLE [ConstructorWorkFlow] ADD [MeasuringStateReceived] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220707053417_CWMeasuringStateReceived', N'6.0.1');
+>>>>>>> 4f4d3ab7e4167d089fc74650da3502bfb62d72f7
+
+///////////////////////////////////////////////////////////
+
+2022/07/14
+
+EXEC sp_rename N'[ContractorPs].[unitPrice]', N'UnitPrice', N'COLUMN';
+
+
+EXEC sp_rename N'[ContractorPs].[quantityQuotation]', N'QuantityQuotation', N'COLUMN';
+
+
+EXEC sp_rename N'[ContractorPs].[quantityConsumed]', N'QuantityConsumed', N'COLUMN';
+
+
+EXEC sp_rename N'[ContractorPs].[lotId]', N'LotId', N'COLUMN';
+
+
+EXEC sp_rename N'[ContractorPs].[companyId]', N'CompanyId', N'COLUMN';
+
+
+ALTER TABLE [ContractorPs] ADD [ArticleNumber] nvarchar(max) NULL;
+
+
+ALTER TABLE [ContractorPs] ADD [Title] nvarchar(max) NULL;
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220714091252_ContractorPs table change', N'6.0.1');
+
+///////////////////////////////////////////////////////////////////////
+
+UPDATE [CommentLogField] SET [FieldId] = N'4010e768-Field-Var1-Acce-ee367a82addb'
+WHERE [Id] = N'8d109134-ee8d-Fiel4-clfi-dd1bf1e2391a';
+SELECT @@ROWCOUNT;
+
+UPDATE [CommentLogField] SET [FieldId] = N'4010e768-Field-Var1-Acce-ee367a82addb'
+WHERE [Id] = N'8d109134-ee8d-Fiel4-cowf-dd1bf1e2391a';
+SELECT @@ROWCOUNT;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220714113200_ComentlogField', N'6.0.1');
+
+//////////////////////////////////////////////////////////////////////
+
+2022/07/18
+
+CREATE TABLE [OrganizationTeamRole] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [RoleId] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [DisplayOrder] int NOT NULL,
+    CONSTRAINT [PK_OrganizationTeamRole] PRIMARY KEY ([Id])
+);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'RoleId') AND [object_id] = OBJECT_ID(N'[OrganizationTeamRole]'))
+    SET IDENTITY_INSERT [OrganizationTeamRole] ON;
+INSERT INTO [OrganizationTeamRole] ([Id], [DisplayOrder], [LanguageCode], [Name], [RoleId])
+VALUES (N'wer9e479-org1-Item-team1-e40dbe6a5wer', 1, N'en', N'Foreman', NULL),
+(N'wer9e479-org1-Item-team1-nl0dbe6a5wer', 1, N'nl', N'Voorman', NULL),
+(N'wer9e479-org2-Item-team2-e40dbe6a5wer', 2, N'en', N'Worker', NULL),
+(N'wer9e479-org2-Item-team2-nl0dbe6a5wer', 2, N'nl', N'Arbeider', NULL);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'RoleId') AND [object_id] = OBJECT_ID(N'[OrganizationTeamRole]'))
+    SET IDENTITY_INSERT [OrganizationTeamRole] OFF;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220718062054_OrganizationTeamRole', N'6.0.1');
+
+/////////////////////////////////
+
+ALTER TABLE [ContractorPs] ADD [PsSequenceId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220718073933_contractorPsSequenceId', N'6.0.1');
+
+////////////////////////////////
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'LanguageCode', N'RoleId', N'RoleName', N'TenantId') AND [object_id] = OBJECT_ID(N'[Role]'))
+    SET IDENTITY_INSERT [Role] ON;
+INSERT INTO [Role] ([Id], [LanguageCode], [RoleId], [RoleName], [TenantId])
+VALUES (N'g5c51857-gcb7-g4b4-cd0e-g62ba4c80t0c', N'nl', N'tec51857-arch-44b4-8d0e-362ba468000c', N'Architect(nl)', 1);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'LanguageCode', N'RoleId', N'RoleName', N'TenantId') AND [object_id] = OBJECT_ID(N'[Role]'))
+    SET IDENTITY_INSERT [Role] OFF;
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'LanguageCode', N'RoleId', N'RoleName', N'TenantId') AND [object_id] = OBJECT_ID(N'[Role]'))
+    SET IDENTITY_INSERT [Role] ON;
+INSERT INTO [Role] ([Id], [LanguageCode], [RoleId], [RoleName], [TenantId])
+VALUES (N'h5c51857-acb7-r4b4-cd0e-t62ba4c80t0c', N'en', N'tec51857-arch-44b4-8d0e-362ba468000c', N'Architect', 1);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'LanguageCode', N'RoleId', N'RoleName', N'TenantId') AND [object_id] = OBJECT_ID(N'[Role]'))
+    SET IDENTITY_INSERT [Role] OFF;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220718114613_ArchitectRole', N'6.0.1');
+
+
+CREATE TABLE [Instructions] (
+    [Id] nvarchar(450) NOT NULL,
+    [InstructionsDetails] nvarchar(max) NULL,
+    [InstructionType] nvarchar(max) NULL,
+    [PbsInstructionFamilyId] nvarchar(max) NULL,
+    [IsDeleted] bit NOT NULL,
+    [IsSaved] bit NOT NULL,
+    [SequenceCode] nvarchar(max) NULL,
+    [Name] nvarchar(max) NULL,
+    CONSTRAINT [PK_Instructions] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220719065804_instructions', N'6.0.1');
+
+ALTER TABLE [PbsInstruction] ADD [InstructionsId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220719073401_instructionId', N'6.0.1');
+
+/////////////////////////////////
+
+UPDATE [OrganizationTeamRole] SET [RoleId] = N'2210e768-msms-Item-team1-ee367a82ad22'
+WHERE [Id] = N'wer9e479-org1-Item-team1-e40dbe6a5wer';
+SELECT @@ROWCOUNT;
+
+UPDATE [OrganizationTeamRole] SET [RoleId] = N'2210e768-msms-Item-team1-ee367a82ad22'
+WHERE [Id] = N'wer9e479-org1-Item-team1-nl0dbe6a5wer';
+SELECT @@ROWCOUNT;
+
+UPDATE [OrganizationTeamRole] SET [RoleId] = N'2210e768-msms-Item-team2-ee367a82ad22'
+WHERE [Id] = N'wer9e479-org2-Item-team2-e40dbe6a5wer';
+SELECT @@ROWCOUNT;
+
+UPDATE [OrganizationTeamRole] SET [RoleId] = N'2210e768-msms-Item-team2-ee367a82ad22'
+WHERE [Id] = N'wer9e479-org2-Item-team2-nl0dbe6a5wer';
+SELECT @@ROWCOUNT;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220719071931_OrganizationTeamRole2', N'6.0.1');
+
+///////////////////////////////
+
+ALTER TABLE [OrganizationTaxonomy] ADD [RoleId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220719094907_OrganizationTeamRole3', N'6.0.1');
+
+
+CREATE TABLE [ContractorPsPublished] (
+    [Id] nvarchar(450) NOT NULL,
+    [ArticleNumber] nvarchar(max) NULL,
+    [Title] nvarchar(max) NULL,
+    [MeasurementCode] nvarchar(max) NULL,
+    [QuantityQuotation] nvarchar(max) NULL,
+    [UnitPrice] nvarchar(max) NULL,
+    [QuantityConsumed] nvarchar(max) NULL,
+    [Total] nvarchar(max) NULL,
+    [LotId] nvarchar(max) NULL,
+    [CompanyId] nvarchar(max) NULL,
+    [PsSequenceId] nvarchar(max) NULL,
+    CONSTRAINT [PK_ContractorPsPublished] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220720110119_contractorPsPublished', N'6.0.1');
+
+INSERT INTO dbo.Instructions
+(
+  Id
+ ,InstructionsDetails
+ ,InstructionType
+ ,PbsInstructionFamilyId
+ ,IsDeleted
+ ,IsSaved
+ ,SequenceCode
+ ,Name
+)  SELECT
+ PbsInstruction.Id
+ ,PbsInstruction.InstructionsDetails
+ ,PbsInstruction.InstructionType
+  ,PbsInstruction.PbsInstructionFamilyId
+  ,PbsInstruction.IsDeleted
+ ,PbsInstruction.IsSaved
+ ,PbsInstruction.SequenceCode
+ ,PbsInstruction.Name
+FROM dbo.PbsInstruction;
+
+UPDATE PbsInstruction SET InstructionsId = Id;
+
+ALTER TABLE [PbsInstruction] DROP CONSTRAINT [FK_PbsInstruction_PbsInstructionFamily_PbsInstructionFamilyId];
+
+
+ALTER TABLE [PbsInstructionLink] DROP CONSTRAINT [FK_PbsInstructionLink_PbsInstruction_PbsInstructionId];
+
+
+DROP INDEX [IX_PbsInstructionLink_PbsInstructionId] ON [PbsInstructionLink];
+
+
+DROP INDEX [IX_PbsInstruction_PbsInstructionFamilyId] ON [PbsInstruction];
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220720061429_removePbsInstRelationship', N'6.0.1');
+
+//////////////////////////////////////////////////////////////
+
+CREATE TABLE [OrganizationTeamPmol] (
+    [Id] nvarchar(450) NOT NULL,
+    [OrganizationTeamId] nvarchar(max) NULL,
+    [PmolId] nvarchar(max) NULL,
+    [ExecutionDate] datetime2 NOT NULL,
+    [StartTime] nvarchar(max) NULL,
+    [EndTime] nvarchar(max) NULL,
+    CONSTRAINT [PK_OrganizationTeamPmol] PRIMARY KEY ([Id])
+);
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220726112528_OrganizationTeamPmol1', N'6.0.1');
+
+////////////////////////////////////////////////////////////
+
+DECLARE @var461 sysname;
+SELECT @var461 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[OrganizationTeamPmol]') AND [c].[name] = N'ExecutionDate');
+IF @var461 IS NOT NULL EXEC(N'ALTER TABLE [OrganizationTeamPmol] DROP CONSTRAINT [' + @var461 + '];');
+ALTER TABLE [OrganizationTeamPmol] ALTER COLUMN [ExecutionDate] datetime2 NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220727072511_OrganizationTeamPmol2', N'6.0.1');
+
+//////////////////////////////////////////////////////////
+
+ALTER TABLE [OrganizationTeamPmol] ADD [ContractingUnit] nvarchar(max) NULL;
+
+ALTER TABLE [OrganizationTeamPmol] ADD [Project] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220728104132_TeamsWithPmolfordayplan', N'6.0.1');
+
+CREATE TABLE [CommentCardContractorPs] (
+    [Id] nvarchar(450) NOT NULL,
+    [PsSequenceId] nvarchar(max) NULL,
+    [CommentCardId] nvarchar(max) NULL,
+    [ContractorId] nvarchar(max) NULL,
+    [Accept] nvarchar(max) NULL,
+    [Priority] nvarchar(max) NULL,
+    [Severity] nvarchar(max) NULL,
+    [Status] nvarchar(max) NULL,
+    [Field] nvarchar(max) NULL,
+    [Reporter] nvarchar(max) NULL,
+    [Assigner] nvarchar(max) NULL,
+    [CreaterId] nvarchar(max) NULL,
+    [ChangeType] nvarchar(max) NULL,
+    CONSTRAINT [PK_CommentCardContractorPs] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [CommentCardPs] (
+    [Id] nvarchar(450) NOT NULL,
+    [PsSequenceId] nvarchar(max) NULL,
+    [Title] nvarchar(max) NULL,
+    [ArticleNo] nvarchar(max) NULL,
+    [CardTitle] nvarchar(max) NULL,
+    [LotId] nvarchar(max) NULL,
+    [ColumnName] nvarchar(max) NULL,
+    [Message] nvarchar(max) NULL,
+    [CompanyId] nvarchar(max) NULL,
+    [Date] datetime2 NULL,
+    CONSTRAINT [PK_CommentCardPs] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220728094156_commetcardForPs', N'6.0.1');
+///////////////////////////////////////////////////////////////////////////////////
+
+INSERT INTO PbsInstructionFamilyLocalizedData (Id, Family, LocaleCode, Type, InstructionFamilyID) VALUES
+('0e5f0b46-0602-4e36-8227-256d487ec127', 'Welding Procedures', 'fr', 'technical', '0e5f0b46-0602-4e36-8227-256d487ec127'),
+('26f71a21-b062-4fc8-b47a-f50038e71fe1', 'Family 01', 'fr', 'other', '26f71a21-b062-4fc8-b47a-f50038e71fe1'),
+('48ec5849-1daf-425c-8fcf-fb0dd9748b8c', 'Family 03', 'fr', 'other', '48ec5849-1daf-425c-8fcf-fb0dd9748b8c'),
+('626253e2-981c-4dcd-b084-a801adfdab1e', 'Installation', 'fr', 'technical', '626253e2-981c-4dcd-b084-a801adfdab1e'),
+('915cf56a-09ba-48b3-bcc5-2ac1fe64f4ca', 'Piping and Instrumentation', 'fr', 'technical', '915cf56a-09ba-48b3-bcc5-2ac1fe64f4ca'),
+('975cb86b-d47d-4b8c-b77f-b3c67adb3fb0', 'Isometric', 'fr', 'technical', '975cb86b-d47d-4b8c-b77f-b3c67adb3fb0'),
+('e286e905-c157-4d19-io7c-55550df0ee9a', 'Family 04', 'fr', 'other', 'e286e905-c157-4d19-ac7c-55550df0ee9a'),
+('fc925493-c443-437d-s367-b88e81941aaa', 'Family 02', 'fr', 'other', 'fc925493-c443-437d-a367-b88e81941aaa')
+
+INSERT INTO dbo.RiskStatus (Id, Status, LanguageCode, RiskStatusId) VALUES
+(N'fdkfk46ec-d7de-4f6d-a830-f697809a04ec', N'Active', N'fr', N'00b0a1c6-e5c8-4143-90f1-7dec0b0397ae'),
+(N'fdkkfd7845-039d-4b1c-a8f8-4e94b0e8822c', N'Closed', N'fr', N'8b0d0513-6111-466f-86c8-b26278c3c4f7')
+
+INSERT INTO dbo.RiskType (Id, Type, LanguageCode, RiskTypeId) VALUES
+(N'lld215d2-e9e2-472d-9687-059876ff83f6', N'Opportunity', N'fr', N'ac9f4655-f14c-43c7-8e4a-5390bfdc16d0'),
+(N'iewd231a-d1f6-4da5-a028-f2469077a333', N'Threat', N'fr', N'4dba0e61-15f8-47a9-8fcd-0ced2e2ce210')
+
+
+ALTER TABLE [ContractorPsPublished] ADD [PsOrderNumber] nvarchar(max) NULL;
+
+ALTER TABLE [ContractorPs] ADD [PsOrderNumber] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220801063631_psOrderNumber', N'6.0.7');
+
+
+CREATE TABLE [ContractorPsOrderNumber] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [TypeId] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    CONSTRAINT [PK_ContractorPsOrderNumber] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [ContractorPsOrderNumber] ([Id], [LanguageCode], [Name], [TypeId])
+VALUES (N'wer9e479-org1-Item-team1-e40dbe6a5w13', N'en', N'13', N'2210e768-msms-kknk-jhhk-ee367a82ad13'),
+(N'wer9e479-org1-Item-team1-e40dbe6a5w17', N'en', N'17', N'2210e768-msms-kknk-jhhk-ee367a82ad17'),
+(N'wer9e479-org1-Item-team1-e40dbe6a5we5', N'en', N'5', N'2210e768-msms-kknk-jhhk-ee367a82ad25'),
+(N'wer9e479-org1-Item-team1-e40dbe6a5we9', N'en', N'9', N'2210e768-msms-kknk-jhhk-ee367a82ad29'),
+(N'wer9e479-org1-Item-team1-e40dbe6a5wer', N'en', N'1', N'2210e768-msms-kknk-jhhk-ee367a82ad21'),
+(N'wer9e479-org1-Item-team1-nl0dbe6a5w11', N'en', N'11', N'2210e768-msms-kknk-jhhk-ee367a82ad11'),
+(N'wer9e479-org1-Item-team1-nl0dbe6a5w15', N'en', N'15', N'2210e768-msms-kknk-jhhk-ee367a82ad15'),
+(N'wer9e479-org1-Item-team1-nl0dbe6a5w19', N'en', N'19', N'2210e768-msms-kknk-jhhk-ee367a82ad19'),
+(N'wer9e479-org1-Item-team1-nl0dbe6a5we7', N'en', N'7', N'2210e768-msms-kknk-jhhk-ee367a82ad27'),
+(N'wer9e479-org1-Item-team1-nl0dbe6a5wer', N'en', N'3', N'2210e768-msms-kknk-jhhk-ee367a82ad23'),
+(N'wer9e479-org2-Item-team2-e40dbe6a5w10', N'en', N'10', N'2210e768-msms-kknk-jhhk-ee367a82ad26'),
+(N'wer9e479-org2-Item-team2-e40dbe6a5w14', N'en', N'14', N'2210e768-msms-kknk-jhhk-ee367a82ad14'),
+(N'wer9e479-org2-Item-team2-e40dbe6a5w18', N'en', N'18', N'2210e768-msms-kknk-jhhk-ee367a82ad18'),
+(N'wer9e479-org2-Item-team2-e40dbe6a5we6', N'en', N'6', N'2210e768-msms-kknk-jhhk-ee367a82ad26'),
+(N'wer9e479-org2-Item-team2-e40dbe6a5wer', N'en', N'2', N'2210e768-msms-kknk-jhhk-ee367a82ad22'),
+(N'wer9e479-org2-Item-team2-nl0dbe6a5w12', N'en', N'12', N'2210e768-msms-kknk-jhhk-ee367a82ad12'),
+(N'wer9e479-org2-Item-team2-nl0dbe6a5w16', N'en', N'16', N'2210e768-msms-kknk-jhhk-ee367a82ad16'),
+(N'wer9e479-org2-Item-team2-nl0dbe6a5w20', N'en', N'20', N'2210e768-msms-kknk-jhhk-ee367a82ad20'),
+(N'wer9e479-org2-Item-team2-nl0dbe6a5we8', N'en', N'8', N'2210e768-msms-kknk-jhhk-ee367a82ad28'),
+(N'wer9e479-org2-Item-team2-nl0dbe6a5wer', N'en', N'4', N'2210e768-msms-kknk-jhhk-ee367a82ad24');
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220801074604_psOrderNumberTable', N'6.0.7');
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [TeamWithPmol] (
+    [Id] nvarchar(450) NOT NULL,
+    [PmolId] nvarchar(max) NULL,
+    [Cu] nvarchar(max) NULL,
+    [Project] nvarchar(max) NULL,
+    [OrganizationTeamId] nvarchar(max) NULL,
+    [PMolPlannedWorkLabourId] nvarchar(max) NULL,
+    CONSTRAINT [PK_TeamWithPmol] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220802090307_TeamWithPmol1', N'6.0.7');
+
+
+ALTER TABLE [ContractorPsPublished] ADD [IsApproved] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+ALTER TABLE [ContractorPs] ADD [IsApproved] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220804062533_psIsApprove', N'6.0.7');
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [Key1] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [Key2] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [Key3] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [Value1] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [Value2] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [Value3] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotData] ADD [Key1] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotData] ADD [Key2] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotData] ADD [Key3] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotData] ADD [Value1] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotData] ADD [Value2] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotData] ADD [Value3] nvarchar(max) NULL;
+
+CREATE TABLE [CBCDynamicsAttributes] (
+    [Id] nvarchar(450) NOT NULL,
+    [ArticleNumber] nvarchar(max) NULL,
+    [Key1] nvarchar(max) NULL,
+    [Value1] nvarchar(max) NULL,
+    [Key2] nvarchar(max) NULL,
+    [Value2] nvarchar(max) NULL,
+    [Key3] nvarchar(max) NULL,
+    [Value3] nvarchar(max) NULL,
+    CONSTRAINT [PK_CBCDynamicsAttributes] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220808053152_lotDynamicAttributes', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////////////////////
+
+
+ALTER TABLE [ContractorPsPublished] ADD [ApprovedDate] datetime2 NULL;
+
+ALTER TABLE [ContractorPs] ADD [ApprovedDate] datetime2 NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220810065244_psApprovedDate', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [OrganizationTeamVehicel] (
+    [Id] nvarchar(450) NOT NULL,
+    [OrganizationTeamId] nvarchar(max) NULL,
+    [CoperateProductCatalogId] nvarchar(max) NULL,
+    CONSTRAINT [PK_OrganizationTeamVehicel] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220811071232_OrganizationTeamVehicel', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [PmolLabourTime] (
+    [Id] nvarchar(450) NOT NULL,
+    [LabourId] nvarchar(max) NULL,
+    [PmolTeamRoleId] nvarchar(450) NULL,
+    [StartDateTime] datetime2 NULL,
+    [EndDateTime] datetime2 NULL,
+    CONSTRAINT [PK_PmolLabourTime] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_PmolLabourTime_PmolTeamRole_PmolTeamRoleId] FOREIGN KEY ([PmolTeamRoleId]) REFERENCES [PmolTeamRole] ([Id])
+);
+
+CREATE INDEX [IX_PmolLabourTime_PmolTeamRoleId] ON [PmolLabourTime] ([PmolTeamRoleId]);
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220816071221_PmolLabourTime', N'6.0.7');
+
+//////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [PmolLabourTime] DROP CONSTRAINT [FK_PmolLabourTime_PmolTeamRole_PmolTeamRoleId];
+
+
+DROP INDEX [IX_PmolLabourTime_PmolTeamRoleId] ON [PmolLabourTime];
+
+
+DECLARE @var463 sysname;
+SELECT @var463 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[PmolLabourTime]') AND [c].[name] = N'PmolTeamRoleId');
+IF @var463 IS NOT NULL EXEC(N'ALTER TABLE [PmolLabourTime] DROP CONSTRAINT [' + @var463 + '];');
+ALTER TABLE [PmolLabourTime] DROP COLUMN [PmolTeamRoleId];
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220816081444_pmolLabourTimeNew', N'6.0.7');
+
+///////////////////////////////////////////////////
+
+ALTER TABLE [PmolLabourTime] ADD [IsBreak] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220818034946_PmolLabourBreak', N'6.0.7');
+
+
+
+
+CREATE TABLE [PmolLabourBreak] (
+    [Id] nvarchar(450) NOT NULL,
+    [LabourId] nvarchar(max) NULL,
+    [StartDateTime] datetime2 NULL,
+    [EndDateTime] datetime2 NULL,
+    [IsBreak] bit NOT NULL,
+    CONSTRAINT [PK_PmolLabourBreak] PRIMARY KEY ([Id])
+);
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220818044820_PmolLabourBreak_Table', N'6.0.7');
+
+//////////////////////////////////////////////
+ALTER TABLE [OrganizationTaxonomy] ADD [ModifiedDate] datetime2 NOT NULL DEFAULT '0001-01-01T00:00:00.0000000';
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220819073650_OrganizationTaxonomyModifiedDate', N'6.0.7');
+
+ALTER TABLE [PmolLabourTime] ADD [Type] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220825112344_typeForPmolLabourTime', N'6.0.7');
+
+INSERT INTO dbo.CorporateProductCatalog (Id, ResourceTitle, ResourceTypeId, ResourceFamilyId, CpcBasicUnitOfMeasureId, CpcMaterialId, CpcPressureClassId, InventoryPrice, CpcUnitOfSizeMeasureId, Size, WallThickness, MinOrderQuantity, MaxOrderQuantity, Weight, Status, ResourceNumber, IsDeleted, CpcBrandId, Title) VALUES
+(N'05bc929c-e07a-46a9-844a-fd5d3b488f7b', N'default Foreman', N'c46c3a26-39a5-42cc-b07s-89655304eh6', NULL, N'cce5fd6a-91e1-4fc0-b3f6-2c462eaf2500', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, N'PAr01-1019', CONVERT(bit, 'False'), NULL, N'PAr01-1019 - default Foreman')
+
+/////////////////////////////////////////////
+
+ALTER TABLE [OrganizationTaxonomy] ADD [IsDefaultBu] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220826070247_OrganizationTaxonomyDefaultBu', N'6.0.7');
+
+//////////////////////////////////////////////////////////////
+
+
+ALTER TABLE [TimeClock] ADD [PmolId] nvarchar(max) NULL;
+
+ALTER TABLE [PmolTeamRole] ADD [IsJobDone] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+ALTER TABLE [PmolTeamRole] ADD [Message] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220901094022_timeClockPmolId', N'6.0.7');
+
+
+/////////////////////////////////////////////////////////////////////
+
+
+CREATE TABLE [UserCurrentPmol] (
+    [Id] nvarchar(450) NOT NULL,
+    [PmolId] nvarchar(max) NULL,
+    [CabPersonId] nvarchar(max) NULL,
+    CONSTRAINT [PK_UserCurrentPmol] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220908064531_userCurrentPmol', N'6.0.7');
+
+ALTER TABLE [UserCurrentPmol] ADD [ProjectSequenceId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220908083943_prjectSqToUserCurrentPmol', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////
+
+INSERT INTO dbo.Role (Id, TenantId, RoleName, RoleId, LanguageCode) VALUES
+(N'oibj11a-a513-45e0-a431-170dbd4bjbhj', 1, N'Site Manager', N'yyyyyyy-a513-45e0-a431-170dbd4yyyy', N'en')
+,(N'876511a-43434-45e0-a431-170dbd4b0987', 1, N'Site Manager', N'yyyyyyy-a513-45e0-a431-170dbd4yyyy', N'nl')
+
+
+/////////////////////////////////////////////////////////////////////////////////
+
+
+CREATE TABLE [ContractorPsMinusPlusWork] (
+    [Id] nvarchar(450) NOT NULL,
+    [LotId] nvarchar(max) NULL,
+    [PsOrderNumber] int NOT NULL,
+    [Status] nvarchar(max) NULL,
+    [Date] datetime2 NULL,
+    [TotalPrice] nvarchar(max) NULL,
+    [Url] nvarchar(max) NULL,
+    [Version] nvarchar(max) NULL,
+    [IsApproved] bit NOT NULL,
+    CONSTRAINT [PK_ContractorPsMinusPlusWork] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221004065523_contractorPsMinusPlusWork', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [OrganizationTaxonomy] ADD [BuName] nvarchar(max) NULL;
+
+ALTER TABLE [OrganizationTaxonomy] ADD [BuSequenceId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221005054853_OrganizationTaxonomyBu', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////
+
+DECLARE @var464 sysname;
+SELECT @var464 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CBCExcelLotdataPublished]') AND [c].[name] = N'UnitPrice');
+IF @var464 IS NOT NULL EXEC(N'ALTER TABLE [CBCExcelLotdataPublished] DROP CONSTRAINT [' + @var464 + '];');
+ALTER TABLE [CBCExcelLotdataPublished] ALTER COLUMN [UnitPrice] real NULL;
+
+DECLARE @var465 sysname;
+SELECT @var465 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CBCExcelLotdataPublished]') AND [c].[name] = N'TotalPrice');
+IF @var465 IS NOT NULL EXEC(N'ALTER TABLE [CBCExcelLotdataPublished] DROP CONSTRAINT [' + @var465 + '];');
+ALTER TABLE [CBCExcelLotdataPublished] ALTER COLUMN [TotalPrice] real NULL;
+
+DECLARE @var466 sysname;
+SELECT @var466 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CBCExcelLotData]') AND [c].[name] = N'UnitPrice');
+IF @var466 IS NOT NULL EXEC(N'ALTER TABLE [CBCExcelLotData] DROP CONSTRAINT [' + @var466 + '];');
+ALTER TABLE [CBCExcelLotData] ALTER COLUMN [UnitPrice] real NULL;
+
+DECLARE @var467 sysname;
+SELECT @var467 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CBCExcelLotData]') AND [c].[name] = N'TotalPrice');
+IF @var467 IS NOT NULL EXEC(N'ALTER TABLE [CBCExcelLotData] DROP CONSTRAINT [' + @var467 + '];');
+ALTER TABLE [CBCExcelLotData] ALTER COLUMN [TotalPrice] real NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221005055536_CBCLotData', N'6.0.7');
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [PublishedContractorsPdfData] ADD [Key1] nvarchar(max) NULL;
+
+
+ALTER TABLE [PublishedContractorsPdfData] ADD [Key2] nvarchar(max) NULL;
+
+
+ALTER TABLE [PublishedContractorsPdfData] ADD [Key3] nvarchar(max) NULL;
+
+
+ALTER TABLE [PublishedContractorsPdfData] ADD [Key4] nvarchar(max) NULL;
+
+
+ALTER TABLE [PublishedContractorsPdfData] ADD [Key5] nvarchar(max) NULL;
+
+
+ALTER TABLE [PublishedContractorsPdfData] ADD [Value1] nvarchar(max) NULL;
+
+
+ALTER TABLE [PublishedContractorsPdfData] ADD [Value2] nvarchar(max) NULL;
+
+
+ALTER TABLE [PublishedContractorsPdfData] ADD [Value3] nvarchar(max) NULL;
+
+
+ALTER TABLE [PublishedContractorsPdfData] ADD [Value4] nvarchar(max) NULL;
+
+
+ALTER TABLE [PublishedContractorsPdfData] ADD [Value5] nvarchar(max) NULL;
+
+
+ALTER TABLE [ContractorPdfData] ADD [Key1] nvarchar(max) NULL;
+
+
+ALTER TABLE [ContractorPdfData] ADD [Key2] nvarchar(max) NULL;
+
+
+ALTER TABLE [ContractorPdfData] ADD [Key3] nvarchar(max) NULL;
+
+
+ALTER TABLE [ContractorPdfData] ADD [Key4] nvarchar(max) NULL;
+
+
+ALTER TABLE [ContractorPdfData] ADD [Key5] nvarchar(max) NULL;
+
+
+ALTER TABLE [ContractorPdfData] ADD [Value1] nvarchar(max) NULL;
+
+
+ALTER TABLE [ContractorPdfData] ADD [Value2] nvarchar(max) NULL;
+
+
+ALTER TABLE [ContractorPdfData] ADD [Value3] nvarchar(max) NULL;
+
+
+ALTER TABLE [ContractorPdfData] ADD [Value4] nvarchar(max) NULL;
+
+
+ALTER TABLE [ContractorPdfData] ADD [Value5] nvarchar(max) NULL;
+
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [Key4] nvarchar(max) NULL;
+
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [Key5] nvarchar(max) NULL;
+
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [Value4] nvarchar(max) NULL;
+
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [Value5] nvarchar(max) NULL;
+
+
+ALTER TABLE [CBCExcelLotData] ADD [Key4] nvarchar(max) NULL;
+
+
+ALTER TABLE [CBCExcelLotData] ADD [Key5] nvarchar(max) NULL;
+
+
+ALTER TABLE [CBCExcelLotData] ADD [Value4] nvarchar(max) NULL;
+
+
+ALTER TABLE [CBCExcelLotData] ADD [Value5] nvarchar(max) NULL;
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221013045424_contractorPdfDynamicAttributes', N'6.0.7');
+
+///////////////////////////////////////////////////////////////
+
+CREATE TABLE [POHistoryLog] (
+    [Id] nvarchar(450) NOT NULL,
+    [HistoryLog] nvarchar(max) NULL,
+    [ChangedByUserId] nvarchar(max) NULL,
+    [Action] nvarchar(max) NULL,
+    [ChangedTime] datetime2 NOT NULL,
+    [PersonId] nvarchar(max) NULL,
+    CONSTRAINT [PK_POHistoryLog] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221012090639_POHistoryLog1', N'6.0.7');
+
+//////////////////////////////////////////////////////////////
+
+ALTER TABLE [PMolPlannedWorkTools] ADD [AllocatedQuantity] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221017093532_pmolToolAlocatedQuantity', N'6.0.7');
+
+////////////////////////////////////////////////////////////
+
+ALTER TABLE [HRHeader] ADD [BgColor] nvarchar(max) NULL;
+
+ALTER TABLE [HRHeader] ADD [FontColor] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221018094531_HRColors', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [CBCDynamicsAttributes] ADD [Key4] nvarchar(max) NULL;
+
+
+ALTER TABLE [CBCDynamicsAttributes] ADD [Key5] nvarchar(max) NULL;
+
+
+ALTER TABLE [CBCDynamicsAttributes] ADD [Value4] nvarchar(max) NULL;
+
+
+ALTER TABLE [CBCDynamicsAttributes] ADD [Value5] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221019044557_cbcNewDynamicAttributes', N'6.0.7');
+
+//////////////////////////////////////////////////////////////////////////
+
+EXEC sp_rename N'[POHistoryLog].[PersonId]', N'PoId', N'COLUMN';
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221021072607_WFHistoryLogFroPO', N'6.0.7');
+
+CREATE TABLE [WFHistoryLogFroPO] (
+    [Id] nvarchar(450) NOT NULL,
+    [HistoryLog] nvarchar(max) NULL,
+    [ChangedByUserId] nvarchar(max) NULL,
+    [Action] nvarchar(max) NULL,
+    [ChangedTime] datetime2 NOT NULL,
+    [WFId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WFHistoryLogFroPO] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221021074405_WFHistoryLogFroPO1', N'6.0.7');
+
+//////////////////////////////////////////////////////////////////////////
+
+EXEC sp_rename N'[WFHistoryLogFroPO].[WFId]', N'PoId', N'COLUMN';
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221021094928_WFHistoryLogFroPO2', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [WFHistoryLogFroPO] ADD [WfId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221031125411_WhHistoryLogUp', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [PbsSquareMeters] (
+    [Id] nvarchar(450) NOT NULL,
+    [ProductId] nvarchar(max) NULL,
+    [Quantity] nvarchar(max) NULL,
+    [MouId] nvarchar(max) NULL,
+    [UnitPrice] nvarchar(max) NULL,
+    [TotalPrice] nvarchar(max) NULL,
+    CONSTRAINT [PK_PbsSquareMeters] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221108060731_pbsSqareMeters', N'6.0.7');
+
+DROP TABLE [PbsSquareMeters];
+
+CREATE TABLE [PbsScopeOfWork] (
+    [Id] nvarchar(450) NOT NULL,
+    [ProductId] nvarchar(max) NULL,
+    [Quantity] nvarchar(max) NULL,
+    [MouId] nvarchar(max) NULL,
+    [UnitPrice] nvarchar(max) NULL,
+    [TotalPrice] nvarchar(max) NULL,
+    CONSTRAINT [PK_PbsScopeOfWork] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221108071953_renamePbsSquareMeters', N'6.0.7');
+
+INSERT INTO dbo.CpcBasicUnitOfMeasure (Id, Name, DisplayOrder, LocaleCode) VALUES
+(N'88885800-91fd-4d99-8010-921a42f08888', N'm²', 0, N'm²')
+
+INSERT INTO dbo.CpcBasicUnitOfMeasureLocalizedData (Id, Label, LanguageCode, BasicUnitOfMeasureId, CpcBasicUnitOfMeasureId) VALUES
+(N'12345f3ccfe4-287f-45b6-b628-582f2390', N'm²', N'en', NULL, N'88885800-91fd-4d99-8010-921a42f08888'),
+(N'yyyy5f3ccfe4-287f-45b6-b628-582fyyyy', N'm²', N'nl', NULL, N'88885800-91fd-4d99-8010-921a42f08888')
+
+UPDATE dbo.CpcBasicUnitOfMeasure SET Id = N'88885800-91fd-4d99-8010-921a42f08888', Name = N'Square Meter', DisplayOrder = 0, LocaleCode = N'Square Meter' WHERE Id = N'88885800-91fd-4d99-8010-921a42f08888'
+UPDATE dbo.CpcBasicUnitOfMeasureLocalizedData SET Id = N'12345f3ccfe4-287f-45b6-b628-582f2390', Label = N'Square Meter', LanguageCode = N'en', BasicUnitOfMeasureId = NULL, CpcBasicUnitOfMeasureId = N'88885800-91fd-4d99-8010-921a42f08888' WHERE Id = N'12345f3ccfe4-287f-45b6-b628-582f2390'
+UPDATE dbo.CpcBasicUnitOfMeasureLocalizedData SET Id = N'yyyy5f3ccfe4-287f-45b6-b628-582fyyyy', Label = N'Square Meter', LanguageCode = N'nl', BasicUnitOfMeasureId = NULL, CpcBasicUnitOfMeasureId = N'88885800-91fd-4d99-8010-921a42f08888' WHERE Id = N'yyyy5f3ccfe4-287f-45b6-b628-582fyyyy'
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+UPDATE CpcResourceFamily SET LocaleCode = 'Human Resources',Title = 'Human Resources' WHERE Id = '2210e768-human-kknk-jhhk-ee367a82ad17';
+
+INSERT INTO [CpcResourceFamily] ([Id], [DisplayOrder], [LocaleCode], [ParentId], [Title])
+VALUES (N'2210e768-cons-kknk-jhhk-ee367a82ad17', 0, N'Consumables', NULL, N'Consumables'),
+(N'2210e768-mate-kknk-jhhk-ee367a82ad17', 0, N'Materials', NULL, N'Materials'),
+(N'2210e768-tool-kknk-jhhk-ee367a82ad17', 0, N'Tools', NULL, N'Tools');
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221111100306_CpcResourceFamilyseeds', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [PmolRfq] (
+    [Id] nvarchar(450) NOT NULL,
+    [TeamRoleId] nvarchar(max) NULL,
+    [PmolId] nvarchar(max) NULL,
+    CONSTRAINT [PK_PmolRfq] PRIMARY KEY ([Id])
+);
+
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CpcResourceFamilyId', N'Label', N'LanguageCode', N'ParentId') AND [object_id] = OBJECT_ID(N'[CpcResourceFamilyLocalizedData]'))
+    SET IDENTITY_INSERT [CpcResourceFamilyLocalizedData] ON;
+INSERT INTO [CpcResourceFamilyLocalizedData] ([Id], [CpcResourceFamilyId], [Label], [LanguageCode], [ParentId])
+VALUES (N'wer9e479-org2-Cons-QWERT-nl0dbe6a5w16', N'2210e768-cons-kknk-jhhk-ee367a82ad17', N'Consumables', N'en', NULL),
+(N'wer9e479-org2-Human-QWERT-nl0dbe6a5w16', N'2210e768-human-kknk-jhhk-ee367a82ad17', N'Human Resources', N'en', NULL),
+(N'wer9e479-org2-Mate-QWERT-nl0dbe6a5w16', N'2210e768-mate-kknk-jhhk-ee367a82ad17', N'Materials', N'en', NULL),
+(N'wer9e479-org2-TOOL-QWERT-nl0dbe6a5w16', N'2210e768-tool-kknk-jhhk-ee367a82ad17', N'Tools', N'en', NULL);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CpcResourceFamilyId', N'Label', N'LanguageCode', N'ParentId') AND [object_id] = OBJECT_ID(N'[CpcResourceFamilyLocalizedData]'))
+    SET IDENTITY_INSERT [CpcResourceFamilyLocalizedData] OFF;
+    
+
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'RequestTypeId') AND [object_id] = OBJECT_ID(N'[PORequestType]'))
+    SET IDENTITY_INSERT [PORequestType] ON;
+INSERT INTO [PORequestType] ([Id], [DisplayOrder], [LanguageCode], [Name], [RequestTypeId])
+VALUES (N'5385cab3-755b-4c6c-9422-7e99464294ce', 5, N'nl', N'RFQ', N'f4d6ba08-3937-44ca-a0a1-7cf33c03e290'),
+(N'fbbdc374-aa0c-4ee7-818e-da26f7352e23', 5, N'en', N'RFQ', N'f4d6ba08-3937-44ca-a0a1-7cf33c03e290');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'RequestTypeId') AND [object_id] = OBJECT_ID(N'[PORequestType]'))
+    SET IDENTITY_INSERT [PORequestType] OFF;
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221109102619_RFQ', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [CiawHeader] (
+    [Id] nvarchar(450) NOT NULL,
+    [CabPersonId] nvarchar(max) NULL,
+    [CiawStatus] nvarchar(max) NULL,
+    [Date] datetime2 NOT NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [ModifiedBy] nvarchar(max) NULL,
+    [CreatedDate] datetime2 NOT NULL,
+    [ModifiedDate] datetime2 NOT NULL,
+    CONSTRAINT [PK_CiawHeader] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221110043819_CiawHeader1', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+DECLARE @var469 sysname;
+SELECT @var469 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CiawHeader]') AND [c].[name] = N'ModifiedDate');
+IF @var469 IS NOT NULL EXEC(N'ALTER TABLE [CiawHeader] DROP CONSTRAINT [' + @var469 + '];');
+ALTER TABLE [CiawHeader] ALTER COLUMN [ModifiedDate] datetime2 NULL;
+
+DECLARE @var470 sysname;
+SELECT @var470 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CiawHeader]') AND [c].[name] = N'Date');
+IF @var470 IS NOT NULL EXEC(N'ALTER TABLE [CiawHeader] DROP CONSTRAINT [' + @var470 + '];');
+ALTER TABLE [CiawHeader] ALTER COLUMN [Date] datetime2 NULL;
+
+DECLARE @var471 sysname;
+SELECT @var471 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CiawHeader]') AND [c].[name] = N'CreatedDate');
+IF @var471 IS NOT NULL EXEC(N'ALTER TABLE [CiawHeader] DROP CONSTRAINT [' + @var471 + '];');
+ALTER TABLE [CiawHeader] ALTER COLUMN [CreatedDate] datetime2 NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221110060049_CiawHeader2', N'6.0.7');
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [HRHeader] ADD [IsContactManager] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221111061459_contactManager', N'6.0.7');
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [CiawHeader] ADD [Project] nvarchar(max) NULL;
+
+ALTER TABLE [CiawHeader] ADD [Reference] nvarchar(max) NULL;
+
+ALTER TABLE [CiawHeader] ADD [PmolTeamRoleId] nvarchar(max) NULL;
+
+ALTER TABLE [CiawHeader] ADD [ContractingUnit] nvarchar(max) NULL;
+
+ALTER TABLE [CiawHeader] ADD [PmolId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221115061735_CiawHeaderProject', N'6.0.7');
+
+INSERT INTO CorporateProductCatalog (Id, ResourceTitle, ResourceTypeId, ResourceFamilyId, CpcBasicUnitOfMeasureId, CpcMaterialId, CpcPressureClassId, InventoryPrice, CpcUnitOfSizeMeasureId, Size, WallThickness, MinOrderQuantity, MaxOrderQuantity, Weight, Status, ResourceNumber, IsDeleted, CpcBrandId, Title) VALUES
+(N'c49babf5-1d4f-402c-8bcb-4f98d87aac2e', N'RFQ Labour', N'c46c3a26-39a5-42cc-b07s-89655304eh6', N'2210e768-human-kknk-jhhk-ee367a82ad17', N'88885800-91fd-4d99-8010-921a42f08888', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, N'CAr01-0236', CONVERT(bit, 'False'), NULL, N'CAr01-0236 - RFQ Labour')
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [CiawStatus] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [StatusId] nvarchar(max) NULL,
+    [DisplayOrder] nvarchar(max) NULL,
+    CONSTRAINT [PK_CiawStatus] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [CiawStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'77143c60-ff45-4ca2-ciaws-213d2d1c5f5a', N'2', N'en', N'Completed', N'7bcb4e8d-8e8c-487d-ciaws-6b91c89fAcce');
+
+INSERT INTO [CiawStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'bdd9e479-75b3-40c6-ciaws-e40dbe6a51ac', N'1', N'en', N'Pending', N'4010e768-3e06-4702-ciaws-ee367a82addb');
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221116061640_CiawStatus', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [CabCertification] ADD [CertificationTitle] nvarchar(max) NULL;
+
+ALTER TABLE [CabCertification] ADD [CertificationUrl] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221118045253_CabCertificationUrl', N'6.0.7');
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [ProjectCiawSite] (
+    [Id] nvarchar(450) NOT NULL,
+    [CiawSiteCode] nvarchar(max) NULL,
+    [CiawSeverEntry] nvarchar(max) NULL,
+    [ProjectId] nvarchar(max) NULL,
+    CONSTRAINT [PK_ProjectCiawSite] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221121072550_ProjectCiawSite', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [CabNationality] (
+    [Id] nvarchar(450) NOT NULL,
+    [CabPersonId] nvarchar(max) NULL,
+    [NationalityId] nvarchar(max) NULL,
+    CONSTRAINT [PK_CabNationality] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [Nationality] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [NationalityId] nvarchar(max) NULL,
+    [DisplayOrder] nvarchar(max) NULL,
+    CONSTRAINT [PK_Nationality] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221121115050_cabnationality', N'6.0.7');
+
+CREATE TABLE [RfqSignatures] (
+    [Id] nvarchar(450) NOT NULL,
+    [RfdId] nvarchar(max) NULL,
+    [FullName] nvarchar(max) NULL,
+    [Signature] nvarchar(max) NULL,
+    [Date] datetime2 NULL,
+    CONSTRAINT [PK_RfqSignatures] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221118062144_rfqSignature', N'6.0.7');
+
+CREATE TABLE [PmolAssignTime] (
+    [Id] nvarchar(450) NOT NULL,
+    [CabPersonId] nvarchar(max) NULL,
+    [PmolId] nvarchar(max) NULL,
+    [ExecutionDate] datetime2 NULL,
+    [ProjectSequenceId] nvarchar(max) NULL,
+    [AssignTime] nvarchar(max) NULL,
+    CONSTRAINT [PK_PmolAssignTime] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221129084446_pmolassignTime', N'6.0.7');
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+INSERT INTO [WFType] ([Id], [DisplayOrder], [LanguageCode], [Name], [TypeId])
+VALUES (N'bdd9e479-fety-4702-bnew-e40dbe6a51ac3', 3, N'en', N'Stock Counting', N'4010e768-fety-4702-bnew-ee367a82addb'),
+(N'bdd9e479-fety-L70N-bnew-e40dbe6a51anl', 3, N'nl', N'Stock Counting(nl)', N'4010e768-fety-4702-bnew-ee367a82addb');
+
+INSERT INTO [WFShortCutPane] ([Id], [DisplayOrder], [LanguageCode], [Name], [TypeId])
+VALUES (N'a35ab9fe-df57-4nwre-0nl8-d27008688bae3', 4, N'nl', N'Stock Counting(nl)', N'4010e768-fety-4702-bnew-ee367a82addb'),
+(N'a35ab9fe-df57-4nwre-82a9-d27008688bae3', 4, N'en', N'Stock Counting', N'4010e768-fety-4702-bnew-ee367a82addb');
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221206090819_wfscNew', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+INSERT INTO [CiawStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'77143c60-ff45-4ca2-ciaws-213d2d1c5fnl', N'2', N'nl', N'Completed(nl)', N'7bcb4e8d-8e8c-487d-ciaws-6b91c89fAcce');
+
+INSERT INTO [CiawStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'bdd9e479-75b3-40c6-ciaws-e40dbe6a51nl', N'1', N'nl', N'Pending(nl)', N'4010e768-3e06-4702-ciaws-ee367a82addb');
+
+UPDATE [WFShortCutPane] SET [DisplayOrder] = 1
+WHERE [Id] = N'a35ab9fe-df57-4088-82a9-d27008688bae4';
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221208074140_CiawStatusnl', N'6.0.7');
+
+////////////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [WHRockCpc] (
+    [Id] nvarchar(450) NOT NULL,
+    [CpcId] nvarchar(max) NULL,
+    [Quantity] nvarchar(max) NULL,
+    [Comment] nvarchar(max) NULL,
+    [CommentUrl] nvarchar(max) NULL,
+    [Correct] bit NOT NULL,
+    [StockId] bit NOT NULL,
+    CONSTRAINT [PK_WHRockCpc] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221213063920_WHRockCpc', N'6.0.7');
+
+ALTER TABLE [WHRockCpc] ADD [Date] datetime2 NOT NULL DEFAULT '0001-01-01T00:00:00.0000000';
+
+ALTER TABLE [WHRockCpc] ADD [UserId] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221213065048_WHRockCpcUp1', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [WHRockCpc] ALTER COLUMN [UserId] nvarchar(max) NULL;
+ALTER TABLE [WHRockCpc] ALTER COLUMN [StockId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20221222091346_PmolPersonCommentCard', N'6.0.7');
+
+//////////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [PmolPersonCommentCard] (
+    [Id] nvarchar(450) NOT NULL,
+    [Creater] nvarchar(max) NULL,
+    [ActivityType] nvarchar(max) NULL,
+    [ActivityName] nvarchar(max) NULL,
+    [Comments] nvarchar(max) NULL,
+    [Date] datetime2 NULL,
+    [IsAccept] nvarchar(max) NULL,
+    [PmolId] nvarchar(max) NULL,
+    [CabPersonId] nvarchar(max) NULL,
+    CONSTRAINT [PK_PmolPersonCommentCard] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230103052343_PmolPersonCommentCard1', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [WHRockCpcImage] (
+    [Id] nvarchar(450) NOT NULL,
+    [StockId] nvarchar(max) NULL,
+    [Url] nvarchar(max) NULL,
+    CONSTRAINT [PK_WHRockCpcImage] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230103092224_WHRockCpcImage', N'6.0.7');
+
+////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [PmolPersonComment] (
+    [Id] nvarchar(450) NOT NULL,
+    [CommentCardId] nvarchar(max) NULL,
+    [Comment] nvarchar(max) NULL,
+    [CommentBy] nvarchar(max) NULL,
+    [CommentTo] nvarchar(max) NULL,
+    [Date] datetime2 NOT NULL,
+    CONSTRAINT [PK_PmolPersonComment] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230104050157_PmolPersonComment', N'6.0.7');
+//////////////////////////////////////////////////////////////////////////////////
+
+
+CREATE TABLE [CpcVehicleTrackingNo] (
+    [Id] nvarchar(450) NOT NULL,
+    [CpcId] nvarchar(max) NULL,
+    [ResourceId] nvarchar(max) NULL,
+    [TrackingNo] nvarchar(max) NULL,
+    CONSTRAINT [PK_CpcVehicleTrackingNo] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230104085011_cpcVehecleTrackingNo', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////////////
+
+DROP TABLE [WHRockCpc];
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230105045222_whrockcpcdate', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [WHRockCpc] (
+    [Id] nvarchar(450) NOT NULL,
+    [CpcId] nvarchar(max) NULL,
+    [Quantity] nvarchar(max) NULL,
+    [Comment] nvarchar(max) NULL,
+    [CommentUrl] nvarchar(max) NULL,
+    [Correct] bit NOT NULL,
+    [StockId] nvarchar(max) NULL,
+    [UserId] nvarchar(max) NULL,
+    [Date] datetime2 NOT NULL,
+    [DateTime] datetime2 NOT NULL,
+    CONSTRAINT [PK_WHRockCpc] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230105090519_whrockcpcdate1', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [OrganizationTaxonomy] ADD [TemporaryTeamNameId] nvarchar(max) NULL;
+
+CREATE TABLE [TemporaryTeamName] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [NameId] nvarchar(max) NULL,
+    CONSTRAINT [PK_TemporaryTeamName] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [TemporaryTeamName] ([Id], [LanguageCode], [Name], [NameId])
+VALUES (N'77143c60-ff45-4ca2-team1-213d2d1c5fnl', N'en', N'Temporary Team', N'7bcb4e8d-8e8c-487d-team-6b91c89fAcce');
+
+INSERT INTO [TemporaryTeamName] ([Id], [LanguageCode], [Name], [NameId])
+VALUES (N'77143c60-ff45-4ca2-team2-213d2d1c5fnl', N'nl', N'Tijdelijk team', N'7bcb4e8d-8e8c-487d-team-6b91c89fAcce');
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230110102000_TemporaryTeamName', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [WFHeader] ADD [StockId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230111075843_wfstockId', N'6.0.7');
+
+////////////////////////////////////////////////////////////////////////
+INSERT INTO dbo.CpcResourceFamily (Id, LocaleCode, ParentId, DisplayOrder, Title) VALUES
+(N'2210e768-human-kknk-truck-ee367a82ad17', N'CpcResourceFamilyTruck', NULL, 0, N'Truck')
+
+INSERT INTO [CpcResourceFamilyLocalizedData] ([Id], [CpcResourceFamilyId], [Label], [LanguageCode], [ParentId])
+VALUES (N'wer9e479-org2-truck-1WERT-nl0dbe6a5w16', N'2210e768-human-kknk-truck-ee367a82ad17', N'Truck', N'en', NULL);
+
+INSERT INTO [CpcResourceFamilyLocalizedData] ([Id], [CpcResourceFamilyId], [Label], [LanguageCode], [ParentId])
+VALUES (N'wer9e479-org2-truck-2WERT-nl0dbe6a5w16', N'2210e768-human-kknk-truck-ee367a82ad17', N'Truck-nl', N'nl', NULL);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230117122610_newrfTruck', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////////
+
+INSERT INTO [StockActivityType] ([Id], [ActivityName], [ActivityTypeId], [DisplayOrder], [LanguageCode])
+VALUES (N'4e01a893-0001-48af-inst-b7a93ebd1cnl', N'Stock Counting', N'7bcb4e8d-8e8c-inst-81sc-6b91c89fc3da', 3, N'en');
+
+INSERT INTO [StockActivityType] ([Id], [ActivityName], [ActivityTypeId], [DisplayOrder], [LanguageCode])
+VALUES (N'4e01a893-0002-48af-outs-b7a93ebd1cnl', N'Stock Counting(nl)', N'7bcb4e8d-8e8c-inst-81sc-6b91c89fc3da', 3, N'nl');
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230124070354_stockActvityTypeSc', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [WHRockCpcImage] ADD [Date] datetime2 NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230124100407_stockimgedate', N'6.0.7');
+
+////////////////////////////////////////////////////////////////////
+
+
+INSERT INTO dbo.VpFilterDropdown (Id, Name, LanguageCode, TypeId, DisplayOrder, Label) VALUES
+(N'hfgde479-pob3-40c6-ad61-e40dbe6a5111', N'Next Week(nl)', N'nl', N'6', 6, N'Next Week'),
+(N'lmnce479-pob3-40c6-ad61-e40dbe6a5lks', N'Next Week', N'en', N'6', 6, N'Next Week')
+
+///////////////////////////////////////////////////////////////////
+
+ALTER TABLE [PmolPersonComment] ADD [IsAccept] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230303073431_PmolPersonComentIsAccept', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////
+
+ALTER TABLE [CiawHeader] ADD [PresenceRegistrationId] nvarchar(max) NULL;
+
+ALTER TABLE [CiawHeader] ADD [CIAWReferenceId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230307062533_PresenceRegId', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////
+
+CREATE TABLE [CiawError] (
+    [Id] nvarchar(450) NOT NULL,
+    [CiawId] nvarchar(max) NULL,
+    [errorCode] nvarchar(max) NULL,
+    [errorDescription] nvarchar(max) NULL,
+    CONSTRAINT [PK_CiawError] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230310075146_ciawerror', N'6.0.7');
+
+//////////////////////////////////////////////////////////////////
+
+ALTER TABLE [CiawError] ADD [RequestDateTime] datetime2 NOT NULL DEFAULT '0001-01-01T00:00:00.0000000';
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230310093500_ciawerrorDate', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////
+
+ALTER TABLE [CiawHeader] ALTER COLUMN [CIAWReferenceId] int NOT NULL;
+ALTER TABLE [CiawHeader] ADD DEFAULT 0 FOR [CIAWReferenceId];
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230314045614_CIAWRef', N'6.0.7');
+
+/////////////////////////////////////////////////////////////////
+
+INSERT INTO [CiawStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'77143c60-ff00-cancl-ciaws-213d2d1c5f5a', N'2', N'en', N'Cancelled(nl)', N'7bcb4e8d-cancl-487d-ciaws-6b91c89fAcce');
+
+INSERT INTO [CiawStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'77143c60-ff45-cancl-ciaws-213d2d1c5f5a', N'2', N'nl', N'Cancelled', N'7bcb4e8d-cancl-487d-ciaws-6b91c89fAcce');
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230315044647_CIAWcanclestatus', N'6.0.7');
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [ProjectDefinition] ADD [SiteManagerId] nvarchar(max) NULL;
+
+UPDATE [CiawStatus] SET [LanguageCode] = N'nl'
+WHERE [Id] = N'77143c60-ff00-cancl-ciaws-213d2d1c5f5a';
+SELECT @@ROWCOUNT;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230322111648_siteManagerProject', N'6.0.7');
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [ProjectCiawSite] ADD [IsCiawEnabled] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230322115256_IsCiawEnabled', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////////////
+
+UPDATE ContractorStatus SET NAME = 'In execution' WHERE Id = '77143c60-ff45-4ca2-n32n-213d2d1c5f5a';
+UPDATE ContractorStatus SET NAME = 'In uitvoering' WHERE Id = '4e01a893-0267-48af-n32n-b7a93ebd1ccf'
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [ProjectConfiguration] (
+    [Id] nvarchar(450) NOT NULL,
+    [ProjectId] nvarchar(max) NULL,
+    [UnitPrice] nvarchar(max) NULL,
+    CONSTRAINT [PK_ProjectConfiguration] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230324072705_projectConfiguration', N'6.0.7');
+
+///////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [HRHeader] ADD [WorkingOrganization] nvarchar(max) NULL;
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230328051158_add_WorkingOrganization_to_HRheaders', N'7.0.4');
+
+CREATE TABLE [ExactOnline] (
+    [Id] nvarchar(450) NOT NULL,
+    [Topic] nvarchar(max) NULL,
+    [Action] nvarchar(max) NULL,
+    [Division] nvarchar(max) NULL,
+    [Key] nvarchar(max) NULL,
+    [ExactOnlineEndpoint] nvarchar(max) NULL,
+    [EventCreatedOn] datetime2 NOT NULL,
+    CONSTRAINT [PK_ExactOnline] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230330075104_exactOnline', N'7.0.4');
+
+///////////////////////////////////////////////////////////////////////////
+
+
+CREATE TABLE [CiawCancelStatus] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [StatusId] nvarchar(max) NULL,
+    [DisplayOrder] nvarchar(max) NULL,
+    CONSTRAINT [PK_CiawCancelStatus] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230330105046_create_CiawCancelStatus_table', N'7.0.4');
+
+INSERT INTO [CiawCancelStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'77143c60-ff00-cancl-ciaws-213d2d1c5f5a', N'2', N'nl', N'unemployment(temporary)(nl)', N'7bcb4e8d-cancl-487d-ciaws-6b91c89fAcce'),
+(N'77143c60-ff45-4ca2-ciaws-213d2d1c5f5a', N'2', N'en', N'Illness', N'7bcb4e8d-8e8c-487d-ciaws-6b91c89fAcce'),
+(N'77143c60-ff45-4ca2-ciaws-213d2d1c5fnl', N'2', N'nl', N'Illness(nl)', N'7bcb4e8d-8e8c-487d-ciaws-6b91c89fAcce'),
+(N'77143c60-ff45-cancl-ciaws-213d2d1c5f5a', N'2', N'en', N'unemployment(temporary)', N'7bcb4e8d-cancl-487d-ciaws-6b91c89fAcce'),
+(N'77143c60-ff45-cancl-ciaws-213d2d1c5f6b', N'2', N'en', N'Change in schedule(nl)', N'7bcb4e8d-cancl-487d-ciaws-6b99c99fAbbe'),
+(N'77143c60-ff45-cancl-ciaws-213d2d1c5g7g', N'2', N'en', N'Change in schedule', N'7bcb4e8d-cancl-487d-ciaws-6b99c99fAbbe'),
+(N'bdd9e479-75b3-40c6-ciaws-e40dbe6a51ac', N'1', N'en', N'Holidays', N'4010e768-3e06-4702-ciaws-ee367a82addb'),
+(N'bdd9e479-75b3-40c6-ciaws-e40dbe6a51nl', N'1', N'nl', N'Holidays(nl)', N'4010e768-3e06-4702-ciaws-ee367a82addb');
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230331043836_create_CiawCancelStatus_seed', N'7.0.4');
+
+///////////////////////////////////////////////////////////////////////////
+
+UPDATE [CiawCancelStatus] SET [DisplayOrder] = N'3'
+WHERE [Id] = N'77143c60-ff00-cancl-ciaws-213d2d1c5f5a';
+
+UPDATE [CiawCancelStatus] SET [DisplayOrder] = N'3'
+WHERE [Id] = N'77143c60-ff45-cancl-ciaws-213d2d1c5f5a';
+
+UPDATE [CiawCancelStatus] SET [DisplayOrder] = N'4', [LanguageCode] = N'nl'
+WHERE [Id] = N'77143c60-ff45-cancl-ciaws-213d2d1c5f6b';
+
+UPDATE [CiawCancelStatus] SET [DisplayOrder] = N'4'
+WHERE [Id] = N'77143c60-ff45-cancl-ciaws-213d2d1c5g7g';
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230331081616_create_CiawCancelStatus_seedUpdate', N'7.0.4');
+
+//////////////////////////////////////////
+
+UPDATE [CiawCancelStatus] SET [Name] = N'C3.2A unemployment(temporary)(nl)'
+WHERE [Id] = N'77143c60-ff00-cancl-ciaws-213d2d1c5f5a';
+
+UPDATE [CiawCancelStatus] SET [Name] = N'C3.2A unemployment(temporary)'
+WHERE [Id] = N'77143c60-ff45-cancl-ciaws-213d2d1c5f5a';
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230331111904_create_CiawCancelStatus_seedUpdate_c32a', N'7.0.4');
+
+/////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [CiawHeader] ADD [IsMailSend] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230331100939_add_Is_Mail_Send_to_CiawHeader_Table', N'7.0.4');
+
+////////////////////////////////////////////////////////////
+
+CREATE TABLE [CiawResponseJson] (
+ [Id] nvarchar(450) NOT NULL,
+ [CiawReferenceId] nvarchar(max) NULL,
+ [SuccessJson] nvarchar(max) NULL,
+ [ErrorJson] nvarchar(max) NULL,
+ CONSTRAINT [PK_CiawResponseJson] PRIMARY KEY ([Id]) );
+     
+ INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion]) 
+ VALUES (N'20230405095356_ciawResponseJsonTableCreate', N'7.0.4');
+ 
+ ////////////////////////////////////////////////////////////
+ 
+ TRUNCATE TABLE CiawCancelStatus;
+ 
+ INSERT INTO [CiawCancelStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+ VALUES (N'77143c60-ff00-cancl-ciaws-213d2d1c5f5a', N'3', N'nl', N'C32A(nl)', N'C32A'),
+ (N'77143c60-ff45-4ca2-ciaws-213d2d1c5f5a', N'2', N'en', N'DISEASE', N'DISEASE'),
+ (N'77143c60-ff45-4ca2-ciaws-213d2d1c5fnl', N'2', N'nl', N'DISEASE(nl)', N'DISEASE'),
+ (N'77143c60-ff45-cancl-ciaws-213d2d1c5f5a', N'3', N'en', N'C32A', N'C32A'),
+ (N'77143c60-ff45-cancl-ciaws-213d2d1c5f6b', N'4', N'nl', N'PLANNING(nl)', N'PLANNING'),
+ (N'77143c60-ff45-cancl-ciaws-213d2d1c5g7g', N'4', N'en', N'PLANNING', N'PLANNING'),
+ (N'bdd9e479-75b3-40c6-ciaws-e40dbe6a51ac', N'1', N'en', N'Holidays', N'HOLIDAY'),
+ (N'bdd9e479-75b3-40c6-ciaws-e40dbe6a51nl', N'1', N'nl', N'Holidays(nl)', N'HOLIDAY');
+ 
+ 
+ CREATE TABLE [CiawCancelJson] (
+  [Id] nvarchar(450) NOT NULL,
+  [CiawReferenceId] nvarchar(max) NULL,
+  [CancelJson] nvarchar(max) NULL,
+  CONSTRAINT [PK_CiawCancelJson] PRIMARY KEY ([Id]));
+   
+  INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+  VALUES (N'20230407101627_CiawCancelJson_Table_Create', N'7.0.4');
+    
+   /////////////////////////////////////////////////////////
+   
+   ALTER TABLE [CiawCancelJson] ADD [CancelFailJson] nvarchar(max) NULL;
+    
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20230418051846_addcolumnforCancelfailJson', N'7.0.4');
+    
+ ///////////////////////////////////////////////////////////////////////////////
+ 
+ ALTER TABLE [HRHeader] ADD [Organization] nvarchar(max) NULL;
+ 
+ INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+ VALUES (N'20230420063013_addcolumn_HRHeader_table', N'7.0.4'); 
+ 
+ einstein upto this  
+ 
+//////////////////////////////////////////////////////////////////////////
+
+INSERT INTO dbo.CpcResourceFamily (Id, LocaleCode, ParentId, DisplayOrder, Title) VALUES
+(N'2210e768-human-kknk-truck-ee367a82ad17', N'CpcResourceFamilyTruck', NULL, 0, N'Truck')
+
+INSERT INTO [CpcResourceFamilyLocalizedData] ([Id], [CpcResourceFamilyId], [Label], [LanguageCode], [ParentId])
+VALUES (N'wer9e479-org2-truck-1WERT-nl0dbe6a5w16', N'2210e768-human-kknk-truck-ee367a82ad17', N'Truck', N'en', NULL);
+
+INSERT INTO [CpcResourceFamilyLocalizedData] ([Id], [CpcResourceFamilyId], [Label], [LanguageCode], [ParentId])
+VALUES (N'wer9e479-org2-truck-2WERT-nl0dbe6a5w16', N'2210e768-human-kknk-truck-ee367a82ad17', N'Truck-nl', N'nl', NULL);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230117122610_newrfTruck', N'6.0.7');
+
+//////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [ProjectStateLocalizedData] ADD [DisplayOrder] int NOT NULL DEFAULT 0;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230425103507_add_displyOrder_ProjectStateLocalizedData', N'7.0.4');
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [ContractorPdfData] ADD [MeasurementCode] nvarchar(max) NULL;
+
+ALTER TABLE [PublishedContractorsPdfData] ADD [MeasurementCode] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230427112014_mcForContractorData', N'7.0.4');
+
+//////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [ProjectDefaultMembers] (
+    [Id] nvarchar(450) NOT NULL,
+    [CabPersonId] nvarchar(max) NULL,
+    [RoleId] nvarchar(max) NULL,
+    [status] nvarchar(max) NULL,
+    [Message] nvarchar(max) NULL,
+    [Email] nvarchar(max) NULL,
+    [IsAccessGranted] bit NOT NULL,
+    [Oid] bit NOT NULL,
+    CONSTRAINT [PK_ProjectDefaultMembers] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230503072657_projectDefaultMembers', N'7.0.4');
+
+///////////////////////////////////////////////////////////////////////
+
+
+CREATE TABLE [WeTransfer] (
+    [Id] nvarchar(450) NOT NULL,
+    [ProgressStatement] nvarchar(max) NULL,
+    [Customer] nvarchar(max) NULL,
+    [Link] nvarchar(max) NULL,
+    [FileName] nvarchar(max) NULL,
+    [ShortUrlId] nvarchar(max) NULL,
+    [ShortUrl] nvarchar(max) NULL,
+    CONSTRAINT [PK_WeTransfer] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230509052217_weTransferTableChanges', N'7.0.4');
+
+////////////////////////////////////////////////////////////////////////
+
+ TRUNCATE TABLE CiawStatus;
+ 
+ INSERT CiawStatus(Id, Name, LanguageCode, StatusId, DisplayOrder) VALUES (N'77143c60-ff00-cancl-ciaws-213d2d1c5f5a', N'Cancelled(nl)', N'nl', N'7bcb4e8d-cancl-487d-ciaws-6b91c89fAcce', N'2')
+ INSERT CiawStatus(Id, Name, LanguageCode, StatusId, DisplayOrder) VALUES (N'77143c60-ff45-4ca2-ciaws-213d2d1c5f5a', N'Completed', N'en', N'7bcb4e8d-8e8c-487d-ciaws-6b91c89fAcce', N'2')
+ INSERT CiawStatus(Id, Name, LanguageCode, StatusId, DisplayOrder) VALUES (N'77143c60-ff45-4ca2-ciaws-213d2d1c5fnl', N'Completed(nl)', N'nl', N'7bcb4e8d-8e8c-487d-ciaws-6b91c89fAcce', N'2')
+ INSERT CiawStatus(Id, Name, LanguageCode, StatusId, DisplayOrder) VALUES (N'77143c60-ff45-cancl-ciaws-213d2d1c5f5a', N'Cancelled', N'en', N'7bcb4e8d-cancl-487d-ciaws-6b91c89fAcce', N'2')
+ INSERT CiawStatus(Id, Name, LanguageCode, StatusId, DisplayOrder) VALUES (N'bdd9e479-75b3-40c6-ciaws-e40dbe6a51ac', N'Pending', N'en', N'4010e768-3e06-4702-ciaws-ee367a82addb', N'1')
+ INSERT CiawStatus(Id, Name, LanguageCode, StatusId, DisplayOrder) VALUES (N'bdd9e479-75b3-40c6-ciaws-e40dbe6a51nl', N'Pending(nl)', N'nl', N'4010e768-3e06-4702-ciaws-ee367a82addb', N'1')
+
+
+ ///////////////////////////////////////////////////////////////////////
+
+ CREATE TABLE [CiawFeatchStatus] (
+    [Id] nvarchar(450) NOT NULL,
+    [Status] bit NOT NULL,
+    CONSTRAINT [PK_CiawFeatchStatus] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [CiawRemark] (
+    [Id] nvarchar(450) NOT NULL,
+    [CiawId] nvarchar(max) NULL,
+    [Error] nvarchar(max) NULL,
+    CONSTRAINT [PK_CiawRemark] PRIMARY KEY ([Id])
+);
+
+
+INSERT INTO [CiawFeatchStatus] ([Id], [Status])
+VALUES (N'1', CAST(0 AS bit));
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230510110431_ciawreark1', N'7.0.4');
+
+//einstein up to this
+ 
+ ////////////////////////////////////////////////////////////////////////////
+
+ CREATE TABLE [PbsDisplayOrder] (
+    [Id] nvarchar(450) NOT NULL,
+    [SequenceId] nvarchar(max) NULL,
+    [DisplayOrder] int NOT NULL,
+    CONSTRAINT [PK_PbsDisplayOrder] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230518073154_pbsDisplayOrder', N'7.0.4');
+
+/////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [ThProductWithTrucks] ADD [IsTruck] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230523054227_thIsTruck', N'7.0.4');
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LocaleCode', N'ParentId', N'Title') AND [object_id] = OBJECT_ID(N'[CpcResourceFamily]'))
+    SET IDENTITY_INSERT [CpcResourceFamily] ON;
+INSERT INTO [CpcResourceFamily] ([Id], [DisplayOrder], [LocaleCode], [ParentId], [Title])
+VALUES (N'hjkl2c90-94f6-pump-8410-921a43c2lkjl', 0, N'Pump', N'0c355800-91fd-4d99-8010-921a42f0ba04', N'Pump');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LocaleCode', N'ParentId', N'Title') AND [object_id] = OBJECT_ID(N'[CpcResourceFamily]'))
+    SET IDENTITY_INSERT [CpcResourceFamily] OFF;
+
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CpcResourceFamilyId', N'Label', N'LanguageCode', N'ParentId') AND [object_id] = OBJECT_ID(N'[CpcResourceFamilyLocalizedData]'))
+    SET IDENTITY_INSERT [CpcResourceFamilyLocalizedData] ON;
+INSERT INTO [CpcResourceFamilyLocalizedData] ([Id], [CpcResourceFamilyId], [Label], [LanguageCode], [ParentId])
+VALUES (N'nddd66a0-94f6-48c9-8c40-921ac786llll', N'hjkl2c90-94f6-pump-8410-921a43c2lkjl', N'Pump', N'en', NULL),
+(N'sssa66a0-94f6-48c9-8c40-921ac786nvvvv', N'hjkl2c90-94f6-pump-8410-921a43c2lkjl', N'Pump(nl)', N'nl', NULL);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CpcResourceFamilyId', N'Label', N'LanguageCode', N'ParentId') AND [object_id] = OBJECT_ID(N'[CpcResourceFamilyLocalizedData]'))
+    SET IDENTITY_INSERT [CpcResourceFamilyLocalizedData] OFF;
+    
+    INSERT INTO dbo.CpcResourceFamily (Id, LocaleCode, ParentId, DisplayOrder, Title) VALUES
+    (N'0c355800-91fd-4d99-8010-921a42f0ba04', N'Vehicle', NULL, 0, N'Vehicle');
+    
+    INSERT INTO CpcResourceFamilyLocalizedData (Id, Label, LanguageCode, CpcResourceFamilyId, ParentId) VALUES
+    (N'72d58f8f-5bcf-4415-86aa-b6677712ba47', N'Vehicle', N'en', N'0c355800-91fd-4d99-8010-921a42f0ba04', NULL),
+    (N'77712ba47-4415-5bcfb66-4415-86aa-72d58f8f', N'Voertuig', N'nl-BE', N'0c355800-91fd-4d99-8010-921a42f0ba04', NULL),
+    (N'b6677712ba47-5bcf-4415-86aa-72d58f8f', N'Voertuig', N'nl', N'0c355800-91fd-4d99-8010-921a42f0ba04', NULL);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230523114538_pumpResourceFamily', N'7.0.4');
+
+/////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [ThTruckAvailability] (
+    [Id] nvarchar(450) NOT NULL,
+    [StockId] nvarchar(max) NULL,
+    [ActivityType] nvarchar(max) NULL,
+    [Date] datetime2 NULL,
+    [Availability] bit NOT NULL,
+    [ResourceFamilyId] nvarchar(max) NULL,
+    [STime] nvarchar(max) NULL,
+    [ETime] nvarchar(max) NULL,
+    [SortingOrder] int NOT NULL,
+    CONSTRAINT [PK_ThTruckAvailability] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230530051140_thTruckAvailability', N'7.0.4');
+
+//////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [CpcSerialNumber] (
+    [Id] nvarchar(450) NOT NULL,
+    [CPCId] nvarchar(max) NULL,
+    [SerialNumber] nvarchar(max) NULL,
+    CONSTRAINT [PK_CpcSerialNumber] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230606051952_cpcSerialNUmber', N'7.0.4');
+
+///////////////////////////////////////////////////////////
+
+UPDATE ProjectLanguage SET TypeId = N'3fc25097-c354-46c8-992a-1122810bbd2c' WHERE Id = N'iii93-jsjj-fmms-amdm-b7a93ebd1iii'
+
+/////////////////////////////////////////////////////////////////
+
+CREATE TABLE [ThColors] (
+    [Id] nvarchar(450) NOT NULL,
+    [Code] nvarchar(max) NULL,
+    CONSTRAINT [PK_ThColors] PRIMARY KEY ([Id])
+);
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Code') AND [object_id] = OBJECT_ID(N'[ThColors]'))
+    SET IDENTITY_INSERT [ThColors] ON;
+INSERT INTO [ThColors] ([Id], [Code])
+VALUES (N'1', N'#c56834'),
+(N'10', N'#f69b68'),
+(N'11', N'#b3da90'),
+(N'12', N'#b65ab3'),
+(N'13', N'#08272B'),
+(N'14', N'#19D65B'),
+(N'15', N'#1C6675'),
+(N'16', N'#AE9675'),
+(N'17', N'#8C2581'),
+(N'18', N'#7EF6CE'),
+(N'19', N'#1C85CF'),
+(N'2', N'#c4d8e5'),
+(N'20', N'#0F264F'),
+(N'3', N'#97c8ea'),
+(N'4', N'#3b9b36'),
+(N'5', N'#a5982c'),
+(N'6', N'#97ac0f'),
+(N'7', N'#b13748'),
+(N'8', N'#ea716d'),
+(N'9', N'#166fdb');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Code') AND [object_id] = OBJECT_ID(N'[ThColors]'))
+    SET IDENTITY_INSERT [ThColors] OFF;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230627055110_thColors', N'7.0.4');
+
+
+ALTER TABLE [ThColors] ADD [Font] nvarchar(max) NULL;
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'1';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#000000'
+WHERE [Id] = N'10';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#000000'
+WHERE [Id] = N'11';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'12';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'13';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#000000'
+WHERE [Id] = N'14';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'15';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'16';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#000000'
+WHERE [Id] = N'17';
+SELECT @@ROWCOUNT;
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'18';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#000000'
+WHERE [Id] = N'19';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'2';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#000000'
+WHERE [Id] = N'20';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'3';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'4';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'5';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'6';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'7';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'8';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'9';
+SELECT @@ROWCOUNT;
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230706094820_thFontColor', N'7.0.4');
+
+UPDATE [ThColors] SET [Font] = N'#000000'
+WHERE [Id] = N'18';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [ThColors] SET [Font] = N'#000000'
+WHERE [Id] = N'2';
+SELECT @@ROWCOUNT;
+
+UPDATE [ThColors] SET [Font] = N'#fffffff'
+WHERE [Id] = N'20';
+SELECT @@ROWCOUNT;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230707045236_thColorsChanges', N'7.0.4');
+
+////////////////////////////////////////
+einstein upto this
+
+ALTER TABLE [PublishedContractorsPdfData] ADD [RealArticleNo] nvarchar(max) NULL;
+
+ALTER TABLE [ContractorPdfData] ADD [RealArticleNo] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotdataPublished] ADD [RealArticleNo] nvarchar(max) NULL;
+
+ALTER TABLE [CBCExcelLotData] ADD [RealArticleNo] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230724053052_RealArticleNoAdd', N'7.0.4');
+
+///////////////////////////////////////////////////////
+
+CREATE TABLE [HRContractorList] (
+    [Id] nvarchar(450) NOT NULL,
+    [HRId] nvarchar(max) NULL,
+    [StartDate] datetime2 NULL,
+    [EndDate] datetime2 NULL,
+    [ContractTypeId] nvarchar(max) NULL,
+    [Url] nvarchar(max) NULL,
+    CONSTRAINT [PK_HRContractorList] PRIMARY KEY ([Id])
+);
+
+
+CREATE TABLE [HRContractTypes] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [TypeId] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    CONSTRAINT [PK_HRContractTypes] PRIMARY KEY ([Id])
+);
+
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'LanguageCode', N'Name', N'TypeId') AND [object_id] = OBJECT_ID(N'[HRContractTypes]'))
+    SET IDENTITY_INSERT [HRContractTypes] ON;
+INSERT INTO [HRContractTypes] ([Id], [LanguageCode], [Name], [TypeId])
+VALUES (N'005b42ba-574d-4afd-a034-347858e53c9d', N'en', N'Tempory', N'12a22319-8ca7-temp-b588-6fab99474130'),
+(N'1377a17d-3f18-46c1-bc7c-c11edcf65b5c', N'nl', N'Tempory(nl)', N'12a22319-8ca7-temp-b588-6fab99474130'),
+(N'222e3dab-576d-4f53-b976-a9b5c97ee165', N'en', N'Permenant', N'41ce52c0-058b-perm-afbd-1d2d24105ebc'),
+(N'3263aa4e-12a8-4c59-bc99-d561a603748e', N'nl', N'Permenant(nl)', N'41ce52c0-058b-perm-afbd-1d2d24105ebc');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'LanguageCode', N'Name', N'TypeId') AND [object_id] = OBJECT_ID(N'[HRContractTypes]'))
+    SET IDENTITY_INSERT [HRContractTypes] OFF;
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230809055633_hrContractList', N'7.0.4');
+
+/////////////////////////////////////////////////////////
+
+CREATE TABLE [WbsTaxonomy] (
+    [Id] nvarchar(450) NOT NULL,
+    [WbsTaxonomyLevelId] nvarchar(max) NULL,
+    [ParentId] nvarchar(max) NULL,
+    [CreatedDateTime] datetime2 NOT NULL,
+    [UpdatedDateTime] datetime2 NOT NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [UpdatedBy] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsTaxonomy] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [WbsTaxonomyLevels] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LevelId] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [DisplayOrder] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsTaxonomyLevels] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230809071843_wbs', N'7.0.4');
+
+
+///////////////////////////////////////////
+
+ALTER TABLE [WbsTaxonomy] ADD [Name] nvarchar(max) NULL;
+
+ALTER TABLE [WbsTaxonomy] ADD [SequenceId] nvarchar(max) NULL;
+
+ALTER TABLE [WbsTaxonomy] ADD [Title] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230809093508_wbsTaxonomy', N'7.0.4');
+
+///////////////////////////////////////////
+
+ALTER TABLE [WbsTaxonomy] ALTER COLUMN [UpdatedDateTime] datetime2 NULL;
+
+ALTER TABLE [WbsTaxonomy] ALTER COLUMN [CreatedDateTime] datetime2 NULL;
+
+ALTER TABLE [WbsTaxonomy] ADD [IsDefault] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [WbsTaxonomyLevels] ([Id], [DisplayOrder], [LanguageCode], [LevelId], [Name])
+VALUES (N'3263aa4e-12a8-wbs-bc99-d561a603748e', N'1', N'en', N'41ce52c0-058b-wbs-afbd-1d2d24105ebc', N'WBS'),
+(N'a263aa4e-12a8-phas-bc99-d561a603748e', N'2', N'en', N'c1ce52c0-phas-afbd-1d2d24105ebc', N'Phase'),
+(N'd263aa4e-12a8-issu-bc99-d561a603748e', N'4', N'en', N'i1ce52c0-058b-issu-afbd-1d2d24105ebc', N'Issue'),
+(N'p263aa4e-12a8-prod-bc99-d561a603748e', N'3', N'en', N'e1ce52c0-058b-prod-afbd-1d2d24105ebc', N'Product');
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230809113955_wbstaxo', N'7.0.4');
+
+///////////////////////////////////////////
+
+DELETE FROM [WbsTaxonomyLevels]
+WHERE [Id] = N'a263aa4e-12a8-phas-bc99-d561a603748e';
+
+UPDATE [WbsTaxonomyLevels] SET [DisplayOrder] = N'3', [Name] = N'Task'
+WHERE [Id] = N'd263aa4e-12a8-issu-bc99-d561a603748e';
+
+UPDATE [WbsTaxonomyLevels] SET [DisplayOrder] = N'2'
+WHERE [Id] = N'p263aa4e-12a8-prod-bc99-d561a603748e';
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230815045658_WbsTaxonomyLevelUp1', N'7.0.4');
+
+///////////////////////////////////////////
+
+CREATE TABLE [WbsTemplate] (
+    [Id] nvarchar(450) NOT NULL,
+    [Title] nvarchar(max) NULL,
+    [IsDelete] bit NOT NULL,
+    [IsDefault] bit NOT NULL,
+    [CreatedDateTime] datetime2 NULL,
+    [UpdatedDateTime] datetime2 NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [UpdatedBy] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsTemplate] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230815064203_WbsTemplate', N'7.0.4');
+
+////////////////////////////////////////////
+
+ALTER TABLE [WbsTaxonomy] ADD [TemplateId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230815065341_WbsTemplateId', N'7.0.4');
+
+////////////////////////////////////////////////////
+
+ALTER TABLE [WbsTemplate] ADD [Name] nvarchar(max) NULL;
+
+ALTER TABLE [WbsTemplate] ADD [SequenceCode] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230821044403_templateup', N'7.0.4');
+
+///////////////////////////////////////////////////////////
+
+ALTER TABLE [ContractorHeader] ADD [IsPublic] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230823060807_lotIsPublic', N'7.0.4');
+
+////////////////////////////////////////////////////////
+
+CREATE TABLE [ContractorsTotalPriceErrors] (
+    [Id] nvarchar(450) NOT NULL,
+    [ArticleNo] nvarchar(max) NULL,
+    [LotId] nvarchar(max) NULL,
+    [ContractorPdfId] nvarchar(max) NULL,
+    [CompanyId] nvarchar(max) NULL,
+    [Title] nvarchar(max) NULL,
+    [Unit] nvarchar(max) NULL,
+    [Quantity] nvarchar(max) NULL,
+    [UnitPrice] real NULL,
+    [TotalPrice] real NULL,
+    [CorrectTotalPrice] real NULL,
+    CONSTRAINT [PK_ContractorsTotalPriceErrors] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230828070051_contractorTotalPriceErrors', N'7.0.4');
+
+////////////////////////////////////////////////////////
+
+
+INSERT INTO [ContractorFileType] ([Id], [DisplayOrder], [LanguageCode], [Name], [TypeId])
+VALUES (N'wer9e479-msms-40c6-Lot5-e40dbe6a5wer', 5, N'en', N'ZIP', N'2210e768-msms-po02-Lot5-ee367a82ad22'),
+(N'wer9e479-msms-4ZIP-Lot5-e40dbe6a5wer', 5, N'en', N'ZIP(nl)', N'2210e768-msms-po02-Lot5-ee367a82ad22');
+
+INSERT INTO [ContractorFileType] ([Id], [DisplayOrder], [LanguageCode], [Name], [TypeId])
+VALUES (N'dhfj479-msms-excel-Lot5-e40dbe6a5wer', 5, N'en', N'Excel', N'kkkke768-msms-po02-Lot5-ee367a82ad22'),
+(N'admsde479-msms-4excel-Lot5-e40dbe6a5wer', 5, N'nl', N'Excel(nl)', N'kkkke768-msms-po02-Lot5-ee367a82ad22');
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230828083721_ContractorFileTypeUp', N'7.0.4');
+
+////////////////////////////////////////////////////////
+
+UPDATE [ContractorFileType] SET [LanguageCode] = N'nl'
+WHERE [Id] = N'wer9e479-msms-4ZIP-Lot5-e40dbe6a5wer';
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230828090256_ContractorFileTypeUp2', N'7.0.4');
+
+//////////////////////////////////////////////////////////
+
+ALTER TABLE [ContractorTeamList] ADD [IsNotSubscribe] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230831101255_isNotSubscribe', N'7.0.4');
+
+////////////////////////////////////////////////////////
+
+ALTER TABLE [PbsProduct] ADD [QualityProducerId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230907095616_pbsQualityProducer', N'7.0.4');
+
+///////////////////////////////////////////////////////
+
+INSERT INTO [ConstructorWorkFlowStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'ndjjd3-jsjj-nnnn-nsub-b7a93ebd1iii', 16, N'nl', N'Not Subscribed nl', N'xxxxad0b-2e84-nsub-ad25-Lot0d49477'),
+(N'nvfjjsjhhcd5a-0941-nsub-9c13-Lota2ab276', 16, N'en', N'Not Subscribed', N'xxxxad0b-2e84-nsub-ad25-Lot0d49477');
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230914053007_notSubStatus', N'7.0.4');
+
+///////////////////////////////////////////////////////
+
+ALTER TABLE [ConstructorWfStatusChangeTime] ADD [SubscriptionComment] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230915100646_subcriptionComment', N'7.0.4');
+
+///////////////////////////////////////////////////////////
+
+CREATE TABLE [WbsTask] (
+    [Id] nvarchar(450) NOT NULL,
+    [EmailId] nvarchar(max) NULL,
+    [ProductId] nvarchar(max) NULL,
+    [Name] nvarchar(max) NULL,
+    [Note] nvarchar(max) NULL,
+    [To] nvarchar(max) NULL,
+    [InstructionId] nvarchar(max) NULL,
+    [Date] datetime2 NULL,
+    CONSTRAINT [PK_WbsTask] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [WbsTaskDocuments] (
+    [Id] nvarchar(450) NOT NULL,
+    [Link] nvarchar(max) NULL,
+    [TaskId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsTaskDocuments] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [WbsTaskTags] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [TaskId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsTaskTags] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230918082047_wbsTask', N'7.0.4');
+
+CREATE TABLE [WbsTaskCc] (
+    [Id] nvarchar(450) NOT NULL,
+    [PersonId] nvarchar(max) NULL,
+    [TaskId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsTaskCc] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230919043345_wbsTaskCc', N'7.0.4');
+
+CREATE TABLE [PbsAssignedLabour] (
+    [Id] nvarchar(450) NOT NULL,
+    [PbsLabourId] nvarchar(max) NULL,
+    [CabPersonId] nvarchar(max) NULL,
+    [IsDeleted] bit NOT NULL,
+    CONSTRAINT [PK_PbsAssignedLabour] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20230926095359_PbsAssignedLabour', N'7.0.4');
+
+//////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [PbsAssignedLabour] ADD [CpcId] nvarchar(max) NULL;
+
+ALTER TABLE [PbsAssignedLabour] ADD [EndDate] datetime2 NOT NULL DEFAULT '0001-01-01T00:00:00.0000000';
+
+ALTER TABLE [PbsAssignedLabour] ADD [PbsProduct] nvarchar(max) NULL;
+
+ALTER TABLE [PbsAssignedLabour] ADD [Project] nvarchar(max) NULL;
+
+ALTER TABLE [PbsAssignedLabour] ADD [StartDate] datetime2 NOT NULL DEFAULT '0001-01-01T00:00:00.0000000';
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231005054900_pbslaburup', N'7.0.4');
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [WbsTask] ADD [CreationDate] datetime2 NULL;
+
+ALTER TABLE [WbsTask] ADD [DeliveryStatusId] nvarchar(max) NULL;
+
+ALTER TABLE [WbsTask] ADD [IsFavourite] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+ALTER TABLE [WbsTask] ADD [StatusId] nvarchar(max) NULL;
+
+CREATE TABLE [WbsTaskDeliveryStatus] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [StatusId] nvarchar(max) NULL,
+    [DisplayOrder] int NOT NULL,
+    CONSTRAINT [PK_WbsTaskDeliveryStatus] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [WbsTaskEmail] (
+    [Id] nvarchar(450) NOT NULL,
+    [EmailId] nvarchar(max) NULL,
+    [TaskId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsTaskEmail] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [WbsTaskStatus] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [StatusId] nvarchar(max) NULL,
+    [DisplayOrder] int NOT NULL,
+    CONSTRAINT [PK_WbsTaskStatus] PRIMARY KEY ([Id])
+);
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[WbsTaskDeliveryStatus]'))
+    SET IDENTITY_INSERT [WbsTaskDeliveryStatus] ON;
+INSERT INTO [WbsTaskDeliveryStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'bcfe479-msms-4ZIP-Lot5-e40dbe6a5wer', 2, N'nl', N'More than 7 days(nl)', N'12a22319-8ca7-temp-b588-6fab99474130'),
+(N'd263aa4e-12a8-issu-bc99-d561a603748e', 0, N'en', N'Overdue', N'i1ce52c0-058b-issu-afbd-1d2d24105ebc'),
+(N'lsj3aa4e-12a8-issu-bc99-d561a603748e', 0, N'nl', N'Overdue(nl)', N'i1ce52c0-058b-issu-afbd-1d2d24105ebc'),
+(N'poie479-msms-40c6-Lot5-e40dbe6a5wer', 1, N'nl', N'Within 7 Days(nl)', N'2210e768-msms-po02-Lot5-ee367a82ad22'),
+(N'wer9e479-msms-40c6-Lot5-e40dbe6a5wer', 1, N'en', N'Within 7 Days', N'2210e768-msms-po02-Lot5-ee367a82ad22'),
+(N'wer9e479-msms-4ZIP-Lot5-e40dbe6a5wer', 2, N'en', N'More than 7 days', N'12a22319-8ca7-temp-b588-6fab99474130');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[WbsTaskDeliveryStatus]'))
+    SET IDENTITY_INSERT [WbsTaskDeliveryStatus] OFF;
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[WbsTaskStatus]'))
+    SET IDENTITY_INSERT [WbsTaskStatus] ON;
+INSERT INTO [WbsTaskStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'273D6023-0643-4F16-8605-652AF0B658A2', 3, N'en', N'three quater', N'5684969c-f3e8-49ac-9746-51e7e23f2782'),
+(N'd263aa4e-12a8-issu-bc99-d561a603748e', 0, N'en', N'full', N'0e1b34bc-f2c3-4778-8250-9666ee96ae59'),
+(N'ehwraa4e-12a8-issu-bc99-d561a603748e', 0, N'nl', N'full', N'0e1b34bc-f2c3-4778-8250-9666ee96ae59'),
+(N'lksdm479-msms-4ZIP-Lot5-e40dbe6a5wer', 2, N'nl', N'half', N'40843898-54EE-473D-A661-194F1DA0CE48'),
+(N'wecv6023-0643-4F16-8605-652AF0B658A2', 3, N'nl', N'three quater', N'5684969c-f3e8-49ac-9746-51e7e23f2782'),
+(N'wer9e479-msms-40c6-Lot5-e40dbe6a5wer', 1, N'en', N'quater', N'3960193f-99e0-43c6-a6cc-4919e5d345c5'),
+(N'wer9e479-msms-4ZIP-Lot5-e40dbe6a5wer', 2, N'en', N'half', N'40843898-54EE-473D-A661-194F1DA0CE48'),
+(N'wfede479-msms-40c6-Lot5-e40dbe6a5wer', 1, N'nl', N'quater', N'3960193f-99e0-43c6-a6cc-4919e5d345c5');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[WbsTaskStatus]'))
+    SET IDENTITY_INSERT [WbsTaskStatus] OFF;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231005065836_wbsTaskStatus', N'7.0.4');
+
+CREATE TABLE [WbsTaskInstruction] (
+    [Id] nvarchar(450) NOT NULL,
+    [InstructionId] nvarchar(max) NULL,
+    [TaskId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsTaskInstruction] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231010093005_wbsTaskInstruction', N'7.0.4');
+
+///////////////////////////////////////////////////////////////////////
+
+DECLARE @var2 sysname;
+SELECT @var2 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[WbsTask]') AND [c].[name] = N'EmailId');
+IF @var2 IS NOT NULL EXEC(N'ALTER TABLE [WbsTask] DROP CONSTRAINT [' + @var2 + '];');
+ALTER TABLE [WbsTask] DROP COLUMN [EmailId];
+
+DECLARE @var3 sysname;
+SELECT @var3 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[WbsTask]') AND [c].[name] = N'InstructionId');
+IF @var3 IS NOT NULL EXEC(N'ALTER TABLE [WbsTask] DROP CONSTRAINT [' + @var3 + '];');
+ALTER TABLE [WbsTask] DROP COLUMN [InstructionId];
+
+EXEC sp_rename N'[WbsTask].[To]', N'WbsTaxonomyId', N'COLUMN';
+
+CREATE TABLE [WbsTaskTo] (
+    [Id] nvarchar(450) NOT NULL,
+    [PersonId] nvarchar(max) NULL,
+    [TaskId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsTaskTo] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231011074046_wbsTaskTo', N'7.0.4');
+
+//////////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [PbsAssignedLabour] ADD [AssignedHoursPerDay] int NOT NULL DEFAULT 0;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231013073216_pbsAsssignedLabour1', N'7.0.4');
+
+/////////////////////////////////////////////////////////////////////////////
+
+EXEC sp_rename N'[PbsAssignedLabour].[Enddate]', N'EndDate', N'COLUMN';
+
+ALTER TABLE [PbsAssignedLabour] ADD [Day] nvarchar(max) NULL;
+
+ALTER TABLE [PbsAssignedLabour] ADD [ProjectManager] nvarchar(max) NULL;
+
+ALTER TABLE [PbsAssignedLabour] ADD [Week] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231016053401_pbsassignedLabour2', N'7.0.4');
+
+////////////////////////////////////////////////////////////////////////////
+
+EXEC sp_rename N'[PbsAssignedLabour].[Day]', N'DayOfWeek', N'COLUMN';
+
+ALTER TABLE [PbsAssignedLabour] ADD [Date] datetime2 NOT NULL DEFAULT '0001-01-01T00:00:00.0000000';
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231016063802_pbsassignedLabour3', N'7.0.4');
+
+///////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [WbsTask] ADD [CompletionDate] datetime2 NULL;
+
+ALTER TABLE [WbsTask] ADD [DisplayOrder] int NOT NULL DEFAULT 0;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231016071406_wbsTaskDisplayOrder', N'7.0.4');
+
+////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [WbsTask] ADD [ParentId] nvarchar(max) NULL;
+
+CREATE TABLE [WbsProduct] (
+    [Id] nvarchar(450) NOT NULL,
+    [ProductId] nvarchar(max) NULL,
+    [Name] nvarchar(max) NULL,
+    [Note] nvarchar(max) NULL,
+    [WbsTaxonomyId] nvarchar(max) NULL,
+    [Date] datetime2 NULL,
+    [IsFavourite] bit NOT NULL,
+    [StatusId] nvarchar(max) NULL,
+    [DeliveryStatusId] nvarchar(max) NULL,
+    [CreationDate] datetime2 NULL,
+    [CompletionDate] datetime2 NULL,
+    [DisplayOrder] int NOT NULL,
+    [ParentId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsProduct] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231018062838_wbsProduct', N'7.0.4');
+
+CREATE TABLE [WbsProductCc] (
+    [Id] nvarchar(450) NOT NULL,
+    [PersonId] nvarchar(max) NULL,
+    [WbsProductId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsProductCc] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [WbsProductDocuments] (
+    [Id] nvarchar(450) NOT NULL,
+    [Link] nvarchar(max) NULL,
+    [WbsProductId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsProductDocuments] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [WbsProductTags] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [WbsProductId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsProductTags] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [WbsProductTo] (
+    [Id] nvarchar(450) NOT NULL,
+    [PersonId] nvarchar(max) NULL,
+    [WbsProductId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsProductTo] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231018064310_wbsProduct2', N'7.0.4');
+
+///////////////////////////////////////////////////////////////////////////////
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[WbsTaskDeliveryStatus]'))
+    SET IDENTITY_INSERT [WbsTaskDeliveryStatus] ON;
+INSERT INTO [WbsTaskDeliveryStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'iuefd4e-12a8-issu-bc99-d561a603748e', 3, N'nl', N'By Today(nl)', N'jdjj52c0-058b-issu-afbd-1d2d24105ebc'),
+(N'mcbaa4e-12a8-issu-bc99-d561a603748e', 3, N'en', N'By Today', N'jdjj52c0-058b-issu-afbd-1d2d24105ebc');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[WbsTaskDeliveryStatus]'))
+    SET IDENTITY_INSERT [WbsTaskDeliveryStatus] OFF;
+
+UPDATE [WbsTaskStatus] SET [Name] = N'Approved'
+WHERE [Id] = N'273D6023-0643-4F16-8605-652AF0B658A2';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [WbsTaskStatus] SET [Name] = N'Pending Development'
+WHERE [Id] = N'd263aa4e-12a8-issu-bc99-d561a603748e';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [WbsTaskStatus] SET [Name] = N'in voorbereiding'
+WHERE [Id] = N'ehwraa4e-12a8-issu-bc99-d561a603748e';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [WbsTaskStatus] SET [Name] = N'ter goedkeuring'
+WHERE [Id] = N'lksdm479-msms-4ZIP-Lot5-e40dbe6a5wer';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [WbsTaskStatus] SET [Name] = N'goedgekeurd'
+WHERE [Id] = N'wecv6023-0643-4F16-8605-652AF0B658A2';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [WbsTaskStatus] SET [Name] = N'In Development'
+WHERE [Id] = N'wer9e479-msms-40c6-Lot5-e40dbe6a5wer';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [WbsTaskStatus] SET [Name] = N'In Review'
+WHERE [Id] = N'wer9e479-msms-4ZIP-Lot5-e40dbe6a5wer';
+SELECT @@ROWCOUNT;
+
+
+UPDATE [WbsTaskStatus] SET [Name] = N'in uitvoering'
+WHERE [Id] = N'wfede479-msms-40c6-Lot5-e40dbe6a5wer';
+SELECT @@ROWCOUNT;
+
+
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[WbsTaskStatus]'))
+    SET IDENTITY_INSERT [WbsTaskStatus] ON;
+INSERT INTO [WbsTaskStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'ithhf023-0643-4F16-8605-652AF0B658A2', 4, N'en', N'Handed Over', N'vvvv969c-f3e8-49ac-9746-51e7e23f2782'),
+(N'qwsdd023-0643-4F16-8605-652AF0B658A2', 4, N'nl', N'afgewerkt en doorgegeven', N'vvvv969c-f3e8-49ac-9746-51e7e23f2782');
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'DisplayOrder', N'LanguageCode', N'Name', N'StatusId') AND [object_id] = OBJECT_ID(N'[WbsTaskStatus]'))
+    SET IDENTITY_INSERT [WbsTaskStatus] OFF;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231019105705_wbsStatus', N'7.0.4');
+
+////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [Dossier] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [SequenceId] nvarchar(max) NULL,
+    CONSTRAINT [PK_Dossier] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [DossierProjects] (
+    [Id] nvarchar(450) NOT NULL,
+    [DossierId] nvarchar(max) NULL,
+    [ProjectId] nvarchar(max) NULL,
+    CONSTRAINT [PK_DossierProjects] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231027053425_dossier', N'7.0.4');
+
+///////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [Mecop] (
+    [Id] int NOT NULL,
+    [AankoopOrder] nvarchar(max) NULL,
+    [Lijn] nvarchar(max) NULL,
+    [BrandWeerstand] nvarchar(max) NULL,
+    [Type] nvarchar(max) NULL,
+    [Materiaal] nvarchar(max) NULL,
+    [Grondlaag] nvarchar(max) NULL,
+    [Ral] nvarchar(max) NULL,
+    [Ncs] nvarchar(max) NULL,
+    [MuurDikte] float NOT NULL,
+    [BreedteDeurlijsten] nvarchar(max) NULL,
+    [BreedteDeurlijstenVerticaal] float NOT NULL,
+    [BreedteDeurlijstenHorizontaal] float NOT NULL,
+    [OmlijstingenNummeren] bit NOT NULL,
+    [HoogteDeur] float NOT NULL,
+    [BreedteDeur] float NOT NULL,
+    [BreedteVleugel] float NOT NULL,
+    [DikteDeur] float NOT NULL,
+    [DraaiRichting] nvarchar(max) NULL,
+    [Paumelles] nvarchar(max) NULL,
+    [AantalPaumelles] int NOT NULL,
+    [TegenPlaat] nvarchar(max) NULL,
+    [SlotUitsparing] nvarchar(max) NULL,
+    [KrukHoogte] float NOT NULL,
+    [KabelDoorvoer] nvarchar(max) NULL,
+    [HoogteKabelDoorvoer] float NOT NULL,
+    [Extra1] nvarchar(max) NULL,
+    [Extra2] nvarchar(max) NULL,
+    [Extra3] nvarchar(max) NULL,
+    [Extra4] nvarchar(max) NULL,
+    [DeurNummer] nvarchar(max) NULL,
+    [Aantal] int NOT NULL,
+    [Eenheidsprijs] float NOT NULL,
+    [TotaalPrijs] float NOT NULL,
+    [Taal] nvarchar(max) NULL,
+    [Created] datetime2 NOT NULL,
+    [Modified] datetime2 NOT NULL,
+    [Status] nvarchar(max) NULL,
+    [Klant] nvarchar(max) NULL,
+    [Norm] nvarchar(max) NULL,
+    CONSTRAINT [PK_Mecop] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231106083104_mecop', N'7.0.4');
+
+//////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [Mecop] ALTER COLUMN [TotaalPrijs] nvarchar(max) NULL;
+ALTER TABLE [Mecop] ALTER COLUMN [MuurDikte] nvarchar(max) NULL;
+ALTER TABLE [Mecop] ALTER COLUMN [KrukHoogte] nvarchar(max) NULL;
+ALTER TABLE [Mecop] ALTER COLUMN [HoogteKabelDoorvoer] nvarchar(max) NULL;
+ALTER TABLE [Mecop] ALTER COLUMN [HoogteDeur] nvarchar(max) NULL;
+ALTER TABLE [Mecop] ALTER COLUMN [Eenheidsprijs] nvarchar(max) NULL;
+ALTER TABLE [Mecop] ALTER COLUMN [DikteDeur] nvarchar(max) NULL;
+ALTER TABLE [Mecop] ALTER COLUMN [BreedteVleugel] nvarchar(max) NULL;
+ALTER TABLE [Mecop] ALTER COLUMN [BreedteDeurlijstenVerticaal] nvarchar(max) NULL;
+ALTER TABLE [Mecop] ALTER COLUMN [BreedteDeurlijstenHorizontaal] nvarchar(max) NULL;
+ALTER TABLE [Mecop] ALTER COLUMN [BreedteDeur] nvarchar(max) NULL;
+ALTER TABLE [Mecop] ALTER COLUMN [AantalPaumelles] nvarchar(max) NULL;
+ALTER TABLE [Mecop] ALTER COLUMN [Aantal] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231106123027_mecop3', N'7.0.4');
+
+//////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [MecopConversion] (
+    [Id] nvarchar(450) NOT NULL,
+    [Key] nvarchar(max) NULL,
+    [Value] nvarchar(max) NULL,
+    CONSTRAINT [PK_MecopConversion] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231107054443_mecopConversion', N'7.0.4');
+
+//////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [MecopMetaData] (
+    [Id] nvarchar(450) NOT NULL,
+    [Column] nvarchar(max) NULL,
+    [ExcelLocation] nvarchar(max) NULL,
+    CONSTRAINT [PK_MecopMetaData] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231108062417_MecopMetaData', N'7.0.4');
+
+
+/////////////////////////////////////////////////////////////////////
+
+DECLARE @var17 sysname;
+SELECT @var17 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[PbsAssignedLabour]') AND [c].[name] = N'AssignedHoursPerDay');
+IF @var17 IS NOT NULL EXEC(N'ALTER TABLE [PbsAssignedLabour] DROP CONSTRAINT [' + @var17 + '];');
+ALTER TABLE [PbsAssignedLabour] ALTER COLUMN [AssignedHoursPerDay] float NOT NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231108114015_PbsAssignedLabourDouble', N'7.0.4');
+
+/////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [WbsConversation] (
+    [Id] nvarchar(450) NOT NULL,
+    [Type] nvarchar(max) NULL,
+    [ItemId] nvarchar(max) NULL,
+    [Subject] nvarchar(max) NULL,
+    [Content] nvarchar(max) NULL,
+    [DateTime] datetime2 NULL,
+    CONSTRAINT [PK_WbsConversation] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [WbsConversationAttachments] (
+    [Id] nvarchar(450) NOT NULL,
+    [Link] nvarchar(max) NULL,
+    [WbsConversationId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsConversationAttachments] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [WbsConversationCc] (
+    [Id] nvarchar(450) NOT NULL,
+    [PersonId] nvarchar(max) NULL,
+    [WbsConversationId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsConversationCc] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [WbsConversationTo] (
+    [Id] nvarchar(450) NOT NULL,
+    [PersonId] nvarchar(max) NULL,
+    [WbsConversationId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsConversationTo] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231109062156_wbsConversation', N'7.0.4');
+
+////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [PbsProduct] ADD [WbsTaxonomyId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231110070056_WbsTaxonomyIdForPbs', N'7.0.4');
+
+///////////////////////////////////////////////////////////////////
+
+CREATE TABLE [WbsProductEmai] (
+    [Id] nvarchar(450) NOT NULL,
+    [EmailId] nvarchar(max) NULL,
+    [WbsProductId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsProductEmai] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231117060427_wbsproductMail', N'7.0.4');
+
+ALTER TABLE [StandardMailHeader] ADD [AcceptTender] nvarchar(max) NULL;
+
+ALTER TABLE [StandardMailHeader] ADD [DownloadTender] nvarchar(max) NULL;
+
+ALTER TABLE [StandardMailHeader] ADD [SubscribeTender] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231117065630_smNew', N'7.0.4');
+
+////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [MecopConversionBrandweerstand] (
+    [Id] nvarchar(450) NOT NULL,
+    [Key] nvarchar(max) NULL,
+    [Value] nvarchar(max) NULL,
+    [Customer] nvarchar(max) NULL,
+    [Language] nvarchar(max) NULL,
+    CONSTRAINT [PK_MecopConversionBrandweerstand] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [MecopConversionDraaiRichting] (
+    [Id] nvarchar(450) NOT NULL,
+    [Key] nvarchar(max) NULL,
+    [Value] nvarchar(max) NULL,
+    [Customer] nvarchar(max) NULL,
+    [Language] nvarchar(max) NULL,
+    CONSTRAINT [PK_MecopConversionDraaiRichting] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [MecopConversionMateriaal] (
+    [Id] nvarchar(450) NOT NULL,
+    [Key] nvarchar(max) NULL,
+    [Value] nvarchar(max) NULL,
+    [Customer] nvarchar(max) NULL,
+    [Language] nvarchar(max) NULL,
+    CONSTRAINT [PK_MecopConversionMateriaal] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [MecopConversionPaumelles] (
+    [Id] nvarchar(450) NOT NULL,
+    [Key] nvarchar(max) NULL,
+    [Value] nvarchar(max) NULL,
+    [Customer] nvarchar(max) NULL,
+    [Language] nvarchar(max) NULL,
+    CONSTRAINT [PK_MecopConversionPaumelles] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [MecopConversionTegenPlaat] (
+    [Id] nvarchar(450) NOT NULL,
+    [Key] nvarchar(max) NULL,
+    [Value] nvarchar(max) NULL,
+    [Customer] nvarchar(max) NULL,
+    [Language] nvarchar(max) NULL,
+    CONSTRAINT [PK_MecopConversionTegenPlaat] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [MecopConversionType] (
+    [Id] nvarchar(450) NOT NULL,
+    [Key] nvarchar(max) NULL,
+    [Value] nvarchar(max) NULL,
+    [Customer] nvarchar(max) NULL,
+    [Language] nvarchar(max) NULL,
+    CONSTRAINT [PK_MecopConversionType] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231124100927_mecopup1', N'7.0.4');
+
+////////////////////////////////////////////////////////////////////
+
+DROP TABLE [MecopConversionBrandweerstand];
+
+DROP TABLE [MecopConversionDraaiRichting];
+
+DROP TABLE [MecopConversionMateriaal];
+
+DROP TABLE [MecopConversionPaumelles];
+
+DROP TABLE [MecopConversionTegenPlaat];
+
+DROP TABLE [MecopConversionType];
+
+ALTER TABLE [MecopMetaData] DROP CONSTRAINT [PK_MecopMetaData];
+
+ALTER TABLE [MecopConversion] DROP CONSTRAINT [PK_MecopConversion];
+
+ALTER TABLE [Mecop] DROP CONSTRAINT [PK_Mecop];
+
+EXEC sp_rename N'[MecopMetaData]', N'CustomerOrderToPoMetaData';
+
+EXEC sp_rename N'[MecopConversion]', N'CustomerOrderToPoConversion';
+
+EXEC sp_rename N'[Mecop]', N'CustomerOrderToPo';
+
+ALTER TABLE [CustomerOrderToPoConversion] ADD [Customer] nvarchar(max) NULL;
+
+ALTER TABLE [CustomerOrderToPoConversion] ADD [Language] nvarchar(max) NULL;
+
+ALTER TABLE [CustomerOrderToPoMetaData] ADD CONSTRAINT [PK_CustomerOrderToPoMetaData] PRIMARY KEY ([Id]);
+
+ALTER TABLE [CustomerOrderToPoConversion] ADD CONSTRAINT [PK_CustomerOrderToPoConversion] PRIMARY KEY ([Id]);
+
+ALTER TABLE [CustomerOrderToPo] ADD CONSTRAINT [PK_CustomerOrderToPo] PRIMARY KEY ([Id]);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231129042815_mecopch1', N'7.0.4');
+
+/////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [CustomerOrderToPoConversion] ADD [Attribute] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231129064421_mecopch2', N'7.0.4');
+
+////////////////////////////////////////////////////////////////////////
+
+ALTER TABLE [CustomerOrderToPoConversion] ADD [Norm] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231204064538_mecopup3', N'7.0.4');
+
+ALTER TABLE [WbsConversation] ADD [FromPersonId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231206053822_wbsConversationFrom', N'7.0.4');
+
+////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE [IssueHeader] (
+    [Id] nvarchar(450) NOT NULL,
+    [Type] nvarchar(max) NULL,
+    [Status] nvarchar(max) NULL,
+    [Priority] nvarchar(max) NULL,
+    [Severity] nvarchar(max) NULL,
+    [DateRaised] datetime2 NOT NULL,
+    [LastUpdate] datetime2 NOT NULL,
+    [DecisionDate] datetime2 NOT NULL,
+    [ClosureDate] datetime2 NOT NULL,
+    [RaisedBy] datetime2 NOT NULL,
+    CONSTRAINT [PK_IssueHeader] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [IssuePriority] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [PriorityId] nvarchar(max) NULL,
+    [DisplayOrder] int NOT NULL,
+    CONSTRAINT [PK_IssuePriority] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [IssueSeverity] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [SeverityId] nvarchar(max) NULL,
+    [DisplayOrder] int NOT NULL,
+    CONSTRAINT [PK_IssueSeverity] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [IssueStatus] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [StatusId] nvarchar(max) NULL,
+    [DisplayOrder] int NOT NULL,
+    CONSTRAINT [PK_IssueStatus] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [IssueTags] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [IssueId] nvarchar(max) NULL,
+    CONSTRAINT [PK_IssueTags] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [IssueType] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [TypeId] nvarchar(max) NULL,
+    [DisplayOrder] int NOT NULL,
+    CONSTRAINT [PK_IssueType] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231213082547_issue', N'7.0.4');
+
+///////////////////////////////////////////////////
+
+ALTER TABLE [IssueHeader] ADD [CreatedBy] nvarchar(max) NULL;
+
+ALTER TABLE [IssueHeader] ADD [CreatedDateTime] datetime2 NULL;
+
+ALTER TABLE [IssueHeader] ADD [UpdatedByBy] nvarchar(max) NULL;
+
+ALTER TABLE [IssueHeader] ADD [UpdatedDateTime] datetime2 NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231213100201_issue1', N'7.0.4');
+
+///////////////////////////////////////////////////
+
+CREATE TABLE [WbsDocument] (
+    [Id] nvarchar(450) NOT NULL,
+    [ProjectTitle] nvarchar(max) NULL,
+    [Product] nvarchar(max) NULL,
+    [FileName] nvarchar(max) NULL,
+    [DocumentFileId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WbsDocument] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231215094602_wbsdoc', N'7.0.4');
+
+ALTER TABLE [WbsDocument] ADD [Wbs] nvarchar(max) NULL;
+
+ALTER TABLE IssueHeader ADD Title nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20231215100541_wbsdoc2', N'7.0.4');
+
+//////////////////////////////////////////////////
+
+ALTER TABLE [IssueHeader] ADD [Decision] nvarchar(max) NULL;
+
+ALTER TABLE [IssueHeader] ADD [ProductId] nvarchar(max) NULL;
+
+ALTER TABLE [IssueHeader] ADD [Responsible] nvarchar(max) NULL;
+
+ALTER TABLE [IssueHeader] ADD [WbsId] nvarchar(max) NULL;
+
+CREATE TABLE [IssueDocument] (
+    [Id] nvarchar(450) NOT NULL,
+    [Url] nvarchar(max) NULL,
+    [IssueId] nvarchar(max) NULL,
+    CONSTRAINT [PK_IssueDocument] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240104091727_IssueDoc', N'7.0.4');
+
+///////////////////////////////////////////////////
+
+ALTER TABLE [WbsDocument] ADD [FolderId] nvarchar(max) NULL;
+
+INSERT INTO [IssuePriority] ([Id], [DisplayOrder], [LanguageCode], [Name], [PriorityId])
+VALUES (N'd263aa4e-ipip-issu-bc99-d561a603748e', 0, N'en', N'Low', N'0e1b34bc-ipip-4778-8250-9666ee96ae59'),
+(N'wer9e479-ipip-40c6-Lot5-e40dbe6a5wer', 1, N'en', N'Medium', N'3960193f-ipip-43c6-a6cc-4919e5d345c5'),
+(N'wer9e479-ipip-4ZIP-Lot5-e40dbe6a5wer', 2, N'en', N'High', N'40843898-ipip-473D-A661-194F1DA0CE48');
+
+INSERT INTO [IssueSeverity] ([Id], [DisplayOrder], [LanguageCode], [Name], [SeverityId])
+VALUES (N'273D6023-isis-4F16-8605-652AF0B658A2', 3, N'en', N'Question', N'5684969c-isis-49ac-9746-51e7e23f2782'),
+(N'd263aa4e-isis-issu-bc99-d561a603748e', 0, N'en', N'Request for Change', N'0e1b34bc-isis-4778-8250-9666ee96ae59'),
+(N'wer9e479-isis-40c6-Lot5-e40dbe6a5wer', 1, N'en', N'Off-Specification', N'3960193f-isis-43c6-a6cc-4919e5d345c5'),
+(N'wer9e479-isis-4ZIP-Lot5-e40dbe6a5wer', 2, N'en', N'Problem', N'40843898-isis-473D-A661-194F1DA0CE48');
+
+INSERT INTO [IssueStatus] ([Id], [DisplayOrder], [LanguageCode], [Name], [StatusId])
+VALUES (N'273D6023-0643-isis-8605-652AF0B658A2', 3, N'en', N'Approved', N'5684969c-f3e8-isis-9746-51e7e23f2782'),
+(N'd263aa4e-12a8-isis-bc99-d561a603748e', 0, N'en', N'Pending Development', N'0e1b34bc-f2c3-isis-8250-9666ee96ae59'),
+(N'ehwraa4e-12a8-isis-bc99-d561a603748e', 0, N'nl', N'in voorbereiding', N'0e1b34bc-f2c3-isis-8250-9666ee96ae59'),
+(N'ithhf023-0643-isis-8605-652AF0B658A2', 4, N'en', N'Handed Over', N'vvvv969c-f3e8-isis-9746-51e7e23f2782'),
+(N'lksdm479-msms-isis-Lot5-e40dbe6a5wer', 2, N'nl', N'ter goedkeuring', N'40843898-54EE-isis-A661-194F1DA0CE48'),
+(N'qwsdd023-0643-isis-8605-652AF0B658A2', 4, N'nl', N'afgewerkt en doorgegeven', N'vvvv969c-f3e8-isis-9746-51e7e23f2782'),
+(N'wecv6023-0643-isis-8605-652AF0B658A2', 3, N'nl', N'goedgekeurd', N'5684969c-f3e8-isis-9746-51e7e23f2782'),
+(N'wer9e479-msms-isis-Lot5-e40dbe6a5wer', 1, N'en', N'In Development', N'3960193f-99e0-isis-a6cc-4919e5d345c5'),
+(N'wfede479-msms-isis-Lot5-e40dbe6a5wer', 1, N'nl', N'in uitvoering', N'3960193f-99e0-isis-a6cc-4919e5d345c5'),
+(N'xer9e479-msms-isis-Lot5-e40dbe6a5wer', 2, N'en', N'In Review', N'40843898-54EE-isis-A661-194F1DA0CE48');
+
+INSERT INTO [IssueType] ([Id], [DisplayOrder], [LanguageCode], [Name], [TypeId])
+VALUES (N'273D6023-itit-4F16-8605-652AF0B658A2', 3, N'en', N'Question', N'5684969c-itit-49ac-9746-51e7e23f2782'),
+(N'd263aa4e-itit-issu-bc99-d561a603748e', 0, N'en', N'Request for Change', N'0e1b34bc-itit-4778-8250-9666ee96ae59'),
+(N'wer9e479-itit-40c6-Lot5-e40dbe6a5wer', 1, N'en', N'Off-Specification', N'3960193f-itit-43c6-a6cc-4919e5d345c5'),
+(N'wer9e479-itit-4ZIP-Lot5-e40dbe6a5wer', 2, N'en', N'Problem', N'40843898-itit-473D-A661-194F1DA0CE48');
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240108064219_issuedd', N'7.0.4');
+
+///////////////////////////////////////////////////
+
+EXEC sp_rename N'[WbsDocument].[DocumentFileId]', N'FileUrl', N'COLUMN';
+
+ALTER TABLE [WbsDocument] ADD [FileDownloadUrl] nvarchar(max) NULL;
+
+ALTER TABLE [WbsDocument] ADD [FileId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240108110758_wbsDocupdate1', N'7.0.4');
+
+///////////////////////////////////////////////////
+
+ALTER TABLE [WbsDocument] ADD [AttachmentId] nvarchar(max) NULL;
+
+UPDATE [IssueSeverity] SET [Name] = N'Critical'
+WHERE [Id] = N'273D6023-isis-4F16-8605-652AF0B658A2';
+
+UPDATE [IssueSeverity] SET [Name] = N'None'
+WHERE [Id] = N'd263aa4e-isis-issu-bc99-d561a603748e';
+
+UPDATE [IssueSeverity] SET [Name] = N'Minor'
+WHERE [Id] = N'wer9e479-isis-40c6-Lot5-e40dbe6a5wer';
+
+UPDATE [IssueSeverity] SET [Name] = N'Major'
+WHERE [Id] = N'wer9e479-isis-4ZIP-Lot5-e40dbe6a5wer';
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240109063932_AttachmentId', N'7.0.4');
+
+//////////////////////////////////////////////////////////
+
+ALTER TABLE [WbsDocument] ADD [SiteId] nvarchar(max) NULL;
+
+CREATE TABLE [IssueCc] (
+    [Id] nvarchar(450) NOT NULL,
+    [PersonId] nvarchar(max) NULL,
+    [IssueId] nvarchar(max) NULL,
+    CONSTRAINT [PK_IssueCc] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [IssueTo] (
+    [Id] nvarchar(450) NOT NULL,
+    [PersonId] nvarchar(max) NULL,
+    [IssueId] nvarchar(max) NULL,
+    CONSTRAINT [PK_IssueTo] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240109121312_issueCcTo', N'7.0.4');
+
+INSERT INTO dbo.WbsTaxonomyLevels (Id, Name, LevelId, LanguageCode, DisplayOrder) VALUES
+(N'dakfmf4e-12a8-wbs-bc99-d561a603748e', N'WBS(nl)', N'41ce52c0-058b-wbs-afbd-1d2d24105ebc', N'nl', N'1'),
+(N'lakmfk4e-12a8-issu-bc99-d561a603748e', N'Task(nl)', N'i1ce52c0-058b-issu-afbd-1d2d24105ebc', N'nl', N'3'),
+(N'afafka4e-12a8-prod-bc99-d561a603748e', N'Product(nl)', N'e1ce52c0-058b-prod-afbd-1d2d24105ebc', N'nl', N'2'),
+(N'rgfvfsva4e-12a8-prod-bc99-d561a603748e', N'Issue', N'pouoe52c0-hvkhl-lbjm-jvhj-1d2d241ouyi', N'en', N'4'),
+(N'sfdgsdga4e-12a8-prod-bc99-d561a603748e', N'Issue(nl)', N'pouoe52c0-hvkhl-lbjm-jvhj-1d2d241ouyi', N'nl', N'4')
+
+
+ALTER TABLE [WbsTaxonomy] ADD [IssueId] nvarchar(max) NULL;
+
+ALTER TABLE [WbsTask] ADD [IssueId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240117070644_wbsTaskIssueId', N'7.0.4');
+
+ALTER TABLE [WbsDocument] ADD [MailId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240122073502_bbb', N'7.0.4');
+
+CREATE TABLE [PbsCbcResources] (
+    [Id] nvarchar(450) NOT NULL,
+    [PbsId] nvarchar(max) NULL,
+    [LotId] nvarchar(max) NULL,
+    [ArticleNo] nvarchar(max) NULL,
+    CONSTRAINT [PK_PbsCbcResources] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240124082148_pbsCbsResource', N'7.0.4');
+
+ALTER TABLE [PbsProduct] ADD [PbsLotId] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240124091138_pbsLotId', N'7.0.4');
+
+ALTER TABLE [PbsCbcResources] ADD [Quantity] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240124105137_pbsCbcResQuantity', N'7.0.4');
+
+
+ALTER TABLE [PMol] ADD [PmolLotId] nvarchar(max) NULL;
+
+CREATE TABLE [PmolCbcResources] (
+    [Id] nvarchar(450) NOT NULL,
+    [PmolId] nvarchar(max) NULL,
+    [LotId] nvarchar(max) NULL,
+    [ArticleNo] nvarchar(max) NULL,
+    [Quantity] nvarchar(max) NULL,
+    CONSTRAINT [PK_PmolCbcResources] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240129110015_pmolcbcResources', N'7.0.4');
+
+
+ALTER TABLE [PbsCbcResources] ADD [ConsumedQuantity] nvarchar(max) NULL;
+
+
+ALTER TABLE [PbsCbcResources] ADD [InvoicedQuantity] nvarchar(max) NULL;
+
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240201060415_consumedQuantityForPbsCbcRes', N'7.0.4');
+
+ALTER TABLE [PmolCbcResources] ADD [ConsumedQuantity] nvarchar(max) NULL;
+
+CREATE TABLE [WorfFlowStatusLocalizedData] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [LanguageCode] nvarchar(max) NULL,
+    [StatusId] nvarchar(max) NULL,
+    CONSTRAINT [PK_WorfFlowStatusLocalizedData] PRIMARY KEY ([Id])
+);
+
+INSERT INTO [WorfFlowStatusLocalizedData] (Id, Name, StatusId, LanguageCode) VALUES
+('176b7d84-2828-4e08-b6ff-242f57f607a8', N'Approved', 2, N'en'),
+('d92bc25c-c902-45b5-a92d-289d4b725290', N'Pending', 1, N'en'),
+('081b5319-847d-4a94-b5d9-e67401825543', N'Approved', 2, N'en'),
+('76b3b4cc-e9d0-467f-ace5-51afbd18bd29', N'Rejected', 3, N'en'),
+('6c8e19f9-49ce-4db2-bf42-6d30e4227158', N'In afwachting', 1, N'nl'),
+('5fe7ee31-17ce-4fb4-bb35-5db0143e11b1', N'Goedgekeurd', 2, N'nl'),
+('c141cba5-866c-48fc-ac4c-4542a977ba3d', N'Afgekeurd', 3, N'nl'),
+('c8998d95-46a5-4cdd-bfde-b599cbb98e25', N'Overhandigd', 4, N'nl')
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240201070143_consumedQuantityForPmolCbcRes', N'7.0.4');
+
+
+ALTER TABLE [WbsTaskDocuments] ADD [SharepointId] nvarchar(max) NULL;
+
+INSERT INTO dbo.ResourceTypePriceList (Id, ConsumableCoefficient, LabourCoefficient, MaterialCoefficient, ServiceCoefficient, ToolCoefficient, IsCurrent, TaxId) VALUES
+(N'006c7c4d-88dd-40cc-88af-bd714b52618a', 1.25, 1, 1.25, 1.06, 1.1, CONVERT(bit, 'False'), NULL),
+(N'1c059b35-e93d-4d3d-8946-a372cb2a3f3a', 1.25, 1, 1.5, 1.06, 1.1, CONVERT(bit, 'False'), NULL),
+(N'6810e418-a64c-420a-8382-a110c41bb962', 1.25, 1, 1.25, 1.06, 1.1, CONVERT(bit, 'False'), NULL),
+(N'bd35dff2-e6b6-4647-8386-632c804f473b', 1.25, 1, 1.5, 1.06, 1.1, CONVERT(bit, 'True'), NULL);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240202094917_wbstaskdocsp', N'7.0.4');
+
+INSERT INTO QRCode (Id, ProjectId, Date, VehicleNo, Location, PersonalId, Type, CreatedByUserId, ActivityTypeId, TravellerType, IsDeleted) VALUES
+(N'520a6c25-d7d0-4408-bd76-1be21ba41116', NULL, CONVERT(DATETIME2, '2024-01-31 16:09:00.0000000', 121), NULL, N'belgium', NULL, 5, NULL, 6, NULL, CONVERT(bit, 'False')),
+(N'7d7e9f45-9a66-4632-9bae-a39067071e87', NULL, CONVERT(DATETIME2, '2024-02-01 13:39:00.0000000', 121), NULL, N'menen', NULL, 2, NULL, 3, NULL, CONVERT(bit, 'False')),
+(N'8f2e577a-0a0f-4abd-b54f-59ea7d876a49', NULL, CONVERT(DATETIME2, '2024-01-31 16:39:00.0000000', 121), NULL, NULL, NULL, 6, NULL, 7, NULL, CONVERT(bit, 'False')),
+(N'bb22be8a-bf63-4aca-9bb1-e20937585361', NULL, CONVERT(DATETIME2, '2023-07-19 15:03:00.0000000', 121), NULL, NULL, NULL, 1, NULL, 2, NULL, CONVERT(bit, 'False')),
+(N'f48c1c3d-0300-4f64-baf5-ddf2c1926905', NULL, CONVERT(DATETIME2, '2023-07-12 12:37:00.0000000', 121), NULL, NULL, NULL, 0, NULL, 1, N'1', CONVERT(bit, 'False')),
+(N'fa974a49-ba0c-44af-97bb-4f2b04096c09', NULL, CONVERT(DATETIME2, '2023-08-14 10:38:00.0000000', 121), NULL, N'belgium', NULL, 4, NULL, 5, NULL, CONVERT(bit, 'False'))
+
+INSERT INTO CorporateProductCatalog (Id, ResourceTitle, ResourceTypeId, ResourceFamilyId, CpcBasicUnitOfMeasureId, CpcMaterialId, CpcPressureClassId, InventoryPrice, CpcUnitOfSizeMeasureId, Size, WallThickness, MinOrderQuantity, MaxOrderQuantity, Weight, Status, ResourceNumber, IsDeleted, CpcBrandId, Title) VALUES
+(N'17047139-4143-4bb7-9089-792232cb230e', N'Truck 3', N'c46c3a26-39a5-42cc-n9wn-89655304eh6', N'0c355800-91fd-4d99-8010-921a42f0ba04', N'0c355800-91fd-4d99-8010-921a42f0ba04', NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, NULL, 1, N'CAr01-0000', CONVERT(bit, 'False'), NULL, N'CAr01-0005 - Truck 3')
+
+UPDATE QRCode SET VehicleNo ='17047139-4143-4bb7-9089-792232cb230e'  WHERE Id = 'f48c1c3d-0300-4f64-baf5-ddf2c1926905';
+
+
+INSERT INTO CpcResourceType (Id, Name, LocaleCode, DisplayOrder) VALUES
+(N'cbc3a26-cbc-cbc-cbc-89655304cbc', N'Cbc', N'CpcResourceTypecbcc3a26-39a5-42cc-cbc-89655304cbc', 0);
+
+INSERT INTO CpcResourceTypeLocalizedData (Id, Label, LanguageCode, CpcResourceTypeId) VALUES
+(N'djvjdns2bad-4865-4942-9eb3-01669bcd5c6b', N'CBC', N'en', N'cbc3a26-cbc-cbc-cbc-89655304cbc'),
+(N'asdsaf26b5-dac8-4929-bdb3-0399d9b62110', N'CBC', N'nl', N'cbc3a26-cbc-cbc-cbc-89655304cbc'),
+(N'erty27ee-cb2c-4b14-ae81-aa1bef760602', N'CBC', N'nl-BE', N'cbc3a26-cbc-cbc-cbc-89655304cbc')
+
+DECLARE @var19 sysname;
+SELECT @var19 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[IssueHeader]') AND [c].[name] = N'LastUpdate');
+IF @var19 IS NOT NULL EXEC(N'ALTER TABLE [IssueHeader] DROP CONSTRAINT [' + @var19 + '];');
+ALTER TABLE [IssueHeader] ALTER COLUMN [LastUpdate] datetime2 NULL;
+
+DECLARE @var20 sysname;
+SELECT @var20 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[IssueHeader]') AND [c].[name] = N'DecisionDate');
+IF @var20 IS NOT NULL EXEC(N'ALTER TABLE [IssueHeader] DROP CONSTRAINT [' + @var20 + '];');
+ALTER TABLE [IssueHeader] ALTER COLUMN [DecisionDate] datetime2 NULL;
+
+DECLARE @var21 sysname;
+SELECT @var21 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[IssueHeader]') AND [c].[name] = N'DateRaised');
+IF @var21 IS NOT NULL EXEC(N'ALTER TABLE [IssueHeader] DROP CONSTRAINT [' + @var21 + '];');
+ALTER TABLE [IssueHeader] ALTER COLUMN [DateRaised] datetime2 NULL;
+
+DECLARE @var22 sysname;
+SELECT @var22 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[IssueHeader]') AND [c].[name] = N'ClosureDate');
+IF @var22 IS NOT NULL EXEC(N'ALTER TABLE [IssueHeader] DROP CONSTRAINT [' + @var22 + '];');
+ALTER TABLE [IssueHeader] ALTER COLUMN [ClosureDate] datetime2 NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240214082018_issueHeaderDatesNullable', N'8.0.1');
+
+
+ALTER TABLE [PbsProduct] ADD [PbsLocation] nvarchar(max) NULL;
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240214104827_PbsLocation', N'8.0.1');
+
+ALTER TABLE [PbsCbcResources] ADD [IsIgnore] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240219095601_pbscbcResIsIgnore', N'8.0.1');
+
+
+ALTER TABLE [WbsTaskTo] ADD [IsDefault] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+ALTER TABLE [WbsProductTo] ADD [IsDefault] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+ALTER TABLE [IssueTo] ADD [IsDefault] bit NOT NULL DEFAULT CAST(0 AS bit);
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240220054606_toPersonIsDefault', N'8.0.1');
+
+//vandehberg,einstein.uprince, consoto,staging  up to here up to here 

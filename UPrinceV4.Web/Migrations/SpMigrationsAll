@@ -1,0 +1,640 @@
+CREATE PROCEDURE GetMaterialByProductId @PbsProductId nvarchar(450)
+AS
+SELECT
+  PbsMaterial.*
+,cpc.Id
+,cpc.ResourceTypeId
+,cpc.ResourceFamilyId
+,cpc.CpcBasicUnitOfMeasureId
+,cpc.Title
+,cbuom.Id
+,cbuom.Name
+,crf.Id
+,crf.Title
+,crt.Id
+,crt.Name
+FROM dbo.PbsMaterial
+LEFT OUTER JOIN dbo.CorporateProductCatalog cpc
+  ON PbsMaterial.CoperateProductCatalogId = cpc.Id
+LEFT OUTER JOIN dbo.CpcBasicUnitOfMeasure cbuom
+  ON cpc.CpcBasicUnitOfMeasureId = cbuom.Id
+LEFT OUTER JOIN dbo.CpcResourceFamily crf
+  ON cpc.ResourceFamilyId = crf.Id
+LEFT OUTER JOIN dbo.CpcResourceType crt
+  ON cpc.ResourceTypeId = crt.Id
+WHERE PbsMaterial.PbsProductId = @PbsProductId; 
+GO
+
+
+CREATE PROCEDURE GetToolByProductId @PbsProductId nvarchar(450)
+AS
+SELECT
+  PbsTools.*
+,cpc.Id
+,cpc.ResourceTypeId
+,cpc.ResourceFamilyId
+,cpc.CpcBasicUnitOfMeasureId
+,cpc.Title
+,cbuom.Id
+,cbuom.Name
+,crf.Id
+,crf.Title
+,crt.Id
+,crt.Name
+FROM dbo.PbsTools
+LEFT OUTER JOIN dbo.CorporateProductCatalog cpc
+  ON PbsTools.CoperateProductCatalogId = cpc.Id
+LEFT OUTER JOIN dbo.CpcBasicUnitOfMeasure cbuom
+  ON cpc.CpcBasicUnitOfMeasureId = cbuom.Id
+LEFT OUTER JOIN dbo.CpcResourceFamily crf
+  ON cpc.ResourceFamilyId = crf.Id
+LEFT OUTER JOIN dbo.CpcResourceType crt
+  ON cpc.ResourceTypeId = crt.Id
+WHERE PbsTools.PbsProductId = @PbsProductId;
+GO
+
+CREATE PROCEDURE GetConsumableByProductId @PbsProductId nvarchar(450)
+AS
+SELECT
+  PbsConsumable.*
+,cpc.Id
+,cpc.ResourceTypeId
+,cpc.ResourceFamilyId
+,cpc.CpcBasicUnitOfMeasureId
+,cpc.Title
+,cbuom.Id
+,cbuom.Name
+,crf.Id
+,crf.Title
+,crt.Id
+,crt.Name
+FROM dbo.PbsConsumable
+LEFT OUTER JOIN dbo.CorporateProductCatalog cpc
+  ON PbsConsumable.CoperateProductCatalogId = cpc.Id
+LEFT OUTER JOIN dbo.CpcBasicUnitOfMeasure cbuom
+  ON cpc.CpcBasicUnitOfMeasureId = cbuom.Id
+LEFT OUTER JOIN dbo.CpcResourceFamily crf
+  ON cpc.ResourceFamilyId = crf.Id
+LEFT OUTER JOIN dbo.CpcResourceType crt
+  ON cpc.ResourceTypeId = crt.Id
+WHERE PbsConsumable.PbsProductId = @PbsProductId;
+GO
+
+CREATE PROCEDURE GetLabourByProductId @PbsProductId nvarchar(450)
+AS
+SELECT
+  PbsLabour.*
+,cpc.Id
+,cpc.ResourceTypeId
+,cpc.ResourceFamilyId
+,cpc.CpcBasicUnitOfMeasureId
+,cpc.Title
+,cbuom.Id
+,cbuom.Name
+,crf.Id
+,crf.Title
+,crt.Id
+,crt.Name
+FROM dbo.PbsLabour
+LEFT OUTER JOIN dbo.CorporateProductCatalog cpc
+  ON PbsLabour.CoperateProductCatalogId = cpc.Id
+LEFT OUTER JOIN dbo.CpcBasicUnitOfMeasure cbuom
+  ON cpc.CpcBasicUnitOfMeasureId = cbuom.Id
+LEFT OUTER JOIN dbo.CpcResourceFamily crf
+  ON cpc.ResourceFamilyId = crf.Id
+LEFT OUTER JOIN dbo.CpcResourceType crt
+  ON cpc.ResourceTypeId = crt.Id
+WHERE PbsLabour.PbsProductId = @PbsProductId;
+GO
+
+
+
+CREATE PROCEDURE GetPbsResourceConsolidatedQuantity @Id nvarchar(450)
+AS
+WITH ret
+                                                                            AS
+                                                                            (SELECT
+                                                                            *
+                                                                            FROM PbsProduct
+                                                                            WHERE Id = @Id
+                                                                            UNION ALL
+                                                                            SELECT
+                                                                            t.*
+                                                                            FROM PbsProduct t
+                                                                            INNER JOIN ret r
+                                                                            ON t.ParentId = r.ProductId WHERE r.IsDeleted = 0
+                                                                            )
+                                                                            SELECT
+                                                                             ret.ProductId,ret.Id,ret.ParentId
+                                                                            FROM ret WHERE ret.Id != @Id AND ret.IsDeleted = 0;
+                                                                            GO
+
+CREATE PROCEDURE GetPbsForVPAll
+AS
+SELECT PbsProduct.Id,PbsProduct.Title,PbsProduct.ParentId,'PBS' AS Type,PbsProduct.StartDate,PbsProduct.EndDate,PbsProduct.ProductId AS PBSSequenceId,PbsProduct.PbsProductStatusId As PbsStatus , t4.TreeIndex  FROM dbo.PbsProduct LEFT OUTER JOIN PbsTreeIndex t4 ON PbsProduct.ProductId = t4.PbsProductId where NodeType = 'P' AND IsDeleted = '0' 
+                                ; SELECT
+                                  Bor.Id
+                                 ,Bor.Title
+                                 ,Bor.PbsProductId AS ParentId
+                                 ,'BOR' AS Type
+                                 ,Bor.ItemId AS BORSequenceId
+                                 ,Bor.BorStatusId As BorStatus
+                                 ,PbsProduct.ProductId AS PBSSequenceId
+                                 ,Bor.StartDate
+                                 ,Bor.EndDate
+                                FROM dbo.Bor
+                                LEFT OUTER JOIN dbo.PbsProduct
+                                  ON Bor.PbsProductId = PbsProduct.Id
+                                WHERE Bor.PbsProductId IS NOT NULL;
+                               SELECT
+                                  PMol.Id
+                                 ,PMol.Title
+                                 ,PMol.BorId AS ParentId
+                                 ,'PMOL' AS Type
+                                 ,PMol.ExecutionDate AS StartDate
+                                 ,PMol.ExecutionDate AS EndDate
+                                 ,PMol.ProjectMoleculeId AS PMOLSequenceId
+                                 ,PMol.StatusId AS PmolStatus
+                                 ,Bor.ItemId AS BORSequenceId
+                                 ,PbsProduct.ProductId AS PBSSequenceId
+                                FROM dbo.PMol
+                                LEFT OUTER JOIN dbo.Bor
+                                  ON PMol.BorId = Bor.Id
+                                LEFT OUTER JOIN dbo.PbsProduct
+                                  ON Bor.PbsProductId = PbsProduct.Id
+                                WHERE PMol.BorId IS NOT NULL;
+                                SELECT
+                                  MilestoneHeader.SequenceId AS MilestoneSequenceId
+                                 ,MilestoneHeader.Title
+                                 ,MilestoneHeader.ExpectedStartDate AS StartDate
+                                 ,MilestoneHeader.ExpectedEndDate AS EndDate
+                                 ,MilestoneHeader.Id
+                                 ,'Milestone' AS Type
+                                FROM dbo.MilestoneHeader;
+                                GO
+
+
+CREATE PROCEDURE GetPbsForVPpbs
+AS
+SELECT PbsProduct.Id,PbsProduct.Title,PbsProduct.ParentId,'PBS' AS Type,PbsProduct.StartDate,PbsProduct.EndDate,PbsProduct.ProductId AS PBSSequenceId,PbsProduct.PbsProductStatusId As PbsStatus , t4.TreeIndex FROM dbo.PbsProduct LEFT OUTER JOIN PbsTreeIndex t4 ON PbsProduct.ProductId = t4.PbsProductId where NodeType = 'P' AND IsDeleted = '0'; 
+SELECT
+MilestoneHeader.SequenceId AS MilestoneSequenceId
+,MilestoneHeader.Title
+,MilestoneHeader.ExpectedStartDate AS StartDate
+,MilestoneHeader.ExpectedEndDate AS EndDate
+,MilestoneHeader.Id
+,'Milestone' AS Type
+FROM dbo.MilestoneHeader;
+GO
+
+CREATE PROCEDURE GetPbsForVPbor
+AS
+SELECT
+                                  Bor.Id
+                                 ,Bor.Title
+                                 ,Null AS ParentId
+                                 ,'BOR' AS Type
+                                 ,Bor.ItemId AS BORSequenceId
+                                 ,PbsProduct.ProductId AS PBSSequenceId
+                                 ,Bor.StartDate
+                                 ,Bor.EndDate
+                                 ,Bor.BorStatusId As BorStatus
+                                FROM dbo.Bor
+                                LEFT OUTER JOIN dbo.PbsProduct
+                                  ON Bor.PbsProductId = PbsProduct.Id
+                                WHERE Bor.PbsProductId IS NOT NULL;
+                                  SELECT
+                                  MilestoneHeader.SequenceId AS MilestoneSequenceId
+                                 ,MilestoneHeader.Title
+                                 ,MilestoneHeader.ExpectedStartDate AS StartDate
+                                 ,MilestoneHeader.ExpectedEndDate AS EndDate
+                                 ,MilestoneHeader.Id
+                                 ,'Milestone' AS Type
+                                FROM dbo.MilestoneHeader;
+                                GO
+
+CREATE PROCEDURE GetPbsForVPpmol
+AS
+SELECT
+                                  PMol.Id
+                                 ,PMol.Title
+                                 ,Null AS ParentId
+                                 ,'PMOL' AS Type
+                                 ,PMol.ExecutionDate AS StartDate
+                                 ,PMol.ExecutionDate AS EndDate
+                                 ,PMol.ProjectMoleculeId AS PMOLSequenceId
+                                 ,PMol.StatusId AS PmolStatus
+                                 ,Bor.ItemId AS BORSequenceId
+                                 ,PbsProduct.ProductId AS PBSSequenceId
+                                FROM dbo.PMol
+                                LEFT OUTER JOIN dbo.Bor
+                                  ON PMol.BorId = Bor.Id
+                                LEFT OUTER JOIN dbo.PbsProduct
+                                  ON Bor.PbsProductId = PbsProduct.Id
+                                WHERE PMol.BorId IS NOT NULL;
+                                SELECT
+                                  MilestoneHeader.SequenceId AS MilestoneSequenceId
+                                 ,MilestoneHeader.Title
+                                 ,MilestoneHeader.ExpectedStartDate AS StartDate
+                                 ,MilestoneHeader.ExpectedEndDate AS EndDate
+                                 ,MilestoneHeader.Id
+                                 ,'Milestone' AS Type
+                                FROM dbo.MilestoneHeader;
+                                GO
+
+CREATE PROCEDURE GetPbsForVPlabour
+AS
+SELECT
+                                 PmolTeamRole.Id AS Id
+                                 ,'Labour' AS Title
+                                 ,PMolPlannedWorkLabour.Id AS ParentId
+                                 ,'Labour' AS Type
+                                 ,'CPCId' AS CPCId
+                                 ,PmolTeamRole.CabPersonId
+                                FROM dbo.PMolPlannedWorkLabour
+                                INNER JOIN dbo.PMol
+                                  ON PMolPlannedWorkLabour.PmolId = PMol.Id
+                                INNER JOIN dbo.PmolTeamRole
+                                  ON PmolTeamRole.PmolLabourId = PMolPlannedWorkLabour.Id
+                                WHERE PMolPlannedWorkLabour.IsDeleted = 0
+                                AND PmolTeamRole.CabPersonId IS NOT NULL
+                                AND dbo.PMolPlannedWorkLabour.PmolId IS NOT NULL
+                                AND PMol.IsDeleted = '0'
+                                AND PmolTeamRole.IsDeleted = '0'
+                                GROUP BY PMol.ProjectMoleculeId
+                                        ,PmolTeamRole.Id
+                                        ,PmolTeamRole.CabPersonId
+                                        ,PMol.Name
+                                        ,PMolPlannedWorkLabour.Id
+                                        ,PMol.ExecutionEndTime
+                                        ,PMol.ExecutionStartTime
+                                        ,PMol.ExecutionDate
+                                        ,PMol.Title
+                                        ,PMol.ProjectSequenceCode
+                                         union
+                                        SELECT
+                                          PMolPlannedWorkTools.Id
+                                         ,CorporateProductCatalog.Title
+                                         ,PMol.Id AS ParentId
+                                         ,'Tools' AS Type
+										 ,PMolPlannedWorkTools.CoperateProductCatalogId AS CPCId
+                                         ,'CabPersonId' as CabPersonId
+                                        FROM dbo.PMolPlannedWorkTools
+                                        LEFT OUTER JOIN dbo.PMol        
+                                          ON PMolPlannedWorkTools.PmolId = PMol.Id
+                                        LEFT OUTER JOIN dbo.CorporateProductCatalog
+                                          ON PMolPlannedWorkTools.CoperateProductCatalogId = CorporateProductCatalog.Id
+                                          where PMolPlannedWorkTools.IsDeleted = 0
+                                            union
+										  SELECT
+                                          PMolPlannedWorkLabour.Id
+                                         ,CorporateProductCatalog.Title
+                                         ,PMol.Id AS ParentId
+                                         ,'Labours' AS Type
+                                         ,PMolPlannedWorkLabour.CoperateProductCatalogId AS CPCId
+                                         ,'CabPersonId' as CabPersonId
+                                        FROM dbo.PMolPlannedWorkLabour
+                                        LEFT OUTER JOIN dbo.PMol
+                                          ON PMolPlannedWorkLabour.PmolId = PMol.Id
+                                        LEFT OUTER JOIN dbo.CorporateProductCatalog
+                                          ON PMolPlannedWorkLabour.CoperateProductCatalogId = CorporateProductCatalog.Id
+                                        WHERE PMolPlannedWorkLabour.IsDeleted = '0';
+                                        GO
+                                        
+                                        
+CREATE PROCEDURE GetAwardedLotInProject
+AS 
+SELECT ch.Id AS [Key],LotId AS Text FROM  ContractorTotalValuesPublished LEFT OUTER JOIN ContractorHeader ch ON ContractorTotalValuesPublished.LotId = ch.SequenceId WHERE IsWinner = 1;
+GO
+
+CREATE PROCEDURE GetPbsCbcResourcesById @Id nvarchar(450)
+AS
+SELECT pcr.id,pcr.ArticleNo,pcr.LotId,pcr.Quantity,pcr.PbsId,Concat(pcpd.ArticleNo,' - ',pcpd.Title) AS Title,pcpd.Unit FROM PbsCbcResources pcr LEFT OUTER JOIN ContractorTotalValuesPublished ctvp ON pcr.LotId = ctvp.LotId LEFT OUTER JOIN PublishedContractorsPdfData pcpd ON pcr.ArticleNo = pcpd.ArticleNo AND ctvp.CompanyId = pcpd.CompanyId 
+ WHERE pcr.PbsId = @Id AND ctvp.IsWinner = 1;
+ GO
+ 
+ 
+ CREATE PROCEDURE DayPlanningFilterSelectProject @Id nvarchar(450),@BuId nvarchar(450),@EndDate DATETIME
+ AS
+ SELECT
+   ProjectDefinition.Title
+  ,ProjectDefinition.ProjectConnectionString
+  ,ProjectDefinition.SequenceCode
+  ,CabCompany.SequenceCode AS ContractingUnitId
+ FROM dbo.ProjectDefinition
+ LEFT OUTER JOIN CabCompany
+   ON ProjectDefinition.ContractingUnitId = CabCompany.Id
+ LEFT OUTER JOIN dbo.ProjectClassification
+   ON ProjectDefinition.Id = ProjectClassification.ProjectId
+ LEFT OUTER JOIN dbo.ProjectTime
+   ON ProjectDefinition.Id = ProjectTime.ProjectId
+ WHERE ContractingUnitId = @Id
+ AND ProjectDefinition.IsDeleted = 0
+ AND ProjectClassification.ProjectClassificationBuisnessUnit = @BuId
+ AND ProjectTime.StartDate <= @EndDate
+ AND ProjectDefinition.ProjectScopeStatusId IN ('94282458-0b40-40a3-b0f9-c2e40344c8f1', 'd60aad0b-2e84-482b-ad25-618d80d49477', 'jj282458-0b40-jja3-b0f9-c2e40344c8jj', '4010e768-3e06-4702-b337-ee367a82addb', 'a35ab9fe-df57-4088-82a9-d27008688bae11', '60aad0b-2e84-482b-ad25-618d80d49488')
+ ORDER BY ProjectDefinition.SequenceCode;
+ GO
+ 
+ 
+ CREATE PROCEDURE GetPbsTreeStructureDataForVpsbUtility
+ AS
+   SELECT
+     p.Id
+    ,p.Name AS Title
+    ,p.PbsProductStatusId
+    ,t.PbsTaxonomyNodeId AS ParentId
+   FROM PbsProduct p
+   INNER JOIN PbsProductTaxonomy t
+     ON p.Id = t.PbsProductId
+   WHERE (t.PbsTaxonomyId = '6e54725c-e396-4ce4-88f3-a6e9678a0389')
+   AND p.IsDeleted = 0;
+   GO
+ 
+ 
+ 
+ CREATE PROCEDURE GetPbsTreeStructureDataForVpSbLocation
+ AS
+ SELECT
+   p.Id
+  ,p.Name AS Title
+  ,p.PbsProductStatusId
+  ,t.PbsTaxonomyNodeId AS ParentId
+ FROM PbsProduct p
+ INNER JOIN PbsProductTaxonomy t
+   ON p.Id = t.PbsProductId
+ WHERE (t.PbsTaxonomyId = 'ab294299-f251-41a8-94bd-3ae0150df134')
+ AND p.IsDeleted = 0;
+ GO
+ 
+ 
+ CREATE PROCEDURE GetPbsTreeStructureDataForVpPbsTreeStructure @Id nvarchar(450)
+ AS
+ WITH ret
+ AS
+ (SELECT
+     *
+   FROM PbsProduct
+   WHERE Id = @Id
+   UNION ALL
+   SELECT
+     t.*
+   FROM PbsProduct t
+   INNER JOIN ret r
+     ON t.ProductId = r.ParentId
+   WHERE r.IsDeleted = 0)
+ SELECT
+   ret.Id
+  ,Title
+  ,StartDate
+  ,EndDate
+  ,ProductId AS PbsSequenceId
+  ,ProductId AS SequenceId
+  ,ParentId
+  ,PbsProductStatusId
+  ,t4.TreeIndex
+ FROM ret
+ LEFT OUTER JOIN PbsTreeIndex t4
+   ON ret.ProductId = t4.PbsProductId
+ WHERE ret.IsDeleted = 0;
+ GO
+ 
+ 
+ CREATE PROCEDURE GetPbsTreeStructureDataForVpPbsTreeStructure2 @Id nvarchar(450)
+ AS
+ WITH ret
+ AS
+ (SELECT
+     *
+   FROM PbsProduct
+   WHERE Id = @Id
+   UNION ALL
+   SELECT
+     t.*
+   FROM PbsProduct t
+   INNER JOIN ret r
+     ON t.ParentId = r.ProductId
+   WHERE r.IsDeleted = 0)
+ SELECT
+   ret.Id
+  ,Title
+  ,StartDate
+  ,EndDate
+  ,ProductId AS PbsSequenceId
+  ,ProductId AS SequenceId
+  ,ParentId
+  ,PbsProductStatusId
+  ,t4.TreeIndex
+ FROM ret
+ LEFT OUTER JOIN PbsTreeIndex t4
+   ON ret.ProductId = t4.PbsProductId
+ WHERE ret.IsDeleted = 0;
+ GO
+ 
+ 
+ CREATE PROCEDURE GetPbsTreeStructureDataForVpPbsTreeStructure3 @Id nvarchar(450)
+ AS
+ WITH ret
+ AS
+ (SELECT
+     *
+   FROM PbsProduct
+   WHERE Id = @Id
+   UNION ALL
+   SELECT
+     t.*
+   FROM PbsProduct t
+   INNER JOIN ret r
+     ON t.ProductId = r.ParentId
+   WHERE r.IsDeleted = 0)
+ SELECT
+   ret.Id
+  ,Title
+  ,StartDate
+  ,EndDate
+  ,ProductId AS PbsSequenceId
+  ,ProductId AS SequenceId
+  ,ParentId
+  ,PbsProductStatusId
+  ,t4.TreeIndex
+ FROM ret
+ LEFT OUTER JOIN PbsTreeIndex t4
+   ON ret.ProductId = t4.PbsProductId
+ WHERE ret.IsDeleted = 0;
+ GO
+ 
+ 
+ CREATE PROCEDURE GetPbsTreeStructureDataForVpMyEnvSbUtility @project NVARCHAR(450),@cu NVARCHAR(450)
+ AS
+ SELECT
+   p.Id
+  ,p.Name AS Title
+  ,p.PbsProductStatusId
+  ,t.PbsTaxonomyNodeId AS ParentId
+  ,'Pbs' AS Type
+  ,@project AS Project
+  ,@cu AS Cu
+ FROM PbsProduct p
+ INNER JOIN PbsProductTaxonomy t
+   ON p.Id = t.PbsProductId
+ WHERE (t.PbsTaxonomyId = '6e54725c-e396-4ce4-88f3-a6e9678a0389')
+ AND p.IsDeleted = 0;
+ GO
+ 
+ 
+ CREATE PROCEDURE GetPbsTreeStructureDataForVpMyEnvSbLocation @project NVARCHAR(450),@cu NVARCHAR(450)
+ AS
+ SELECT
+   p.Id
+  ,p.Name AS Title
+  ,p.PbsProductStatusId
+  ,t.PbsTaxonomyNodeId AS ParentId
+  ,'Pbs' AS Type
+  ,@project AS Project
+  ,@cu AS Cu
+ FROM PbsProduct p
+ INNER JOIN PbsProductTaxonomy t
+   ON p.Id = t.PbsProductId
+ WHERE (t.PbsTaxonomyId = 'ab294299-f251-41a8-94bd-3ae0150df134')
+ AND p.IsDeleted = 0 ;
+ GO
+ 
+ CREATE PROCEDURE GetPbsTreeStructureDataForVpMyEnvPbsLabourSqlMtp @project NVARCHAR(450),@cu NVARCHAR(450)
+ AS
+ SELECT
+   CONVERT(NVARCHAR(50), NEWID()) AS Id
+  ,CorporateProductCatalog.Id AS CpcId
+  ,CorporateProductCatalog.Title
+  ,'PbsLabour' AS Type
+  ,@project AS Project
+  ,@cu AS Cu
+  ,PbsLabour.PbsProductId AS PbsId
+  ,pp.ProductId AS ParentId
+  ,pp.StartDate
+  ,pp.EndDate
+ FROM dbo.PbsLabour
+ LEFT OUTER JOIN dbo.CorporateProductCatalog
+   ON PbsLabour.CoperateProductCatalogId = CorporateProductCatalog.Id
+ LEFT OUTER JOIN dbo.PbsProduct pp
+   ON PbsLabour.PbsProductId = pp.Id ; 
+   GO
+ 
+ CREATE PROCEDURE GetPbsForVPMyEnvSelectPmProject @BuId NVARCHAR(450)
+ AS
+ SELECT
+   ProjectDefinition.Id
+  ,ProjectDefinition.Title
+  ,ProjectDefinition.SequenceCode
+  ,ProjectDefinition.ProjectConnectionString
+  ,ProjectDefinition.ProjectManagerId
+  ,ProjectDefinition.ProjectStatus
+  ,CabCompany.SequenceCode AS ContractingUnitId
+  ,ProjectDefinition.ProjectScopeStatusId
+ FROM dbo.ProjectDefinition
+ LEFT OUTER JOIN CabCompany
+   ON ProjectDefinition.ContractingUnitId = CabCompany.Id
+ LEFT OUTER JOIN dbo.ProjectClassification
+   ON ProjectDefinition.Id = ProjectClassification.ProjectId
+ LEFT OUTER JOIN dbo.ProjectTime pt
+   ON ProjectDefinition.Id = pt.ProjectId
+ WHERE ProjectDefinition.IsDeleted = 0
+ AND ProjectClassification.ProjectClassificationBuisnessUnit IN (SELECT
+     Id
+   FROM dbo.OrganizationTaxonomy WHERE BuSequenceId IN (@BuId,','))
+ AND ProjectDefinition.ProjectScopeStatusId != '7bcb4e8d-8e8c-487d-8170-6b91c89fc3da'
+ ORDER BY pt.StartDate;
+ GO
+ 
+ CREATE PROCEDURE GetPbsForVPMyEnvSelectPmProjectByOid @Oid NVARCHAR(450)
+ AS
+ SELECT
+   ProjectDefinition.Id
+  ,ProjectDefinition.Title
+  ,ProjectDefinition.ProjectConnectionString
+  ,ProjectDefinition.SequenceCode
+  ,CabCompany.SequenceCode AS ContractingUnitId
+  ,ProjectDefinition.ProjectScopeStatusId
+ FROM dbo.ProjectDefinition
+ LEFT OUTER JOIN CabCompany
+   ON ProjectDefinition.ContractingUnitId = CabCompany.Id
+ LEFT OUTER JOIN dbo.ProjectTime pt
+   ON ProjectDefinition.Id = pt.ProjectId
+ WHERE ProjectDefinition.IsDeleted = 0
+ AND ProjectDefinition.ProjectManagerId = (SELECT
+     PersonId
+   FROM CabPersonCompany
+   LEFT OUTER JOIN CabPerson cp
+     ON CabPersonCompany.PersonId = cp.Id
+   WHERE Oid = @Oid
+   AND cp.IsDeleted = 0
+   AND CabPersonCompany.IsDeleted = 0)
+ AND ProjectDefinition.ProjectScopeStatusId != '7bcb4e8d-8e8c-487d-8170-6b91c89fc3da'
+ ORDER BY pt.StartDate;
+ GO
+ 
+ ALTER PROCEDURE dbo.GetAwardedLotInProject AS  SELECT LotId AS [Key],LotId AS Text FROM  ContractorTotalValuesPublished LEFT OUTER JOIN ContractorHeader ch ON ContractorTotalValuesPublished.LotId = ch.SequenceId WHERE IsWinner = 1;
+ GO
+
+ALTER PROCEDURE dbo.GetPbsCbcResourcesById @Id nvarchar(450) AS SELECT pcr.id,pcr.ArticleNo,pcr.LotId,pcr.Quantity,pcr.PbsId,Concat(pcpd.ArticleNo,' - ',pcpd.Title) AS Title,pcpd.Unit,pcpd.Quantity AS CbcQuantity FROM PbsCbcResources pcr LEFT OUTER JOIN ContractorTotalValuesPublished ctvp ON pcr.LotId = ctvp.LotId LEFT OUTER JOIN PublishedContractorsPdfData pcpd ON pcr.ArticleNo = pcpd.ArticleNo AND ctvp.CompanyId = pcpd.CompanyId   WHERE pcr.PbsId = @Id AND ctvp.IsWinner = 1;
+GO
+
+CREATE PROCEDURE dbo.GetPmolCbcResourcesById @Id nvarchar(450) AS SELECT pcr.id,pcr.ArticleNo,pcr.LotId,pcr.Quantity,pcr.PmolId,Concat(pcpd.ArticleNo,' - ',pcpd.Title) AS Title,pcpd.Unit,pcpd.Quantity AS CbcQuantity FROM PmolCbcResources pcr LEFT OUTER JOIN ContractorTotalValuesPublished ctvp ON pcr.LotId = ctvp.LotId LEFT OUTER JOIN PublishedContractorsPdfData pcpd ON pcr.ArticleNo = pcpd.ArticleNo AND ctvp.CompanyId = pcpd.CompanyId   WHERE pcr.PmolId = @Id AND ctvp.IsWinner = 1;
+GO
+
+CREATE PROCEDURE GetBurnDownChartDataSelectProject
+AS
+SELECT
+  ProjectDefinition.id
+ ,ProjectDefinition.Title
+ ,ProjectDefinition.SequenceCode
+ ,ProjectDefinition.ProjectConnectionString
+ ,ProjectDefinition.ProjectManagerId
+ ,ProjectDefinition.ProjectStatus
+ ,CabCompany.SequenceCode AS ContractingUnitId
+FROM dbo.ProjectDefinition
+LEFT OUTER JOIN CabCompany
+  ON ProjectDefinition.ContractingUnitId = CabCompany.Id
+LEFT OUTER JOIN dbo.ProjectClassification
+  ON ProjectDefinition.Id = ProjectClassification.ProjectId
+WHERE ProjectDefinition.IsDeleted = 0
+AND ProjectDefinition.ProjectScopeStatusId != '7bcb4e8d-8e8c-487d-8170-6b91c89fc3da'
+GO
+
+CREATE PROCEDURE dbo.MapConnectionStringProjectQuery @sequenceCode nvarchar(450) 
+AS
+select ProjectConnectionString from ProjectDefinition where SequenceCode = @sequenceCode;
+GO
+
+CREATE PROCEDURE dbo.MapConnectionStringCuQuery @sequenceCode nvarchar(450) 
+AS
+select  ConnectionString from [dbo].[UPrinceCustomerContractingUnit] where ContractingUnitId = @sequenceCode;
+GO
+
+CREATE PROCEDURE dbo.GetTranslations @lang nvarchar(450) 
+AS
+SELECT WebTranslation.[Key] ,WebTranslation.Value FROM dbo.WebTranslation INNER JOIN dbo.Language ON WebTranslation.LanguageId = Language.Id WHERE Language.Code = @lang
+GO
+
+CREATE VIEW GetTranslationsView AS SELECT WebTranslation.[Key] ,WebTranslation.Value , Language.Code FROM dbo.WebTranslation INNER JOIN dbo.Language ON WebTranslation.LanguageId = Language.Id
+GO
+
+CREATE PROCEDURE dbo.GetBurnDownChartDataLabourQuery @StartDate DATETIME,@EndDate DATETIME AS   SELECT     PMolPlannedWorkLabour.RequiredQuantity    ,PMolPlannedWorkLabour.CoperateProductCatalogId    ,PMolPlannedWorkLabour.ConsumedQuantity    ,PMol.ExecutionDate    ,CorporateProductCatalog.ResourceFamilyId   FROM dbo.PMolPlannedWorkLabour   LEFT OUTER JOIN dbo.PMol     ON PMolPlannedWorkLabour.PmolId = PMol.Id   LEFT OUTER JOIN dbo.CorporateProductCatalog     ON PMolPlannedWorkLabour.CoperateProductCatalogId = CorporateProductCatalog.Id   WHERE PMolPlannedWorkLabour.IsDeleted = 0   AND PMol.IsDeleted = 0   AND CorporateProductCatalog.IsDeleted = 0   AND CorporateProductCatalog.ResourceFamilyId IS NOT NULL   AND PMol.ExecutionDate BETWEEN @StartDate AND @EndDate
+GO
+
+CREATE PROCEDURE dbo.getRoles @lang nvarchar(450) AS
+select RoleId AS Id, RoleName from Role where LanguageCode=@lang AND RoleId NOT in ('910b7af0-b132-4951-a2dc-6ab82d4cd40d','266a5f47-3489-484b-8dae-e4468c5329dn3','yyyyyyy-a513-45e0-a431-170dbd4yyyy')
+GO
+
+ALTER PROCEDURE dbo.GetPbsCbcResourcesById @Id nvarchar(450) AS SELECT pcr.id,pcr.ArticleNo,pcr.LotId,pcr.Quantity,pcr.PbsId,pcr.ConsumedQuantity,pcr.InvoicedQuantity,Concat(pcpd.ArticleNo,' - ',pcpd.Title) AS Title,pcpd.Unit,pcpd.Quantity AS CbcQuantity FROM PbsCbcResources pcr LEFT OUTER JOIN ContractorTotalValuesPublished ctvp ON pcr.LotId = ctvp.LotId LEFT OUTER JOIN PublishedContractorsPdfData pcpd ON pcr.ArticleNo = pcpd.ArticleNo AND ctvp.CompanyId = pcpd.CompanyId   WHERE pcr.PbsId = @Id AND ctvp.IsWinner = 1
+GO
+
+ALTER PROCEDURE dbo.GetPmolCbcResourcesById @Id nvarchar(450) AS SELECT pcr.id,pcr.ArticleNo,pcr.LotId,pcr.Quantity,pcr.PmolId,pcr.ConsumedQuantity,Concat(pcpd.ArticleNo,' - ',pcpd.Title) AS Title,pcpd.Unit,pcpd.Quantity AS CbcQuantity FROM PmolCbcResources pcr LEFT OUTER JOIN ContractorTotalValuesPublished ctvp ON pcr.LotId = ctvp.LotId LEFT OUTER JOIN PublishedContractorsPdfData pcpd ON pcr.ArticleNo = pcpd.ArticleNo AND ctvp.CompanyId = pcpd.CompanyId   WHERE pcr.PmolId = @Id AND ctvp.IsWinner = 1;
+GO
+
+CREATE PROCEDURE dbo.FileTenantSourceUPrinceCustomerTenantsInfo  AS
+select * from [dbo].[UPrinceCustomerTenantsInfo]
+GO
+
+//staging ,vandehberg,einstein.uprince up to here
+
+
